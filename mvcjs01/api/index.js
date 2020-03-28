@@ -16,7 +16,7 @@ function html(req, res, next) {
       <h1>Grupo JavaScript</h1>
       <a href="./login">Login</a><br>
       <a href="./modulo/index.js">Gestion de Modulos y Funcionalidades</a><br>
-      <a href="./rol">Gestion de Roles</a><br>
+      <a href="./rol/index.js">Gestion de Roles</a><br>
       <a href="./usuario">Gestion de Usuarios</a><br>
     </body>`
   );

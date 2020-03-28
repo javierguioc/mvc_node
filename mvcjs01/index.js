@@ -39,9 +39,9 @@ app.use("/modulo/index.js", modulopage);
 app.use("/modulo/pagina02.js", pagina02modulo);
 app.use("/modulo/pagina03.js", pagina03modulo);
 
-// app.use("/rol/index.js", rolePage);
-// app.use("/rol/pagina02.js", rolePage02);
-// app.use("/rol/pagina03.js", rolePage03);
+app.use("/rol/index.js", rolePage);
+app.use("/rol/pagina02.js", rolePage02);
+app.use("/rol/pagina03.js", rolePage03);
 // app.use("/rol/pagina04.js", rolePage04);
 
 // app.use("/rol/index.js", rolePage);
