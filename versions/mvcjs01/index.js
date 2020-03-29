@@ -48,6 +48,7 @@ app.use("/funcionalidad/index.js", functionalityPage);
 app.use("/funcionalidad/pagina02.js", functionalityPage02);
 app.use("/funcionalidad/pagina03.js", functionalityPage03);
 
+// -------------- work in progress --------------
 // app.use("/rol/index.js", rolePage);
 // app.use("/rol/pagina02.js", rolePage02);
 // app.use("/rol/pagina03.js", rolePage03);

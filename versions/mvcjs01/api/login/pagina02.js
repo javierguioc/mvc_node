@@ -33,8 +33,6 @@ async function postFunction(req, res, next) {
     querySearchUser = JSON.parse(JSON.stringify(querySearchUser.rows[0])) || "";
     queryRole = JSON.parse(JSON.stringify(queryRole.rows[0])) || "";
 
-    console.log("Ms:", querySearchUser);
-    console.log(queryRole);
     // Termina la sesion de la base de datos
     client.end();
   } catch (error) {
@@ -48,12 +46,10 @@ async function postFunction(req, res, next) {
   ) {
     let cant = queryRole.cant;
     let us = usu_login;
-    console.log("Se envia a pagina03: ", querySearchUser, " , ", queryRole);
 
     res.redirect(`/login/pagina03.js?usu_login=${us}&c=${cant}`);
   } else {
     res.redirect("/login");
-    console.log("[No coincidencia] Se regresa a index.js");
   }
 }
 

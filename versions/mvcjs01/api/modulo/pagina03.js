@@ -19,8 +19,6 @@ router.post("/", postFunction);
 async function postFunction(req, res, next) {
     // Genera el formulario para ingresar el nuevo modulo
   if (req.body.btnAction != "Enviar nuevo") {
-    console.log("[Pagina 03] Se hizo post ", req.body);
-
     res.writeHead(200, { "Content-Type": "text/html" });
     res.write(`<HTML>
     <BODY>          
@@ -49,10 +47,8 @@ async function postFunction(req, res, next) {
 </HTML>`);
     res.end();
   } else {
-    console.log("[else 03] Se hizo post ", req.body);
     let insertModule = `insert into modulo values ('${req.body.mod_id}','${req.body.mod_nombre}','${req.body.mod_descripcion}')`;
     let insertResponse = await client.query(insertModule);
-    console.log(insertModule, insertResponse);
     res.redirect("/modulo/index.js");
   }
 }

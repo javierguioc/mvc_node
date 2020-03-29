@@ -16,19 +16,14 @@ router.post("/", postFunction);
 // Muestra el modulo a actualizar
 async function postFunction(req, res, next) {
   if (req.body.btnAction != "Enviar Nuevo") {
-    console.log("Se hizo post a pag02 funcionalidad ", req.body);
     let functionalityToUpdate = ` SELECT * FROM funcionalidad as fun, modulo as mod where mod.mod_id=fun.mod_id  and fun.mod_id::integer=${req.body.mod_id} and fun.fun_id::integer=${req.body.fun_id}
     `;
-    console.log('*-*-*-*-*-*-*-*-*-*-*-*-*-*-*',functionalityToUpdate)
     let client = new Client(connectionData);
     client.connect();
     let functionality = await client.query(functionalityToUpdate);
     client.end();
 
     functionality = JSON.parse(JSON.stringify(functionality.rows[0])) || "";
-    // console.log(functionality);
-
-    console.log("Consulta-----:", functionality);
 
     res.writeHead(200, { "Content-Type": "text/html" });
     res.write(`
@@ -67,16 +62,12 @@ async function postFunction(req, res, next) {
     res.end();
   } else {
     // Actualiza el modulo 
-    console.log("Actualizar FUncionalidad ========================= ", req.body);
     let updatefunctionality = ` UPDATE funcionalidad SET fun_id=${req.body.fun_id}, fun_nombre='${req.body.fun_nombre}', fun_ruta='${req.body.fun_ruta}',fun_descripcion='${req.body.fun_descripcion}',mod_id=${req.body.mod_id} where fun_id::integer=${req.body.fun_id} 
     `;
-    console.log('Consultaaaaa:',updatefunctionality)
     let client = new Client(connectionData);
-    // client.connect();
     client.connect();
     let functionality = await client.query(updatefunctionality);
     client.end();
-    // console.log(updatefunctionality, functionality);
     res.redirect("/modulo/index.js");
   }
 }

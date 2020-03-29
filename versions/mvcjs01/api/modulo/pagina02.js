@@ -16,7 +16,6 @@ router.post("/", postFunction);
 // Muestra el modulo a actualizar
 async function postFunction(req, res, next) {
   if (req.body.btnAction != "Enviar Nuevo") {
-    console.log("Se hizo post ", req.body);
     let ModuleToUpdate = `SELECT * FROM modulo where mod_id::integer=${req.body.mod_id}`;
     let client = new Client(connectionData);
     client.connect();
@@ -24,12 +23,8 @@ async function postFunction(req, res, next) {
     client.end();
 
     Module = JSON.parse(JSON.stringify(Module.rows[0])) || "";
-    console.log(Module);
-
-    console.log("Consulta-----:", Module);
 
     res.writeHead(200, { "Content-Type": "text/html" });
-
     res.write(`<h2>Modulos:</h2>`);
     res.write(`<HTML>`);
     res.write(`<BODY>  `);
@@ -64,14 +59,11 @@ async function postFunction(req, res, next) {
     res.end();
   } else {
     // Actualiza el modulo 
-    // console.log("[else] Se hizo post ", req.body);
     let updateModule = `UPDATE modulo SET mod_id=${req.body.mod_id}, mod_nombre='${req.body.mod_nombre}',mod_descripcion='${req.body.mod_descripcion}' where mod_id::integer=${req.body.mod_id}`;
     let client = new Client(connectionData);
-    // client.connect();
     client.connect();
     let Module = await client.query(updateModule);
     client.end();
-    // console.log(updateModule, Module);
     res.redirect("/modulo/index.js");
   }
 }

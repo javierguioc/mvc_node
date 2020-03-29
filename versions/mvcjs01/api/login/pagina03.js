@@ -17,7 +17,6 @@ client.connect();
 router.get("/", getFunction);
 
 async function getFunction(req, res, next) {
-  console.log(req.query);
   let usu_login = req.query.usu_login;
   let cant = req.query.c;
   // Obtiene al usuario con su rol respectivo
@@ -26,12 +25,10 @@ async function getFunction(req, res, next) {
   try {
     queryUserRole = await client.query(userRole);
     queryUserRole = JSON.parse(JSON.stringify(queryUserRole.rows[0])) || "";
-    console.log("Resultado de la primera consulta: ", queryUserRole);
     client.end();
   } catch (err) {
     console.log("[Error Pagina03] ", err);
   }
-  console.log("La cant es =", parseInt(cant) === 1);
   if (parseInt(cant) === 1) {
     let rol_id = queryUserRole.rol_id;
     res.redirect(`/login/pagina04.js?usu_login=${usu_login}&rol_id=${rol_id}`);

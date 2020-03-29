@@ -17,7 +17,6 @@ const client = new Client(connectionData);
 client.connect();
 
 async function getFunction(req, res, next) {
-  console.log(req.query);
   let usu_login = req.query.usu_login;
   let rol_id = req.query.rol_id;
   // Trae información del usuario, su rol, modalidades a las que puede acceder
@@ -42,7 +41,6 @@ async function getFunction(req, res, next) {
     result = await client.query(sql);
     result = JSON.parse(JSON.stringify(result.rows[0])) || "";
 
-    console.log("[Pagina04]: Resultado de la primera consulta: ", result);
     client.end();
   } catch (err) {
     console.log("[Error Pagina04] ", err);

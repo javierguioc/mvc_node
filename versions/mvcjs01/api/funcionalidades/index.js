@@ -15,19 +15,14 @@ router.post("/", postFunction);
 
 // Muestra el modulo a actualizar
 async function postFunction(req, res, next) {
-  console.log('Se oprimio el boton :',req.body.btnAction)
   if (req.body.btnAction != "Eliminar") {
-    console.log("Se hizo post a funcionalidad ", req.body.mod_id);
     let searchFuncrionality = `SELECT * FROM funcionalidad as fun, modulo as mod where mod.mod_id=fun.mod_id  and fun.mod_id::integer=${req.body.mod_id}`;
-    console.log(searchFuncrionality);
     let client = new Client(connectionData);
     client.connect();
     let funtionality = await client.query(searchFuncrionality);
     client.end();
 
     funtionality = JSON.parse(JSON.stringify(funtionality.rows)) || "";
-    // console.log("Funcionalidad", funtionality);
-
     res.writeHead(200, { "Content-Type": "text/html" });
     res.write(`<h2>Funcionalidades:</h2>`);
     res.write(
@@ -53,11 +48,9 @@ async function postFunction(req, res, next) {
 
     res.end();
   } else {
-    console.log("Se oprimio eliminar ", req.body);
     let deleteFunctionality = `DELETE FROM funcionalidad where fun_id::integer=${req.body.fun_id};`;
-
     const client = new Client(connectionData);
-    console.log(deleteFunctionality);
+
     let deleteAnswer = "";
     client.connect();
     client
@@ -71,7 +64,6 @@ async function postFunction(req, res, next) {
         res.redirect(`/modulo/index.js`);
       });
 
-    console.log(deleteFunctionality, deleteAnswer);
   }
 }
 

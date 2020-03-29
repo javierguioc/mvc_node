@@ -19,8 +19,6 @@ router.post("/", postFunction);
 async function postFunction(req, res, next) {
     // Genera el formulario para ingresar el nuevo modulo
   if (req.body.btnAction != "Enviar Nuevo") {
-    console.log("[Pagina 03 Funcionmalidades] Se hizo post ", req.body);
-
     res.writeHead(200, { "Content-Type": "text/html" });
     res.write(`
     <HTML>
@@ -55,12 +53,9 @@ async function postFunction(req, res, next) {
     `);
     res.end();
   } else {
-    console.log("[else 03] Se hizo post ", req.body);
     let insertFunctionality = `insert into funcionalidad values ('${req.body.fun_id}','${req.body.fun_nombre}','${req.body.fun_ruta}','${req.body.fun_descripcion}',${req.body.mod_id});
     `;
-    console.log('*-*-*-*-*-*-*-*',insertFunctionality)
     let insertResponse = await client.query(insertFunctionality);
-    console.log('Query: ',insertFunctionality,' REspuesta: ', insertResponse);
     res.redirect("/modulo/index.js");
   }
 }
