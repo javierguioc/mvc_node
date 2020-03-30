@@ -1,3 +1,4 @@
+//Importa los requerimientos necesarios para el funcionamiento
 const { Client } = require("pg");
 const express = require("express");
 const router = express.Router();
@@ -16,12 +17,13 @@ router.post("/", postFunction);
 // Muestra el modulo a actualizar
 async function postFunction(req, res, next) {
   if (req.body.btnAction != "Enviar Nuevo") {
+    // Trae el modulo seleccionado en la pagina principal
     let ModuleToUpdate = `SELECT * FROM modulo where mod_id::integer=${req.body.mod_id}`;
     let client = new Client(connectionData);
     client.connect();
     let Module = await client.query(ModuleToUpdate);
     client.end();
-
+    // Convierte las respuesta a formato Json
     Module = JSON.parse(JSON.stringify(Module.rows[0])) || "";
 
     res.writeHead(200, { "Content-Type": "text/html" });
@@ -58,12 +60,13 @@ async function postFunction(req, res, next) {
 
     res.end();
   } else {
-    // Actualiza el modulo 
+    // Actualiza el modulo
     let updateModule = `UPDATE modulo SET mod_id=${req.body.mod_id}, mod_nombre='${req.body.mod_nombre}',mod_descripcion='${req.body.mod_descripcion}' where mod_id::integer=${req.body.mod_id}`;
     let client = new Client(connectionData);
     client.connect();
     let Module = await client.query(updateModule);
     client.end();
+    // Regresa a la pagina del modulo
     res.redirect("/modulo/index.js");
   }
 }

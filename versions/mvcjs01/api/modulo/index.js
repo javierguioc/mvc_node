@@ -1,3 +1,4 @@
+//Importa los requerimientos necesarios para el funcionamiento
 const { Client } = require("pg");
 const express = require("express");
 const router = express.Router();

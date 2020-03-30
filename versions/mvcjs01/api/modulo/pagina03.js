@@ -1,3 +1,4 @@
+//Importa los requerimientos necesarios para el funcionamiento
 const { Client } = require("pg");
 const express = require("express");
 const router = express.Router();
@@ -47,6 +48,7 @@ async function postFunction(req, res, next) {
 </HTML>`);
     res.end();
   } else {
+    // Inserta el nuevo modulo en la base de datos
     let insertModule = `insert into modulo values ('${req.body.mod_id}','${req.body.mod_nombre}','${req.body.mod_descripcion}')`;
     let insertResponse = await client.query(insertModule);
     res.redirect("/modulo/index.js");

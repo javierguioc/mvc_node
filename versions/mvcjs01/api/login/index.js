@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/", show_form);
-
-function show_form(req, res, next) {
+router.get("/", showForm);
+// Muestra el formulario para ingresar el usuario y la contraseña
+function showForm(req, res, next) {
   res.writeHead(200, { "Content-Type": "text/html" });
   res.write(
     `

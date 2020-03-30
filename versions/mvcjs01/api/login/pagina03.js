@@ -1,3 +1,4 @@
+//Importa los requerimientos necesarios para el funcionamiento
 const { Client } = require("pg");
 const express = require("express");
 const router = express.Router();
@@ -12,8 +13,9 @@ const connectionData = {
 };
 
 router.get("/", getFunction);
-
+// Determina si el usuario tiene un rol asignado
 async function getFunction(req, res, next) {
+  // Recupera el valor de usuario y contraseña pasados en la pagina anterior
   let usu_login = req.query.usu_login;
   let cant = req.query.c;
   // Obtiene al usuario con su rol respectivo

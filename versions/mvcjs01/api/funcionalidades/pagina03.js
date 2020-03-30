@@ -1,3 +1,4 @@
+//Importa los requerimientos necesarios para el funcionamiento
 const { Client } = require("pg");
 const express = require("express");
 const router = express.Router();
@@ -15,7 +16,7 @@ const client = new Client(connectionData);
 client.connect();
 
 router.post("/", postFunction);
-// Permite la creacion de un nuevo modulo
+// Permite crear una nueva funcionalidad
 async function postFunction(req, res, next) {
     // Genera el formulario para ingresar el nuevo modulo
   if (req.body.btnAction != "Enviar Nuevo") {
@@ -53,8 +54,10 @@ async function postFunction(req, res, next) {
     `);
     res.end();
   } else {
+    // Inserta la nueva funcionalidad
     let insertFunctionality = `insert into funcionalidad values ('${req.body.fun_id}','${req.body.fun_nombre}','${req.body.fun_ruta}','${req.body.fun_descripcion}',${req.body.mod_id});
     `;
+    console.log(insertFunctionality)
     let insertResponse = await client.query(insertFunctionality);
     res.redirect("/modulo/index.js");
   }

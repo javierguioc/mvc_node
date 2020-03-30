@@ -1,3 +1,4 @@
+//Importa los requerimientos necesarios para el funcionamiento
 const { Client } = require("pg");
 const express = require("express");
 const router = express.Router();
@@ -13,7 +14,7 @@ const connectionData = {
 
 router.post("/", postFunction);
 
-// Muestra el modulo a actualizar
+// Muestra las funcionalidades asociadas a un modulo
 async function postFunction(req, res, next) {
   if (req.body.btnAction != "Eliminar") {
     let searchFuncrionality = `SELECT * FROM funcionalidad as fun, modulo as mod where mod.mod_id=fun.mod_id  and fun.mod_id::integer=${req.body.mod_id}`;
@@ -48,6 +49,7 @@ async function postFunction(req, res, next) {
 
     res.end();
   } else {
+    // Permite borrar las funcionalidades de un modulo
     let deleteFunctionality = `DELETE FROM funcionalidad where fun_id::integer=${req.body.fun_id};`;
     const client = new Client(connectionData);
 

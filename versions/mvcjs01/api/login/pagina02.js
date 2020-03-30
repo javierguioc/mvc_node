@@ -1,3 +1,4 @@
+//Importa los requerimientos necesarios para el funcionamiento
 const { Client } = require("pg");
 const express = require("express");
 const router = express.Router();
@@ -12,7 +13,7 @@ const connectionData = {
 };
 
 router.post("/", postFunction);
-
+// Recibe el usuario y la contraseña y verifica que exista en la base de datos
 async function postFunction(req, res, next) {
   let usu_login = req.body.usuario;
   let usu_clave = req.body.pass;
@@ -28,8 +29,9 @@ async function postFunction(req, res, next) {
     client.connect();
     querySearchUser = await client.query(searchUser);
     queryRole = await client.query(role);
-    //Da formato json a la respuesta de la base de datos
+    // Verifica si hay respuesta que represente la existencia de un usuario en la base de datos
     if (querySearchUser.rows[0]) {
+      //Da formato json a la respuesta de la base de datos
       querySearchUser =
         JSON.parse(JSON.stringify(querySearchUser.rows[0])) || "";
       queryRole = JSON.parse(JSON.stringify(queryRole.rows[0])) || "";
@@ -44,7 +46,7 @@ async function postFunction(req, res, next) {
     console.log("[Error Pagina02] ", error);
   }
 
-  // Verifica la existencia del usuario y su respectiva contraseña
+  // Verifica que la existencia del usuario y su respectiva contraseña sean validas
   if (
     querySearchUser.usu_login === usu_login &&
     querySearchUser.usu_clave === usu_clave
