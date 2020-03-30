@@ -11,9 +11,6 @@ const connectionData = {
   port: 5432
 };
 
-const client = new Client(connectionData);
-client.connect();
-
 router.post("/", postFunction);
 
 async function postFunction(req, res, next) {
@@ -27,11 +24,19 @@ async function postFunction(req, res, next) {
   let queryRole = "";
   try {
     //Consulta la base de datos
+    let client = new Client(connectionData);
+    client.connect();
     querySearchUser = await client.query(searchUser);
     queryRole = await client.query(role);
     //Da formato json a la respuesta de la base de datos
-    querySearchUser = JSON.parse(JSON.stringify(querySearchUser.rows[0])) || "";
-    queryRole = JSON.parse(JSON.stringify(queryRole.rows[0])) || "";
+    if (querySearchUser.rows[0]) {
+      querySearchUser =
+        JSON.parse(JSON.stringify(querySearchUser.rows[0])) || "";
+      queryRole = JSON.parse(JSON.stringify(queryRole.rows[0])) || "";
+    } else {
+      querySearchUser.usu_login = "";
+      querySearchUser.usu_clave = "";
+    }
 
     // Termina la sesion de la base de datos
     client.end();

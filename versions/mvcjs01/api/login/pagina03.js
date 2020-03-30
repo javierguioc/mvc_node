@@ -11,9 +11,6 @@ const connectionData = {
   port: 5432
 };
 
-const client = new Client(connectionData);
-client.connect();
-
 router.get("/", getFunction);
 
 async function getFunction(req, res, next) {
@@ -23,6 +20,8 @@ async function getFunction(req, res, next) {
   let userRole = `select * from usuario as u , usuarioxrol as ur,rol as r where u.usu_login = ur.usu_login and u.usu_login='${usu_login}' and r.rol_id=ur.rol_id`;
   let queryUserRole = "";
   try {
+    let client = new Client(connectionData);
+    client.connect();
     queryUserRole = await client.query(userRole);
     queryUserRole = JSON.parse(JSON.stringify(queryUserRole.rows[0])) || "";
     client.end();

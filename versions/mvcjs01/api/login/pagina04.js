@@ -13,9 +13,6 @@ const connectionData = {
   port: 5432
 };
 
-const client = new Client(connectionData);
-client.connect();
-
 async function getFunction(req, res, next) {
   let usu_login = req.query.usu_login;
   let rol_id = req.query.rol_id;
@@ -33,11 +30,13 @@ async function getFunction(req, res, next) {
   and rf.rol_id=ro.rol_id  
   and rf.fun_id=fun.fun_id  
   and usu.usu_login='${usu_login}'  
-  and ro.rol_id='${rol_id}' ;`
+  and ro.rol_id='${rol_id}' ;`;
 
   let result = "";
 
   try {
+    let client = new Client(connectionData);
+    client.connect();
     result = await client.query(sql);
     result = JSON.parse(JSON.stringify(result.rows[0])) || "";
 
