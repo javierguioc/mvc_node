@@ -26,7 +26,7 @@ const userPage02 = require("./api/usuario/pagina02");
 const userPage03 = require("./api/usuario/pagina03");
 const userPage04 = require("./api/usuario/pagina04");
 const userPage05 = require("./api/usuario/pagina05");
-const userPage06 = require("./api/usuario/pagina05");
+const userPage06 = require("./api/usuario/pagina06");
 
 const app = express();
 
@@ -48,16 +48,16 @@ app.use("/funcionalidad/index.js", functionalityPage);
 app.use("/funcionalidad/pagina02.js", functionalityPage02);
 app.use("/funcionalidad/pagina03.js", functionalityPage03);
 
-// -------------- work in progress --------------
-// app.use("/rol/index.js", rolePage);
-// app.use("/rol/pagina02.js", rolePage02);
-// app.use("/rol/pagina03.js", rolePage03);
-// app.use("/rol/pagina04.js", rolePage04);
+app.use("/rol/index.js", rolePage);
+app.use("/rol/pagina02.js", rolePage02);
+app.use("/rol/pagina03.js", rolePage03);
+app.use("/rol/pagina04.js", rolePage04);
 
-// app.use("/rol/index.js", rolePage);
-// app.use("/rol/pagina02.js", rolePage02);
-// app.use("/rol/pagina03.js", rolePage03);
+app.use("/usuario/index.js", userPage);
+app.use("/usuario/pagina02.js", userPage02);
+app.use("/usuario/pagina03.js", userPage03);
 // app.use("/rol/pagina04.js", rolePage04);
+app.use("/usuario/pagina06.js", userPage06);
 
 app.listen(3000, () => {
   console.clear();

@@ -15,8 +15,8 @@ function html(req, res, next) {
       <li>
         <a href="./modulo/index.js">Gestion de Modulos y Funcionalidades</a>
       </li>
-      <li><a href="./rol">Gestion de Roles</a></li>
-      <li><a href="./usuario">Gestion de Usuarios</a></li>
+      <li><a href="./rol/index.js">Gestion de Roles</a></li>
+      <li><a href="./usuario/index.js">Gestion de Usuarios</a></li>
     </ul>
   </body>
     `
