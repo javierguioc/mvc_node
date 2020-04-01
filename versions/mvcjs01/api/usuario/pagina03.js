@@ -24,9 +24,7 @@ async function postFunction(req, res, next) {
     res.writeHead(200, { "Content-Type": "text/html" });
     res.write(`
       <html>
-        <head>
-          <meta charset="UTF-8">
-        </head>
+        <head><meta charset="UTF-8"></head>
         <body>
           <h2>Registro de usuario</h2>
           <form name="registrarUsuario" action="pagina03.js" method="POST" target="resultado">
