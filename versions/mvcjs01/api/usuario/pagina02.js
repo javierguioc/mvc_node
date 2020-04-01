@@ -2,7 +2,7 @@ const { Client } = require("pg");
 const express = require("express");
 const router = express.Router();
 
-// Parametros para la conexion con la base de datos
+// Parámetros para la conexión con la base de datos
 const connectionData = {
   user: "efi",
   host: "localhost",
@@ -11,18 +11,20 @@ const connectionData = {
   port: 5432
 };
 
+// Conexión a la base de datos
 const client = new Client(connectionData);
-client.connect();
+client.connect()
 
+// Función asíncrona que recoge la request POST
 router.post("/", postFunction);
-
 async function postFunction(req, res, next) {
   if (req.body.btnAction != "Enviar Nuevo") {
-    console.log("Se hizo post ", req.body);
-    let UserToUpdate = `SELECT * FROM usuario as us where us.per_id::integer=${req.body.per_id}`;
+    // Mensaje de log
+    console.log("[Usuario02] Se hizo post ", req.body);
+    let updateQuery = `SELECT * FROM usuario as us where us.per_id::integer=${req.body.per_id}`;
     let client = new Client(connectionData);
     client.connect();
-    let User = await client.query(UserToUpdate);
+    let User = await client.query(updateQuery);
     client.end();
 
     User = JSON.parse(JSON.stringify(User.rows[0])) || "";

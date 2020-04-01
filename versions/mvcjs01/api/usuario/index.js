@@ -18,26 +18,26 @@ router.post("/", postFunction);
 router.get("/", getFunction);
 
 async function postFunction(req, res, next) {
-
-  console.log("Se hizo post ", req.body);
-  let DeleteUsuario = `DELETE FROM usuario where per_id::integer=${req.body.per_id}`;
+  // Mensaje de log
+  console.log("[Usuario01] Se hizo post ", req.body);
+  let deleteQuery = `DELETE FROM usuario where per_id::integer=${req.body.per_id}`;
   const client = new Client(connectionData);
-  let deleteAnswer = "";
   client.connect();
-  client
-    .query(DeleteUsuario)
+  client.query(deleteQuery)
     .then(response => {
-      deleteAnswer = response;
+      // Mensaje de log
+      console.log("[Usuario01] Respuesta ", response);
       res.redirect(`/usuario/index.js`);
     })
-    .catch(err => {
+    .catch(error => {
+      // Mensaje de log
+      console.log("[Usuario01] Error ", error);
       client.end();
-      res.redirect(`/usuario/index.js`);
     });
 }
 
 async function getFunction(req, res, next) {
-  let queryUsuario = "SELECT * FROM usuario as us, persona as per where us.per_id=per.per_id ";
+  let queryUsuario = "SELECT * FROM usuario as usu, persona as per where usu.per_id=per.per_id ";
   let client = new Client(connectionData);
   client.connect();
   let Usuario = await client.query(queryUsuario);
@@ -48,10 +48,11 @@ async function getFunction(req, res, next) {
 
   res.write(`<h2>Usuarios:</h2>`);
   res.write(`<form method="POST" action="./index.js">`);
-  res.write(`<table border="5" width="200">`);
+  res.write(`<table border="5" width="200">`)
+  res.write(`<tr> <td></td> <td>usu_login</td> <td>per_nombre</td> <td>per_apellido </td> </tr>`);
   Usuario.forEach(element => {
     res.write(
-      `<tr><td><center> <input type="radio" name="per_id" value="${element.per_id} "></td> <td> ${element.per_nombre} </center></td> <td> ${element.per_apellido} </center> </td> </tr>`
+      `<tr> <td><input type="radio" name="per_id" value="${element.per_id} "></td> <td>${element.usu_login}</td> <td>${element.per_nombre}</td> <td>${element.per_apellido}</center> </td> </tr>`
     );
   });
   res.write(`</table><br>`);
@@ -60,7 +61,7 @@ async function getFunction(req, res, next) {
     `<input type="submit" value="Actualizar" name="btnAction" formaction="pagina02.js"/>`
   );
   res.write(
-    `<input type="submit" value="Nuevo" name="btnAction" formaction="pagina03.js"/> `
+    `<input type="submit" value="Nuevo" name="btnAction"   formaction="pagina03.js"/>`
   );
   res.write(
     ` <input type="submit" value="Permisos" name="btnAction" formaction="pagina06.js"/>`

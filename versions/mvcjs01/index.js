@@ -56,7 +56,7 @@ app.use("/rol/pagina04.js", rolePage04);
 app.use("/usuario/index.js", userPage);
 app.use("/usuario/pagina02.js", userPage02);
 app.use("/usuario/pagina03.js", userPage03);
-// app.use("/rol/pagina04.js", rolePage04);
+app.use("/usuario/pagina04.js", userPage04);
 app.use("/usuario/pagina06.js", userPage06);
 
 app.listen(3000, () => {
