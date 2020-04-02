@@ -46,12 +46,35 @@ async function getFunction(req, res, next) {
     console.log("[Error Pagina04] ", err);
   }
 
-  res.writeHead(200, { "Content-Type": "text/html" });
+//Trae las funcion
+  let FuncionesUsuario = `select f.fun_nombre from usuarioxrol as uxr, rolxfuncionalidad as rxf, funcionalidad as f where uxr.rol_id=rxf.rol_id and rxf.fun_id=f.fun_id and uxr.usu_login='${usu_login}'`;    
+  console.log(FuncionesUsuario)
+  let FunxUsu = "";
+
+  try {
+    let client = new Client(connectionData);
+    client.connect();
+    FunxUsu = await client.query(FuncionesUsuario);
+    FunxUsu = JSON.parse(JSON.stringify(FunxUsu.rows)) || "";
+    console.log(FunxUsu)
+    client.end();
+  } catch (err) {
+    console.log("[Error Pagina04] ", err);
+  }
+res.writeHead(200, { "Content-Type": "text/html" });
   res.write(`
   <h3>Usuario: ${result.rol_nombre} </h3>
   <h3>Rol:  ${result.rol_nombre} </h3>
   <h3>Descripcion:  ${result.rol_descripcion} </h3>
-  <br><button onclick="window.location.href = '/'">Salir</button>`);
+  <h3>Permisos:  </h3>
+  `);
+  FunxUsu.forEach(element => {
+    res.write(
+      ` ${element.fun_nombre} </br>`
+      );
+  });
+
+  res.write(`<br><button onclick="window.location.href = '/'">Salir</button> `)
   res.end();
 }
 

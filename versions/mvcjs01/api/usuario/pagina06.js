@@ -83,7 +83,7 @@ getUsuLogin = async per_id => {
 // Muestra la estructura del formulario
 show_structure = async (per_id, res) => {
   let searchUser = `select * from persona as pe, usuario as us where us.per_id=pe.per_id and pe.per_id::integer=${per_id}`;
-  // console.log("consulta:", searchUser);
+  //console.log("consulta:", searchUser);
   let client = new Client(connectionData);
   client.connect();
   let user = await client.query(searchUser);
