@@ -7,14 +7,12 @@ var modelo = new Modelo();
 router.get("/", getFunction);
 
 async function getFunction(req, res, next) {
-  console.log("asdfasdfsadfsdfsdafsdafadsf")
   var datos = {};
 
   datos.usu_login = req.query.usu_login;
   datos.rol_id = req.query.rol_id;
 
   datos = await modelo.funcionalidades(datos);
-  console.log("aaaaaaaaaaaaobject: ", datos);
 
   res.writeHead(200, { "Content-Type": "text/html" });
   res.write(`

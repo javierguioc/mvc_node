@@ -1,19 +1,8 @@
-const { Client } = require("pg");
 const express = require("express");
 const router = express.Router();
+Modelo = require("./modelo");
 
-// Parámetros para la conexión con la base de datos
-const connectionData = {
-  user: "efi",
-  host: "localhost",
-  database: "efi",
-  password: "efi",
-  port: 5432
-};
-
-// Conexión a la base de datos
-const client = new Client(connectionData);
-client.connect()
+var modelo = new Modelo();
 
 // Función asíncrona que recoge la request GET
 router.get("/", getFunction);
@@ -21,7 +10,7 @@ async function getFunction(req, res, next) {
   // Mensaje de log
   console.log("[Usuario04] Se recibió get ", req.query);
   res.writeHead(200, { "Content-Type": "text/html" });
-    res.write(`
+  res.write(`
       <html>
         <head><meta charset="UTF-8"></head>
         <body>
@@ -64,7 +53,6 @@ async function getFunction(req, res, next) {
         </body>
       </html>`);
   res.end();
-  // client.end();
 }
 
 router.post("/", postFunction);
@@ -72,16 +60,19 @@ async function postFunction(req, res, next) {
   // Mensaje de log
   console.log("[Usuario04] Se hizo post ", req.body);
   if (req.body.btnAction == "Registrar") {
+    var datos = {};
+    datos.per_id = req.body.per_id;
+    datos.per_nombre = req.body.per_nombre;
+    datos.per_apellido = req.body.per_apellido;
+    datos.per_fecha_nacimiento = req.body.per_fecha_nacimiento;
+    datos.per_direccion = req.body.per_direccion;
+    datos.per_correo = req.body.per_correo;
 
-    // Armar la consulta de inserción de persona
-    let insertConsulta = `insert into persona values ('${req.body.per_id}','${req.body.per_nombre}','${req.body.per_apellido}','${req.body.per_fecha_nacimiento}','${req.body.per_direccion}','${req.body.per_correo}')`;
+    try {
+      // Ejecutar la consulta de inserción de usuario
+      let respuesta = await modelo.insertarNuevaPersona(datos);
 
-    console.log("[Usuario04] Se hará la consulta ", insertConsulta)
-    // Ejecutar la consulta de inserción de usuario
-    let insertRespuesta = await client.query(insertConsulta)
-    .then(respuesta => {
       console.log(respuesta);
-      client.end();
       // Renderizar el HTML
       res.writeHead(200, { "Content-Type": "text/html" });
       res.write(`
@@ -95,19 +86,19 @@ async function postFunction(req, res, next) {
           </body>
         </html>`);
       res.end();
-      client.end();
       // res.redirect("/usuario/index.js");
-    })
-    .catch(e => {
-      console.log('Error');
+    } catch (e) {
+      console.log("Error");
       console.log(e);
-        // Renderizar el error en HTML
-        res.writeHead(200, { "Content-Type": "text/html" });
-        res.write(`<html><head><meta charset="UTF-8"></head>
+      // Renderizar el error en HTML
+      res.writeHead(200, { "Content-Type": "text/html" });
+      res.write(`<html><head><meta charset="UTF-8"></head>
           <body>
           <h2>Error en la inserción</h2>`);
-        res.write("<p>"+ e["detail"] +"</p> <p><a href='/usuario/index.js'> Volver </a>");
-      });
+      res.write(
+        "<p>" + e["detail"] + "</p> <p><a href='/usuario/index.js'> Volver </a>"
+      );
+    }
   }
 }
 

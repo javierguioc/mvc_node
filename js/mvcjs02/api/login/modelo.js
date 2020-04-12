@@ -1,9 +1,10 @@
 postgres = require("../db/conexion");
+// Clase modelo para login
 class Modelo {
   constructor() {
     this.con = new postgres();
   }
-
+// pagina02
   async validar(datos) {
     let searchUser = `SELECT * FROM usuario WHERE usu_login='${datos.usu_login}' and usu_clave='${datos.usu_clave}' `;
     // Verifica que el usuario tenga un rol asignado
@@ -14,8 +15,7 @@ class Modelo {
     this.con.conexion();
     try {
       //Consulta la base de datos
-      //   let client = new Client(connectionData);
-      //   client.connect();
+
       querySearchUser = await this.con.query(searchUser);
       queryRole = await this.con.query(role);
       // Verifica si hay respuesta que represente la existencia de un usuario en la base de datos
@@ -29,17 +29,16 @@ class Modelo {
         querySearchUser.usu_clave = "";
       }
 
-      //
-
       let cant = queryRole.cant;
       // Obtiene al usuario con su rol respectivo
       let userRole = `select * from usuario as u , usuarioxrol as ur,rol as r where u.usu_login = ur.usu_login and u.usu_login='${datos.usu_login}' and r.rol_id=ur.rol_id`;
       let queryUserRole = "";
 
       queryUserRole = await this.con.query(userRole);
-      queryUserRole = JSON.parse(JSON.stringify(queryUserRole.rows[0])) || "";
-
-      rol_id = queryUserRole.rol_id;
+      if (queryUserRole.rows[0]) {
+        queryUserRole = JSON.parse(JSON.stringify(queryUserRole.rows[0])) || "";
+        rol_id = queryUserRole.rol_id;
+      }
 
       // Termina la sesion de la base de datos
       this.con.cerrarConexion();
@@ -55,6 +54,7 @@ class Modelo {
     };
   }
 
+  // pagina03
   async funcionalidades(datos) {
     // Trae información del usuario, su rol, modalidades a las que puede acceder
     let sql = `select * from 
@@ -81,8 +81,7 @@ class Modelo {
 
     try {
       this.con.conexion();
-      //   let client = new Client(connectionData);
-      //   client.connect();
+
       result = await this.con.query(sql);
       result = JSON.parse(JSON.stringify(result.rows[0])) || "";
 
