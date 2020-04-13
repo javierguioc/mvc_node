@@ -1,21 +1,12 @@
-//Importa los requerimientos necesarios para el funcionamiento
-const { Client } = require("pg");
 const express = require("express");
 const router = express.Router();
+// const router = express.Router();
 
-// Parametros para la conexion con la base de datos
-const connectionData = {
-  user: "efi",
-  host: "localhost",
-  database: "efi",
-  password: "efi",
-  port: 5432
-};
+var modelo = new Modelo();
 
-const client = new Client(connectionData);
-client.connect();
-
+// Función asíncrona que recoge la request POST
 router.post("/", postFunction);
+
 // Permite crear una nueva funcionalidad
 async function postFunction(req, res, next) {
     // Genera el formulario para ingresar el nuevo modulo
@@ -54,11 +45,10 @@ async function postFunction(req, res, next) {
     `);
     res.end();
   } else {
-    // Inserta la nueva funcionalidad
-    let insertFunctionality = `insert into funcionalidad values ('${req.body.fun_id}','${req.body.fun_nombre}','${req.body.fun_ruta}','${req.body.fun_descripcion}',${req.body.mod_id});
-    `;
-    console.log(insertFunctionality)
-    let insertResponse = await client.query(insertFunctionality);
+    console.log("[else] Se hizo post ", req.body);
+    var datos = { ...req.body };
+    let respuesta = await modelo.insertarNuevaFuncionalidad(datos);
+    console.log(respuesta);
     res.redirect("/modulo/index.js");
   }
 }

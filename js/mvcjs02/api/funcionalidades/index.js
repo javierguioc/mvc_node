@@ -1,36 +1,28 @@
 //Importa los requerimientos necesarios para el funcionamiento
-const { Client } = require("pg");
 const express = require("express");
 const router = express.Router();
+Modelo = require("./modelo");
 
-// Parametros para la conexion con la base de datos
-const connectionData = {
-  user: "efi",
-  host: "localhost",
-  database: "efi",
-  password: "efi",
-  port: 5432
-};
+var modelo = new Modelo();
 
 router.post("/", postFunction);
 
 // Muestra las funcionalidades asociadas a un modulo
 async function postFunction(req, res, next) {
+  console.log(req.body, "+++++++++++++++++++++++++");
   if (req.body.btnAction != "Eliminar") {
-    let searchFuncrionality = `SELECT * FROM funcionalidad as fun, modulo as mod where mod.mod_id=fun.mod_id  and fun.mod_id::integer=${req.body.mod_id}`;
-    let client = new Client(connectionData);
-    client.connect();
-    let funtionality = await client.query(searchFuncrionality);
-    client.end();
 
-    funtionality = JSON.parse(JSON.stringify(funtionality.rows)) || "";
+
+    var datos = {};
+    datos.mod_id = req.body.mod_id; 
+    datos = await modelo.recuperarFuncionalidad(datos);
     res.writeHead(200, { "Content-Type": "text/html" });
     res.write(`<h2>Funcionalidades:</h2>`);
     res.write(
       `<form method="POST" action="index.js">
         <table border="5" width="200">`
     );
-    funtionality.forEach(element => {
+    datos.Funcionalidad.forEach(element => {
       res.write(
         `
         <tr><td><center> <input type="radio" name="fun_id" value="${element.fun_id}"></td>
@@ -50,21 +42,10 @@ async function postFunction(req, res, next) {
     res.end();
   } else {
     // Permite borrar las funcionalidades de un modulo
-    let deleteFunctionality = `DELETE FROM funcionalidad where fun_id::integer=${req.body.fun_id};`;
-    const client = new Client(connectionData);
-
-    let deleteAnswer = "";
-    client.connect();
-    client
-      .query(deleteFunctionality)
-      .then(response => {
-        deleteAnswer = response;
-        res.redirect(`/modulo/index.js`);
-      })
-      .catch(err => {
-        client.end();
-        res.redirect(`/modulo/index.js`);
-      });
+    var datos = {};
+    datos.fun_id = req.body.fun_id;  
+    await modelo.borrarFuncionalidad(datos);
+    res.redirect(`/modulo/index.js`);
 
   }
 }

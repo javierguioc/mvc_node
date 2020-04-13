@@ -1,31 +1,21 @@
-//Importa los requerimientos necesarios para el funcionamiento
-const { Client } = require("pg");
+Modelo = require("./modelo");
 const express = require("express");
 const router = express.Router();
 
-// Parametros para la conexion con la base de datos
-const connectionData = {
-  user: "efi",
-  host: "localhost",
-  database: "efi",
-  password: "efi",
-  port: 5432
-};
+var modelo = new Modelo();
 
 router.post("/", postFunction);
 
 // Muestra el modulo a actualizar
 async function postFunction(req, res, next) {
   if (req.body.btnAction != "Enviar Nuevo") {
-    let functionalityToUpdate = ` SELECT * FROM funcionalidad as fun, modulo as mod where mod.mod_id=fun.mod_id  and fun.mod_id::integer=${req.body.mod_id} and fun.fun_id::integer=${req.body.fun_id}
-    `;
-    let client = new Client(connectionData);
-    client.connect();
-    let functionality = await client.query(functionalityToUpdate);
-    client.end();
+    console.log("[Funcionalidad02] Se hizo post ", req.body);
+    console.log("Cambio Funcionalidad");
 
-    functionality = JSON.parse(JSON.stringify(functionality.rows[0])) || "";
-
+    var datos = {};
+    datos.mod_id = req.body.mod_id;
+    datos.fun_id= req.body.fun_id;
+    datos = await modelo.traerFuncionalidad(datos);
     res.writeHead(200, { "Content-Type": "text/html" });
     res.write(`
     <HTML>
@@ -38,16 +28,16 @@ async function postFunction(req, res, next) {
                 <TR><TD>
                         <TABLE>
                             <TR>
-                                <TD align="right">Id:</TD><TD align="left"><INPUT type="text" value="${functionality.fun_id}" name="fun_id" size="25"></TD>
+                                <TD align="right">Id:</TD><TD align="left"><INPUT type="text" value="${datos.functionality.fun_id}" name="fun_id" size="25"></TD>
                             </TR>
                             <TR>
-                                <TD align="right">Nombre:</TD><TD align="left"><INPUT type="text" value="${functionality.fun_nombre}" name="fun_nombre" size="25"></TD>
+                                <TD align="right">Nombre:</TD><TD align="left"><INPUT type="text" value="${datos.functionality.fun_nombre}" name="fun_nombre" size="25"></TD>
                             </TR>
                             <TR>
-                                <TD align="right">Ruta:</TD><TD align="left"><INPUT type="text" value="${functionality.fun_descripcion}" name="fun_ruta" size="25"></TD>
+                                <TD align="right">Ruta:</TD><TD align="left"><INPUT type="text" value="${datos.functionality.fun_descripcion}" name="fun_ruta" size="25"></TD>
                             </TR>
                             <TR>
-                                <TD align="right">Descripcion:</TD><TD align="left"><INPUT type="text" value="${functionality.fun_descripcion}" name="fun_descripcion" size="25"></TD>
+                                <TD align="right">Descripcion:</TD><TD align="left"><INPUT type="text" value="${datos.functionality.fun_descripcion}" name="fun_descripcion" size="25"></TD>
                             </TR>
                             <TR >
                                 <TD colspan="2" align="center"><INPUT name="btnAction" type="submit" value="Enviar Nuevo">&nbsp;&nbsp;&nbsp;<INPUT type="reset" value="Borrar"></TD>
@@ -63,13 +53,13 @@ async function postFunction(req, res, next) {
     res.end();
   } else {
     // Actualiza el modulo 
-    let updatefunctionality = ` UPDATE funcionalidad SET fun_id=${req.body.fun_id}, fun_nombre='${req.body.fun_nombre}', fun_ruta='${req.body.fun_ruta}',fun_descripcion='${req.body.fun_descripcion}',mod_id=${req.body.mod_id} where fun_id::integer=${req.body.fun_id} 
-    `;
-    let client = new Client(connectionData);
-    client.connect();
-    let functionality = await client.query(updatefunctionality);
-    client.end();
-    res.redirect("/modulo/index.js");
+    console.log("[else] Se hizo post ", req.body);
+
+        var datos = { ...req.body };
+
+        datos = await modelo.actualizarFuncionalidad(datos);
+
+        res.redirect("/modulo/index.js");
 
   }
 }
