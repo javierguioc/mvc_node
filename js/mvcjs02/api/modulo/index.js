@@ -1,56 +1,30 @@
-//Importa los requerimientos necesarios para el funcionamiento
-const { Client } = require("pg");
-postgres = require("../db/conexion");
 const express = require("express");
 const router = express.Router();
+Modelo = require("./modelo");
 
-// Parametros para la conexion con la base de datos
-const connectionData = {
-  user: "efi",
-  host: "localhost",
-  database: "efi",
-  password: "efi",
-  port: 5432,
-};
+var modelo = new Modelo();
 
-router.get("/", getFunction);
 router.post("/", postFunction);
+router.get("/", getFunction);
 
 //El boton eliminar hacer post a la misma pagina para borrar el registro
 async function postFunction(req, res, next) {
-  let deleteModule = `DELETE FROM modulo where mod_id::integer=${req.body.mod_id};`;
-  let pg = new postgres();
-  pg.conexion();
-  let deleteAnswer = "";
-  // client.connect();
-  pg.query(deleteModule)
-    .then((response) => {
-      deleteAnswer = response;
-      res.redirect(`/modulo/index.js`);
-    })
-    .catch((err) => {
-      // client.end();
-      pg.cerrarConexion();
-      res.redirect(`/modulo/index.js`);
-    });
+  console.log("[IndexModulo] Se hizo post", req.body);
+  var datos = {};
+  datos.mod_id = req.body.mod_id;  
+  await modelo.borrarModulo(datos);
+  res.redirect(`/modulo/index.js`);
 }
 // Recorre los modulos y los muestra en una tabla
 async function getFunction(req, res, next) {
-  let queryModules = "SELECT * FROM modulo ";
-  // let client = new Client(connectionData);
-  // client.connect();
-  let pg = new postgres();
-  pg.conexion();
-  let modules = await pg.query(queryModules);
-  // client.end();
-  pg.cerrarConexion();
-  modules = JSON.parse(JSON.stringify(modules.rows)) || "";
+  var datos = {};
+  datos = await modelo.recuperarModulo();
 
   res.writeHead(200, { "Content-Type": "text/html" });
   res.write(`<h2>Modulos:</h2>`);
   res.write(`<form method="POST" action="./index.js">`);
   res.write(`<table border="5" width="200">`);
-  modules.forEach((element) => {
+  datos.Modulo.forEach((element) => {
     res.write(
       `<tr><td><center> <input type="radio" name="mod_id" value="${element.mod_id} "></td> <td> ${element.mod_nombre} </center></td></tr>`
     );
