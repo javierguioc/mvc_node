@@ -1,23 +1,15 @@
-const { Client } = require("pg");
 const express = require("express");
 const router = express.Router();
+// const router = express.Router();
 
-// Parametros para la conexion con la base de datos
-const connectionData = {
-  user: "efi",
-  host: "localhost",
-  database: "efi",
-  password: "efi",
-  port: 5432
-};
+var modelo = new Modelo();
 
-const client = new Client(connectionData);
-client.connect();
+// Función asíncrona que recoge la request POST
 router.post("/", postFunction);
 
 async function postFunction(req, res, next) {
   if (req.body.btnAction != "Enviar nuevo") {
-    console.log("[Pagina 03] Se hizo post ", req.body);
+    console.log("[Rol03] Se hizo post ", req.body);
     res.writeHead(200, { "Content-Type": "text/html" });
     res.write(`<HTML>
     <BODY>          
@@ -46,9 +38,10 @@ async function postFunction(req, res, next) {
 </HTML>`);
     res.end();
   } else {
-    console.log("[else 03] Se hizo post ", req.body);
-    let InsertRoles = `insert into rol values ('${req.body.rol_id}','${req.body.rol_nombre}','${req.body.rol_descripcion}')`;
-    let insertResponse = await client.query(InsertRoles);
+    console.log("[else] Se hizo post ", req.body);
+    var datos = { ...req.body };
+    let respuesta = await modelo.insertarNuevoRol(datos);
+    console.log(respuesta);
     res.redirect("/rol/index.js");
   }
 }

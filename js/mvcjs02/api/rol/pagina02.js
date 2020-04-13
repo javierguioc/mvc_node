@@ -1,29 +1,20 @@
-const { Client } = require("pg");
+Modelo = require("./modelo");
 const express = require("express");
 const router = express.Router();
 
-// Parametros para la conexion con la base de datos
-const connectionData = {
-  user: "efi",
-  host: "localhost",
-  database: "efi",
-  password: "efi",
-  port: 5432
-};
+var modelo = new Modelo();
 
 router.post("/", postFunction);
-
-
 async function postFunction(req, res, next) {
   if (req.body.btnAction != "Enviar Nuevo") {
-    console.log("Se hizo post ", req.body);
-    let RolesToUpdate = `SELECT * FROM rol where rol_id::integer=${req.body.rol_id}`;
-    let client = new Client(connectionData);
-    client.connect();
-    let Roles = await client.query(RolesToUpdate);
-    client.end();
+    console.log("[Rol02] Se hizo post ", req.body);
+    console.log("Cambio Rol");
 
-    Roles = JSON.parse(JSON.stringify(Roles.rows[0])) || "";
+    var datos = {};
+    datos.rol_id = req.body.rol_id;
+
+    datos = await modelo.traerRol(datos);
+    console.log("User: ", datos);
 
     res.writeHead(200, { "Content-Type": "text/html" });
     res.write(`<h2>Roles:</h2>`);
@@ -42,10 +33,10 @@ async function postFunction(req, res, next) {
           <TD align="right">Id:</TD><TD align="left"><INPUT type="text" value="${req.body.rol_id}" name="rol_id" size="25"></TD>
       </TR>
       <TR>
-          <TD align="right">Nombre:</TD><TD align="left"><INPUT type="text" value="${Roles.rol_nombre}" name="rol_nombre" size="25"></TD>
+          <TD align="right">Nombre:</TD><TD align="left"><INPUT type="text" value="${datos.Roles.rol_nombre}" name="rol_nombre" size="25"></TD>
       </TR>
       <TR>
-          <TD align="right">Descripcion:</TD><TD align="left"><INPUT type="text" value="${Roles.rol_descripcion}" name="rol_descripcion" size="25"></TD>
+          <TD align="right">Descripcion:</TD><TD align="left"><INPUT type="text" value="${datos.Roles.rol_descripcion}" name="rol_descripcion" size="25"></TD>
       </TR>
       <TR >
           <TD colspan="2" align="center"><INPUT name="btnAction" type="submit" value="Enviar Nuevo">&nbsp;&nbsp;&nbsp;<INPUT type="reset" value="Borrar"></TD>
@@ -59,13 +50,13 @@ async function postFunction(req, res, next) {
 
     res.end();
   } else {
-    console.log("[else] Se hizo post ", req.body.rol_id);
-    let UpdateRoles = `UPDATE rol SET rol_id=${req.body.rol_id}, rol_nombre='${req.body.rol_nombre}',rol_descripcion='${req.body.rol_descripcion}' where rol_id::integer=${req.body.rol_id}`;
-    let client = new Client(connectionData);
-    client.connect();
-    let Module = await client.query(UpdateRoles);
-    client.end();
-    res.redirect("/rol/index.js");
+        console.log("[else] Se hizo post ", req.body);
+
+        var datos = { ...req.body };
+
+        datos = await modelo.actualizarRol(datos);
+
+        res.redirect("/rol/index.js");
   }
 }
 
