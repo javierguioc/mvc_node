@@ -17,10 +17,10 @@ async function postFunction(req, res, next) {
   if (req.body.btnAction == "->") {
     console.log("Se oprimio ->", req.body);
     var datos = {RolId};
-    datos.sel_izq = req.body.sel_izq;
+    datos["sel_izq"] = req.body.sel_izq;
 
     await modelo.borrarPermisosRol(datos);
-    show_structure(req.body.rol_id, res);
+    Mostrar_estructura(req.body.rol_id, res);
     }
   
 
@@ -28,10 +28,10 @@ async function postFunction(req, res, next) {
     console.log("Se oprimio <-");
     // // Permite borrar las funcionalidades de un modulo
     var datos = {RolId};
-    datos.sel_der = req.body.sel_der;
+    datos["sel_der"] = req.body.sel_der;
     
     await modelo.insertarPermisosRol(datos);
-    show_structure(req.body.rol_id, res);
+    Mostrar_estructura(req.body.rol_id, res);
   }
 }
 
@@ -44,9 +44,9 @@ Mostrar_estructura = async (rol_id, res) => {
 
   res.writeHead(200, { "Content-Type": "text/html" });
   res.write(`
-    <h3> Codigo: ${datos.Rol.rol_id}&nbsp;&nbsp;&nbsp;&nbsp;
-    Nombre: ${datos.Rol.rol_nombre}&nbsp;&nbsp;&nbsp;&nbsp;
-    Descripcion: ${datos.Rol.rol_descripcion}
+    <h3> Codigo: ${datos["Rol"]["rol_id"]}&nbsp;&nbsp;&nbsp;&nbsp;
+    Nombre: ${datos["Rol"]["rol_nombre"]}&nbsp;&nbsp;&nbsp;&nbsp;
+    Descripcion: ${datos["Rol"]["rol_descripcion"]}
     </h3>`);
 
   // Boton de <- y ->
@@ -58,7 +58,7 @@ Mostrar_estructura = async (rol_id, res) => {
                       <tr>
                           <th>
                               <select name="sel_izq" size="4">`);
-  datos.RolxFun.forEach(element => {
+  datos["RolxFun"].forEach(element => {
     res.write(
       `<option value="${element.fun_id}">${element.fun_nombre}</option>`
     );
@@ -80,7 +80,7 @@ Mostrar_estructura = async (rol_id, res) => {
                           <th>
                               <select name="sel_der" size="4">`);
 
-  datos.Funciones.forEach(element => {
+  datos["Funciones"].forEach(element => {
     res.write(
       `<option value="${element.fun_id}">${element.fun_nombre}</option> `
     );

@@ -9,21 +9,21 @@ router.post("/", postFunction);
 async function postFunction(req, res, next) {
   var datos = {};
 
-  datos.usu_login = req.body.usuario;
-  datos.usu_clave = req.body.pass;
+  datos["usu_login"] = req.body.usuario;
+  datos["usu_clave"] = req.body.pass;
 
   datos = await modelo.validar(datos);
   console.log("object: ", datos);
   // Verifica que la existencia del usuario y su respectiva contraseña sean validas
   if (
-    datos.r_usu_login === datos.usu_login &&
-    datos.r_usu_clave === datos.usu_clave
+    datos["r_usu_login"] === datos["usu_login"] &&
+    datos["r_usu_clave"] === datos["usu_clave"]
   ) {
-    let cant = datos.queryRole.cant;
-    let us = datos.usu_login;
+    let cant = datos["queryRole"]["cant"];
+    let us = datos["usu_login"];
     if (parseInt(cant) === 1) {
       res.redirect(
-        `/login/pagina03.js?usu_login=${datos.usu_login}&rol_id=${datos.rol_id}`
+        `/login/pagina03.js?usu_login=${datos["usu_login"]}&rol_id=${datos["rol_id"]}`
       );
     } else {
       res.writeHead(200, { "Content-Type": "text/html" });

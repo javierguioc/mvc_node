@@ -12,7 +12,7 @@ async function postFunction(req, res, next) {
   console.log("[Usuario01] Se hizo post ", req.body);
 
   var datos = {};
-  datos.per_id = req.body.per_id;  
+  datos["per_id"] = req.body.per_id;  
   await modelo.borrarUsuario(datos);
 
   res.redirect(`/usuario/index.js`);
@@ -32,7 +32,7 @@ async function getFunction(req, res, next) {
   res.write(
     `<tr> <td></td> <td>usu_login</td> <td>per_nombre</td> <td>per_apellido </td> </tr>`
   );
-  datos.Usuario.forEach((element) => {
+  datos["Usuario"].forEach((element) => {
     res.write(
       `<tr> <td><input type="radio" name="per_id" value="${element.per_id} "></td> <td>${element.usu_login}</td> <td>${element.per_nombre}</td> <td>${element.per_apellido}</center> </td> </tr>`
     );

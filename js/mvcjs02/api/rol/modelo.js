@@ -8,7 +8,7 @@ class Modelo {
   
   //index 
   async borrarRol(datos) {
-    let deleteRol = `DELETE FROM rol where rol_id::integer=${datos.rol_id}`;
+    let deleteRol = `DELETE FROM rol where rol_id::integer=${datos["rol_id"]}`;
     this.con.conexion();
     let Rol = await this.con.query(deleteRol);
     this.con.cerrarConexion();
@@ -27,8 +27,8 @@ class Modelo {
 
   // pagina02
   async traerRol(datos) {
-    console.log(datos.rol_id)
-    let RolesToUpdate = `SELECT * FROM rol where rol_id::integer=${datos.rol_id}`;
+    console.log(datos["rol_id"])
+    let RolesToUpdate = `SELECT * FROM rol where rol_id::integer=${datos["rol_id"]}`;
     // let client = new Client(connectionData);
     this.con.conexion();
     let Roles = await this.con.query(RolesToUpdate);
@@ -43,7 +43,7 @@ class Modelo {
   }
 
   async actualizarRol(datos) {
-    let UpdateRol = `UPDATE rol SET rol_id=${datos.rol_id}, rol_nombre='${datos.rol_nombre}',rol_descripcion='${datos.rol_descripcion}' where rol_id::integer=${datos.rol_id}`;
+    let UpdateRol = `UPDATE rol SET rol_id=${datos["rol_id"]}, rol_nombre='${datos["rol_nombre"]}',rol_descripcion='${datos["rol_descripcion"]}' where rol_id::integer=${datos["rol_id"]}`;
     this.con.conexion();
     let Rol = await this.con.query(UpdateRol);
     this.con.cerrarConexion();
@@ -55,14 +55,14 @@ class Modelo {
   // pagina03
   async insertarNuevoRol(datos) {
     this.con.conexion();
-    let insertRol = `insert into rol values ('${datos.rol_id}','${datos.rol_nombre}','${datos.rol_descripcion}')`;
+    let insertRol = `insert into rol values ('${datos["rol_id"]}','${datos["rol_nombre"]}','${datos["rol_descripcion"]}')`;
     let insertResRol = await this.con.query(insertRol);
     this.con.cerrarConexion();
     return insertResRol;
   }
   // pagina04
   async borrarPermisosRol(datos) {
-    let BorrarPermiso = `delete from rolxfuncionalidad where rol_id='${datos.RolId}' and fun_id::integer=${datos.sel_izq}
+    let BorrarPermiso = `delete from rolxfuncionalidad where rol_id='${datos["RolId"]}' and fun_id::integer=${datos["sel_izq"]}
     `;
 
     this.con.conexion();
@@ -71,7 +71,7 @@ class Modelo {
   }  
 
   async insertarPermisosRol(datos) {
-    let InsertarPermiso = `insert into rolxfuncionalidad values ('${datos.RolId}','${datos.sel_der}')
+    let InsertarPermiso = `insert into rolxfuncionalidad values ('${datos["RolId"]}','${datos["sel_der"]}')
     `;
 
     this.con.conexion();
@@ -81,8 +81,8 @@ class Modelo {
   
   async obtenerPermisosRol(datos) {
     console.log('PermisosRol')
-    let dt=datos.rol_id.trim()
-    let ListarRol = `select * from rol as ro where ro.rol_id::integer=${datos.rol_id}`;
+    let dt=datos["rol_id"].trim()
+    let ListarRol = `select * from rol as ro where ro.rol_id::integer=${datos["rol_id"]}`;
     this.con.conexion();
     let Rol = await this.con.query(ListarRol);
     Rol = JSON.parse(JSON.stringify(Rol.rows[0])) || "";

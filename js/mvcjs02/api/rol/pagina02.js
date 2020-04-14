@@ -11,7 +11,7 @@ async function postFunction(req, res, next) {
     console.log("Cambio Rol");
 
     var datos = {};
-    datos.rol_id = req.body.rol_id;
+    datos["rol_id"] = req.body.rol_id;
 
     datos = await modelo.traerRol(datos);
     console.log("User: ", datos);
@@ -33,10 +33,10 @@ async function postFunction(req, res, next) {
           <TD align="right">Id:</TD><TD align="left"><INPUT type="text" value="${req.body.rol_id}" name="rol_id" size="25"></TD>
       </TR>
       <TR>
-          <TD align="right">Nombre:</TD><TD align="left"><INPUT type="text" value="${datos.Roles.rol_nombre}" name="rol_nombre" size="25"></TD>
+          <TD align="right">Nombre:</TD><TD align="left"><INPUT type="text" value="${datos["Roles"]["rol_nombre"]}" name="rol_nombre" size="25"></TD>
       </TR>
       <TR>
-          <TD align="right">Descripcion:</TD><TD align="left"><INPUT type="text" value="${datos.Roles.rol_descripcion}" name="rol_descripcion" size="25"></TD>
+          <TD align="right">Descripcion:</TD><TD align="left"><INPUT type="text" value="${datos["Roles"]["rol_descripcion"]}" name="rol_descripcion" size="25"></TD>
       </TR>
       <TR >
           <TD colspan="2" align="center"><INPUT name="btnAction" type="submit" value="Enviar Nuevo">&nbsp;&nbsp;&nbsp;<INPUT type="reset" value="Borrar"></TD>

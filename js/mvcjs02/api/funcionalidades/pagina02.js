@@ -13,8 +13,8 @@ async function postFunction(req, res, next) {
     console.log("Cambio Funcionalidad");
 
     var datos = {};
-    datos.mod_id = req.body.mod_id;
-    datos.fun_id= req.body.fun_id;
+    datos["mod_id"] = req.body.mod_id;
+    datos["fun_id"]= req.body.fun_id;
     datos = await modelo.traerFuncionalidad(datos);
     res.writeHead(200, { "Content-Type": "text/html" });
     res.write(`
@@ -28,16 +28,16 @@ async function postFunction(req, res, next) {
                 <TR><TD>
                         <TABLE>
                             <TR>
-                                <TD align="right">Id:</TD><TD align="left"><INPUT type="text" value="${datos.functionality.fun_id}" name="fun_id" size="25"></TD>
+                                <TD align="right">Id:</TD><TD align="left"><INPUT type="text" value="${datos["functionality"]["fun_id"]}" name="fun_id" size="25"></TD>
                             </TR>
                             <TR>
-                                <TD align="right">Nombre:</TD><TD align="left"><INPUT type="text" value="${datos.functionality.fun_nombre}" name="fun_nombre" size="25"></TD>
+                                <TD align="right">Nombre:</TD><TD align="left"><INPUT type="text" value="${datos["functionality"]["fun_nombre"]}" name="fun_nombre" size="25"></TD>
                             </TR>
                             <TR>
-                                <TD align="right">Ruta:</TD><TD align="left"><INPUT type="text" value="${datos.functionality.fun_descripcion}" name="fun_ruta" size="25"></TD>
+                                <TD align="right">Ruta:</TD><TD align="left"><INPUT type="text" value="${datos["functionality"]["fun_ruta"]}" name="fun_ruta" size="25"></TD>
                             </TR>
                             <TR>
-                                <TD align="right">Descripcion:</TD><TD align="left"><INPUT type="text" value="${datos.functionality.fun_descripcion}" name="fun_descripcion" size="25"></TD>
+                                <TD align="right">Descripcion:</TD><TD align="left"><INPUT type="text" value="${datos["functionality"]["fun_descripcion"]}" name="fun_descripcion" size="25"></TD>
                             </TR>
                             <TR >
                                 <TD colspan="2" align="center"><INPUT name="btnAction" type="submit" value="Enviar Nuevo">&nbsp;&nbsp;&nbsp;<INPUT type="reset" value="Borrar"></TD>

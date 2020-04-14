@@ -13,7 +13,7 @@ async function postFunction(req, res, next) {
     console.log("Cambio Modulo");
 
     var datos = {};
-    datos.mod_id = req.body.mod_id;
+    datos["mod_id"] = req.body.mod_id;
 
     datos = await modelo.traerModulo(datos);
     console.log("User: ", datos);
@@ -36,10 +36,10 @@ async function postFunction(req, res, next) {
           <TD align="right">Id:</TD><TD align="left"><INPUT type="text" value="${req.body.mod_id}" name="mod_id" size="25"></TD>
       </TR>
       <TR>
-          <TD align="right">Nombre:</TD><TD align="left"><INPUT type="text" value="${datos.Module.mod_nombre}" name="mod_nombre" size="25"></TD>
+          <TD align="right">Nombre:</TD><TD align="left"><INPUT type="text" value="${datos["Module"]["mod_nombre"]}" name="mod_nombre" size="25"></TD>
       </TR>
       <TR>
-          <TD align="right">Descripcion:</TD><TD align="left"><INPUT type="text" value="${datos.Module.mod_descripcion}" name="mod_descripcion" size="25"></TD>
+          <TD align="right">Descripcion:</TD><TD align="left"><INPUT type="text" value="${datos["Module"]["mod_descripcion"]}" name="mod_descripcion" size="25"></TD>
       </TR>
       <TR >
           <TD colspan="2" align="center"><INPUT name="btnAction" type="submit" value="Enviar Nuevo">&nbsp;&nbsp;&nbsp;<INPUT type="reset" value="Borrar"></TD>

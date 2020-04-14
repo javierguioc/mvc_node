@@ -11,7 +11,7 @@ router.get("/", getFunction);
 async function postFunction(req, res, next) {
   console.log("[IndexRol] Se hizo post", req.body);
   var datos = {};
-  datos.rol_id = req.body.rol_id;  
+  datos["rol_id"] = req.body.rol_id;  
   await modelo.borrarRol(datos);
   res.redirect(`/rol/index.js`);
 }
@@ -25,7 +25,7 @@ async function getFunction(req, res, next) {
   res.write(`<h2>Roles:</h2>`);
   res.write(`<form method="POST" action="./index.js">`);
   res.write(`<table border="5" width="200">`);
-  datos.Rol.forEach(element => {
+  datos["Rol"].forEach(element => {
     res.write(
       `<tr><td><center> <input type="radio" name="rol_id" value="${element.rol_id} "></td> <td> ${element.rol_nombre} </center></td></tr>`
     );

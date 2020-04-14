@@ -6,9 +6,9 @@ class Modelo {
   }
 // pagina02
   async validar(datos) {
-    let searchUser = `SELECT * FROM usuario WHERE usu_login='${datos.usu_login}' and usu_clave='${datos.usu_clave}' `;
+    let searchUser = `SELECT * FROM usuario WHERE usu_login='${datos["usu_login"]}' and usu_clave='${datos["usu_clave"]}' `;
     // Verifica que el usuario tenga un rol asignado
-    let role = ` select count(*) as cant from usuario as u , usuarioxrol as ur where u.usu_login = ur.usu_login and u.usu_login='${datos.usu_login}' `;
+    let role = ` select count(*) as cant from usuario as u , usuarioxrol as ur where u.usu_login = ur.usu_login and u.usu_login='${datos["usu_login"]}' `;
     let querySearchUser = "";
     let queryRole = "";
     let rol_id = "";
@@ -31,7 +31,7 @@ class Modelo {
 
       let cant = queryRole.cant;
       // Obtiene al usuario con su rol respectivo
-      let userRole = `select * from usuario as u , usuarioxrol as ur,rol as r where u.usu_login = ur.usu_login and u.usu_login='${datos.usu_login}' and r.rol_id=ur.rol_id`;
+      let userRole = `select * from usuario as u , usuarioxrol as ur,rol as r where u.usu_login = ur.usu_login and u.usu_login='${datos["usu_login"]}' and r.rol_id=ur.rol_id`;
       let queryUserRole = "";
 
       queryUserRole = await this.con.query(userRole);
@@ -69,13 +69,13 @@ class Modelo {
     and fun.mod_id=mo.mod_id  
     and rf.rol_id=ro.rol_id  
     and rf.fun_id=fun.fun_id  
-    and usu.usu_login='${datos.usu_login}'  
-    and ro.rol_id='${datos.rol_id}' ;`;
+    and usu.usu_login='${datos["usu_login"]}'  
+    and ro.rol_id='${datos["rol_id"]}' ;`;
 
     let result = "";
 
     //Trae las funcion
-    let FuncionesUsuario = `select f.fun_nombre from usuarioxrol as uxr, rolxfuncionalidad as rxf, funcionalidad as f where uxr.rol_id=rxf.rol_id and rxf.fun_id=f.fun_id and uxr.usu_login='${datos.usu_login}'`;
+    let FuncionesUsuario = `select f.fun_nombre from usuarioxrol as uxr, rolxfuncionalidad as rxf, funcionalidad as f where uxr.rol_id=rxf.rol_id and rxf.fun_id=f.fun_id and uxr.usu_login='${datos["usu_login"]}'`;
     console.log(FuncionesUsuario);
     let FunxUsu = "";
 

@@ -7,7 +7,7 @@ class Modelo {
 
   //Pagina01
   async traerUsuario(datos) {
-    let updateQuery = `SELECT * FROM usuario as us where us.per_id::integer=${datos.per_id}`;
+    let updateQuery = `SELECT * FROM usuario as us where us.per_id::integer=${datos["per_id"]}`;
     // let client = new Client(connectionData);
     this.con.conexion();
     let User = await this.con.query(updateQuery);
@@ -36,7 +36,7 @@ class Modelo {
   }
 
   async borrarUsuario(datos) {
-    let deleteQuery = `DELETE FROM usuario where per_id::integer=${datos.per_id}`;
+    let deleteQuery = `DELETE FROM usuario where per_id::integer=${datos["per_id"]}`;
 
     this.con.conexion();
     let Usuario = await this.con.query(deleteQuery);
@@ -44,7 +44,7 @@ class Modelo {
   }
 
   async actualizarUsuario(datos) {
-    let UpdateUser = `UPDATE usuario SET usu_login='${datos.usu_login}', usu_clave='${datos.usu_clave}' where per_id::integer='${datos.per_id}' `;
+    let UpdateUser = `UPDATE usuario SET usu_login='${datos["usu_login"]}', usu_clave='${datos["usu_clave"]}' where per_id::integer='${datos["per_id"]}' `;
     this.con.conexion();
     let Usuario = await this.con.query(UpdateUser);
     this.con.cerrarConexion();
@@ -58,7 +58,7 @@ class Modelo {
   async existePersona(datos) {
     this.con.conexion();
     // Buscar a la persona para ver si existe
-    let selectConsulta = `select from persona where per_id='${datos.per_id}'`;
+    let selectConsulta = `select from persona where per_id='${datos["per_id"]}'`;
     console.log("[Usuario03] Se hará la consulta ", selectConsulta);
     // Ejecutar la consulta de búsqueda de persona
     let selectRespuesta = await this.con.query(selectConsulta);
@@ -70,7 +70,7 @@ class Modelo {
     this.con.conexion();
 
     // Armar la consulta de inserción de usuario
-    let insertConsulta = `insert into usuario values ('${datos.usu_login}','${datos.usu_clave}','${datos.per_id}')`;
+    let insertConsulta = `insert into usuario values ('${datos["usu_login"]}','${datos["usu_clave"]}','${datos["per_id"]}')`;
     console.log("[Usuario03] Se hará la consulta ", insertConsulta);
 
     let insertRespuesta = await this.con.query(insertConsulta);
@@ -85,7 +85,7 @@ class Modelo {
     this.con.conexion();
 
     // Armar la consulta de inserción de persona
-    let insertConsulta = `insert into persona values ('${datos.per_id}','${datos.per_nombre}','${datos.per_apellido}','${datos.per_fecha_nacimiento}','${datos.per_direccion}','${datos.per_correo}')`;
+    let insertConsulta = `insert into persona values ('${datos["per_id"]}','${datos["per_nombre"]}','${datos["per_apellido"]}','${datos["per_fecha_nacimiento"]}','${datos["per_direccion"]}','${datos["per_correo"]}')`;
     let insertRespuesta = await this.con.query(insertConsulta);
 
     this.con.cerrarConexion();
@@ -95,7 +95,7 @@ class Modelo {
 
   //pagina05
   async obtenerUsuLogin(datos) {
-    let searchUser = `select * from persona as pe, usuario as us where us.per_id=pe.per_id and pe.per_id::integer=${datos.per_id}`;
+    let searchUser = `select * from persona as pe, usuario as us where us.per_id=pe.per_id and pe.per_id::integer=${datos["per_id"]}`;
 
     this.con.conexion();
     let user = await this.con.query(searchUser);
@@ -108,14 +108,14 @@ class Modelo {
   }
 
   async obtenerPermisos(datos) {
-    let searchUser = `select * from persona as pe, usuario as us where us.per_id=pe.per_id and pe.per_id::integer=${datos.per_id}`;
+    let searchUser = `select * from persona as pe, usuario as us where us.per_id=pe.per_id and pe.per_id::integer=${datos["per_id"]}`;
 
     this.con.conexion();
     let user = await this.con.query(searchUser);
     // console.log("Usuario: ", user);
     user = JSON.parse(JSON.stringify(user.rows[0])) || "";
 
-    let sql1 = `select * from usuarioxrol as ur, rol as ro, usuario as us where ro.rol_id=ur.rol_id and ur.usu_login=us.usu_login and us.per_id::integer=${datos.per_id}`;
+    let sql1 = `select * from usuarioxrol as ur, rol as ro, usuario as us where ro.rol_id=ur.rol_id and ur.usu_login=us.usu_login and us.per_id::integer=${datos["per_id"]}`;
     console.log("consulta:", sql1);
 
     let res1 = await this.con.query(sql1);
@@ -125,7 +125,7 @@ class Modelo {
     //   2
     let sql2 = ` select ro.rol_id,ro.rol_nombre from rol as ro  except  select ro.rol_id,ro.rol_nombre 
   from usuarioxrol as ur, rol as ro, usuario as us  
-  where ro.rol_id=ur.rol_id and us.usu_login=ur.usu_login and us.per_id::integer=${datos.per_id}
+  where ro.rol_id=ur.rol_id and us.usu_login=ur.usu_login and us.per_id::integer=${datos["per_id"]}
   `;
 
     let res2 = await this.con.query(sql2);
@@ -144,7 +144,7 @@ class Modelo {
   }
 
   async borrarPermisos(datos) {
-    let BorrarPermiso = ` delete from usuarioxrol where usu_login='${datos.LoginUsuario}' and rol_id::integer=${datos.sel_izq}
+    let BorrarPermiso = ` delete from usuarioxrol where usu_login='${datos["LoginUsuario"]}' and rol_id::integer=${datos["sel_izq"]}
     `;
 
     this.con.conexion();
@@ -153,7 +153,7 @@ class Modelo {
   }
 
   async insertarPermisos(datos) {
-    let InsertarPermiso = `  insert into usuarioxrol values ('${datos.sel_der}','${datos.LoginUsuario}')
+    let InsertarPermiso = `  insert into usuarioxrol values ('${datos["sel_der"]}','${datos["LoginUsuario"]}')
       `;
 
     this.con.conexion();

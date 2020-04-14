@@ -47,7 +47,7 @@ async function postFunction(req, res, next) {
     // Ya que la funcion es asincrona, aunque la persona no exista la inserción se va a ejecutar. Por esto se usa la variable bandera 'existe'. Si la persona no existe se evita que se intente insertar un usuario con esa persona.
     var existe = false;
     var datos = {};
-    datos.per_id = req.body.per_id;
+    datos["per_id"] = req.body.per_id;
     // Buscar a la persona para ver si existe
     
     try {
@@ -71,9 +71,9 @@ async function postFunction(req, res, next) {
     }
     if (existe) {
       var datos = {};
-      datos.usu_login = req.body.usu_login;
-      datos.usu_clave = req.body.usu_clave;
-      datos.per_id = req.body.per_id;
+      datos["usu_login"] = req.body.usu_login;
+      datos["usu_clave"] = req.body.usu_clave;
+      datos["per_id"] = req.body.per_id;
 
       // // Armar la consulta de inserción de usuario
 

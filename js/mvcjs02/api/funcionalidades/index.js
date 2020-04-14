@@ -14,7 +14,7 @@ async function postFunction(req, res, next) {
 
 
     var datos = {};
-    datos.mod_id = req.body.mod_id; 
+    datos["mod_id"] = req.body.mod_id; 
     datos = await modelo.recuperarFuncionalidad(datos);
     res.writeHead(200, { "Content-Type": "text/html" });
     res.write(`<h2>Funcionalidades:</h2>`);
@@ -22,7 +22,7 @@ async function postFunction(req, res, next) {
       `<form method="POST" action="index.js">
         <table border="5" width="200">`
     );
-    datos.Funcionalidad.forEach(element => {
+    datos["Funcionalidad"].forEach(element => {
       res.write(
         `
         <tr><td><center> <input type="radio" name="fun_id" value="${element.fun_id}"></td>
@@ -43,7 +43,7 @@ async function postFunction(req, res, next) {
   } else {
     // Permite borrar las funcionalidades de un modulo
     var datos = {};
-    datos.fun_id = req.body.fun_id;  
+    datos["fun_id"] = req.body.fun_id;  
     await modelo.borrarFuncionalidad(datos);
     res.redirect(`/modulo/index.js`);
 

@@ -11,7 +11,7 @@ router.get("/", getFunction);
 async function postFunction(req, res, next) {
   console.log("[IndexModulo] Se hizo post", req.body);
   var datos = {};
-  datos.mod_id = req.body.mod_id;  
+  datos["mod_id"] = req.body.mod_id;  
   await modelo.borrarModulo(datos);
   res.redirect(`/modulo/index.js`);
 }
@@ -24,7 +24,7 @@ async function getFunction(req, res, next) {
   res.write(`<h2>Modulos:</h2>`);
   res.write(`<form method="POST" action="./index.js">`);
   res.write(`<table border="5" width="200">`);
-  datos.Modulo.forEach((element) => {
+  datos["Modulo"].forEach((element) => {
     res.write(
       `<tr><td><center> <input type="radio" name="mod_id" value="${element.mod_id} "></td> <td> ${element.mod_nombre} </center></td></tr>`
     );

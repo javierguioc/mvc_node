@@ -14,7 +14,7 @@ async function postFunction(req, res, next) {
     console.log("Cambio usuario");
 
     var datos = {};
-    datos.per_id = req.body.per_id;
+    datos["per_id"] = req.body.per_id;
 
     datos = await modelo.traerUsuario(datos);
     console.log("User: ", datos);
@@ -30,13 +30,13 @@ async function postFunction(req, res, next) {
     res.write(`<TR><TD>
   <TABLE>
       <TR>
-          <TD align="right">Usuario:</TD><TD align="left"><INPUT type="text" value="${datos.User.usu_login}" name="usu_login" size="25"></TD>
+          <TD align="right">Usuario:</TD><TD align="left"><INPUT type="text" value="${datos["User"]["usu_login"]}" name="usu_login" size="25"></TD>
       </TR>
       <TR>
-          <TD align="right">Contraseña:</TD><TD align="left"><INPUT type="text" value="${datos.User.usu_clave}" name="usu_clave" size="25"></TD>
+          <TD align="right">Contraseña:</TD><TD align="left"><INPUT type="text" value="${datos["User"]["usu_clave"]}" name="usu_clave" size="25"></TD>
       </TR>
       <TR>
-          <TD align="left"><INPUT type="hidden" name="per_id" value="${datos.User.per_id}" ></TD>
+          <TD align="left"><INPUT type="hidden" name="per_id" value="${datos["User"]["per_id"]}" ></TD>
       </TR>
       <TR>
           <TD colspan="2" align="center"><INPUT name="btnAction" type="submit" value="Enviar Nuevo">&nbsp;&nbsp;&nbsp;<INPUT type="reset" value="Borrar"></TD>

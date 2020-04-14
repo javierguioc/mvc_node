@@ -61,12 +61,12 @@ async function postFunction(req, res, next) {
   console.log("[Usuario04] Se hizo post ", req.body);
   if (req.body.btnAction == "Registrar") {
     var datos = {};
-    datos.per_id = req.body.per_id;
-    datos.per_nombre = req.body.per_nombre;
-    datos.per_apellido = req.body.per_apellido;
-    datos.per_fecha_nacimiento = req.body.per_fecha_nacimiento;
-    datos.per_direccion = req.body.per_direccion;
-    datos.per_correo = req.body.per_correo;
+    datos["per_id"] = req.body.per_id;
+    datos["per_nombre"] = req.body.per_nombre;
+    datos["per_apellido"] = req.body.per_apellido;
+    datos["per_fecha_nacimiento"] = req.body.per_fecha_nacimiento;
+    datos["per_direccion"] = req.body.per_direccion;
+    datos["per_correo"] = req.body.per_correo;
 
     try {
       // Ejecutar la consulta de inserción de usuario
