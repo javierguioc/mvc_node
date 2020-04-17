@@ -33,7 +33,7 @@ async function postFunction(req, res, next) {
     res.write(`<TR><TD>
   <TABLE>
       <TR>
-          <TD align="right">Id:</TD><TD align="left"><INPUT type="text" value="${req.body.mod_id}" name="mod_id" size="25"></TD>
+          <TD align="right"></TD><TD align="left"><INPUT type="hidden" value="${req.body.mod_id}" name="mod_id" size="25"></TD>
       </TR>
       <TR>
           <TD align="right">Nombre:</TD><TD align="left"><INPUT type="text" value="${datos["Module"]["mod_nombre"]}" name="mod_nombre" size="25"></TD>

@@ -1,8 +1,8 @@
-postgres = require("../db/conexion");
+Conexion = require("../db/conexion");
 // Clase modelo para login
 class Modelo {
   constructor() {
-    this.con = new postgres();
+    this.con = new Conexion();
   }
 // pagina02
   async validar(datos) {
@@ -16,8 +16,8 @@ class Modelo {
     try {
       //Consulta la base de datos
 
-      querySearchUser = await this.con.query(searchUser);
-      queryRole = await this.con.query(role);
+      querySearchUser = await this.con.sql(searchUser);
+      queryRole = await this.con.sql(role);
       // Verifica si hay respuesta que represente la existencia de un usuario en la base de datos
       if (querySearchUser.rows[0]) {
         //Da formato json a la respuesta de la base de datos
@@ -34,7 +34,7 @@ class Modelo {
       let userRole = `select * from usuario as u , usuarioxrol as ur,rol as r where u.usu_login = ur.usu_login and u.usu_login='${datos["usu_login"]}' and r.rol_id=ur.rol_id`;
       let queryUserRole = "";
 
-      queryUserRole = await this.con.query(userRole);
+      queryUserRole = await this.con.sql(userRole);
       if (queryUserRole.rows[0]) {
         queryUserRole = JSON.parse(JSON.stringify(queryUserRole.rows[0])) || "";
         rol_id = queryUserRole.rol_id;
@@ -82,10 +82,10 @@ class Modelo {
     try {
       this.con.conexion();
 
-      result = await this.con.query(sql);
+      result = await this.con.sql(sql);
       result = JSON.parse(JSON.stringify(result.rows[0])) || "";
 
-      FunxUsu = await this.con.query(FuncionesUsuario);
+      FunxUsu = await this.con.sql(FuncionesUsuario);
       FunxUsu = JSON.parse(JSON.stringify(FunxUsu.rows)) || "";
       console.log(FunxUsu);
 

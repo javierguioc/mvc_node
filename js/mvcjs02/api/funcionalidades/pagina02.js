@@ -28,7 +28,7 @@ async function postFunction(req, res, next) {
                 <TR><TD>
                         <TABLE>
                             <TR>
-                                <TD align="right">Id:</TD><TD align="left"><INPUT type="text" value="${datos["functionality"]["fun_id"]}" name="fun_id" size="25"></TD>
+                                <TD align="right"></TD><TD align="left"><INPUT type="hidden" value="${datos["functionality"]["fun_id"]}" name="fun_id" size="25"></TD>
                             </TR>
                             <TR>
                                 <TD align="right">Nombre:</TD><TD align="left"><INPUT type="text" value="${datos["functionality"]["fun_nombre"]}" name="fun_nombre" size="25"></TD>

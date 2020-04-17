@@ -13,7 +13,23 @@ class Postgres {
     console.log("[BD] - Iniciando la conexion");
   }
 
-  query(queryStructure) {
+  sql(queryStructure) {
+    console.log("[BD] - Accion: ", queryStructure);
+    return new Promise((resolve, reject) => {
+      this.client
+        .query(queryStructure)
+        .then((respuesta) => {
+          // console.log("[BD] Respuesta de la consulta ", respuesta);
+          resolve(respuesta);
+        })
+        .catch((e) => {
+          console.log("[BD]: error ", e);
+          reject(e);
+        });
+    });
+  }
+
+  eliminar(queryStructure) {
     console.log("[BD] - Accion: ", queryStructure);
     return new Promise((resolve, reject) => {
       this.client

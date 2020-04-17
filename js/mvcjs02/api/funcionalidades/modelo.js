@@ -1,15 +1,15 @@
-postgres = require("../db/conexion");
+Conexion = require("../db/conexion");
 // Clase modelo para funcionalidades
 class Modelo {
 
   constructor() {
-    this.con = new postgres();
+    this.con = new Conexion();
   }
   //Index
     async borrarFuncionalidad(datos) {
     let deleteFuncionalidad = `DELETE FROM funcionalidad where fun_id::integer=${datos["fun_id"]};`;
     this.con.conexion();
-    let Funcionalidad = await this.con.query(deleteFuncionalidad);
+    let Funcionalidad = await this.con.sql(deleteFuncionalidad);
     this.con.cerrarConexion();
   }  
   
@@ -17,7 +17,7 @@ class Modelo {
 	console.log(datos["mod_id"]);
 	let queryFuncionalidad = `SELECT * FROM funcionalidad as fun, modulo as mod where mod.mod_id=fun.mod_id  and fun.mod_id::integer=${datos["mod_id"]}`;
 	this.con.conexion();
-	let Funcionalidad = await this.con.query(queryFuncionalidad);
+	let Funcionalidad = await this.con.sql(queryFuncionalidad);
 	this.con.cerrarConexion();
 	Funcionalidad = JSON.parse(JSON.stringify(Funcionalidad.rows)) || "";
 	return {
@@ -31,7 +31,7 @@ class Modelo {
     let functionalityToUpdate = `SELECT * FROM funcionalidad as fun, modulo as mod where mod.mod_id=fun.mod_id  and fun.mod_id::integer=${datos["mod_id"]} and fun.fun_id::integer=${datos["fun_id"]}
     `;
     this.con.conexion();
-    let functionality = await this.con.query(functionalityToUpdate);
+    let functionality = await this.con.sql(functionalityToUpdate);
     this.con.cerrarConexion();
 
     functionality = JSON.parse(JSON.stringify(functionality.rows[0])) || "";
@@ -45,7 +45,7 @@ class Modelo {
   async actualizarFuncionalidad(datos) {
 	let updatefunctionality = ` UPDATE funcionalidad SET fun_id=${datos["fun_id"]}, fun_nombre='${datos["fun_nombre"]}', fun_ruta='${datos["fun_ruta"]}',fun_descripcion='${datos["fun_descripcion"]}',mod_id=${datos["mod_id"]} where fun_id::integer=${datos["fun_id"]}`;
     this.con.conexion();
-	let functionalityUpdate = await this.con.query(updatefunctionality);
+	let functionalityUpdate = await this.con.sql(updatefunctionality);
     this.con.cerrarConexion();
     return {
       functionalityUpdate,
@@ -56,8 +56,8 @@ class Modelo {
  
  async insertarNuevaFuncionalidad(datos) {
     this.con.conexion();
-	let insertFuncionalidad = `insert into funcionalidad values ('${datos["fun_id"]}','${datos["fun_nombre"]}','${datos["fun_ruta"]}','${datos["fun_descripcion"]}',${datos["mod_id"]});`;
-    let insertResponse = await this.con.query(insertFuncionalidad);
+	let insertFuncionalidad = `insert into funcionalidad(fun_nombre,fun_ruta,fun_descripcion,mod_id) values ('${datos["fun_nombre"]}','${datos["fun_ruta"]}','${datos["fun_descripcion"]}',${datos["mod_id"]});`;
+    let insertResponse = await this.con.sql(insertFuncionalidad);
     this.con.cerrarConexion();
   return insertResponse;}
 }

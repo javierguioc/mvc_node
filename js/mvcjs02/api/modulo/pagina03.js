@@ -1,3 +1,4 @@
+Modelo = require("./modelo");
 const express = require("express");
 const router = express.Router();
 // const router = express.Router();
@@ -18,9 +19,7 @@ async function postFunction(req, res, next) {
             <TABLE border="1">
                 <TR><TD>
                         <TABLE>
-                            <TR>
-                                <TD align="right">Id:</TD><TD align="left"><INPUT type="text"  name="mod_id" size="25"></TD>
-                            </TR>
+                            
                             <TR>
                                 <TD align="right">Nombre:</TD><TD align="left"><INPUT type="text"  name="mod_nombre" size="25"></TD>
                             </TR>

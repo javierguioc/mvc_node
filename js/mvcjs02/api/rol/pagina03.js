@@ -19,9 +19,6 @@ async function postFunction(req, res, next) {
                 <TR><TD>
                         <TABLE>
                             <TR>
-                                <TD align="right">Id:</TD><TD align="left"><INPUT type="text"  name="rol_id" size="25"></TD>
-                            </TR>
-                            <TR>
                                 <TD align="right">Nombre:</TD><TD align="left"><INPUT type="text"  name="rol_nombre" size="25"></TD>
                             </TR>
                             <TR>
