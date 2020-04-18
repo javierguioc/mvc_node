@@ -18,6 +18,7 @@ class Modelo {
 
       querySearchUser = await this.con.sql(searchUser);
       queryRole = await this.con.sql(role);
+
       // Verifica si hay respuesta que represente la existencia de un usuario en la base de datos
       if (querySearchUser.rows[0]) {
         //Da formato json a la respuesta de la base de datos
@@ -25,8 +26,8 @@ class Modelo {
           JSON.parse(JSON.stringify(querySearchUser.rows[0])) || "";
         queryRole = JSON.parse(JSON.stringify(queryRole.rows[0])) || "";
       } else {
-        querySearchUser.usu_login = "";
-        querySearchUser.usu_clave = "";
+        querySearchUser.usu_login = "v";
+        querySearchUser.usu_clave = "v";
       }
 
       let cant = queryRole.cant;
@@ -58,7 +59,7 @@ class Modelo {
     let RolesToUpdate = `SELECT * FROM usuarioxrol as uxr, rol r where uxr.usu_login='${datos["usu_login"]}' and uxr.rol_id=r.rol_id`;
     // let client = new Client(connectionData);
     this.con.conexion();
-    let Roles = await this.con.query(RolesToUpdate);
+    let Roles = await this.con.sql(RolesToUpdate);
     this.con.cerrarConexion();
     Roles = JSON.parse(JSON.stringify(Roles.rows)) || "";
 

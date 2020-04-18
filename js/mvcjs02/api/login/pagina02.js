@@ -8,10 +8,10 @@ router.post("/", postFunction);
 // Recibe el usuario y la contraseña y verifica que exista en la base de datos
 async function postFunction(req, res, next) {
   var datos = {};
-
   datos["usu_login"] = req.body.usuario;
   datos["usu_clave"] = req.body.pass;
-
+  
+  console.log("asdfdasfafafadsfasdfasdfasdfasdfdsaf",datos)
   datos = await modelo.validar(datos);
   console.log("object: ", datos);
   // Verifica que la existencia del usuario y su respectiva contraseña sean validas
@@ -19,7 +19,6 @@ async function postFunction(req, res, next) {
     datos["r_usu_login"] === datos["usu_login"] &&
     datos["r_usu_clave"] === datos["usu_clave"]
   ) {
-    console.log(datos["queryRole"]["cant"], '++++++++++++++++++++++++++++++++++++');
     let cant = datos["queryRole"]["cant"];
     let us = datos["usu_login"];
     if (parseInt(cant) === 1) {
@@ -39,7 +38,6 @@ async function postFunction(req, res, next) {
       datos=await modelo.Roles(datos);
       console.log('Roles Usuario',datos["Roles"]);
       res.writeHead(200, { "Content-Type": "text/html" });
-      console.log(datos["Roles"][0].usu_login, 'Usuario-------------')
       res.write(
         `<p>ROLES DEL USUARIO:  ${datos["Roles"][0].usu_login}</p>`
       );
