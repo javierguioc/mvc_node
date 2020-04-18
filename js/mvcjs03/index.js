@@ -39,7 +39,7 @@ app.use(body_parser.urlencoded({ extended: false }));
 app.use("/", homePage);
 
 app.use("/login", loginPage);
-app.use("/login/pagina01.js", loginPage01);
+// app.use("/login/pagina01.js", loginPage01);
 app.use("/login/pagina02.js", loginPage02);
 app.use("/login/pagina03.js", loginPage03);
 
