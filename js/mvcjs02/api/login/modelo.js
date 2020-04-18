@@ -53,11 +53,25 @@ class Modelo {
       rol_id,
     };
   }
+  async Roles(datos){
+    
+    let RolesToUpdate = `SELECT * FROM usuarioxrol as uxr, rol r where uxr.usu_login='${datos["usu_login"]}' and uxr.rol_id=r.rol_id`;
+    // let client = new Client(connectionData);
+    this.con.conexion();
+    let Roles = await this.con.query(RolesToUpdate);
+    this.con.cerrarConexion();
+    Roles = JSON.parse(JSON.stringify(Roles.rows)) || "";
+
+    return {
+      Roles,
+    };
+  }
 
   // pagina03
   async funcionalidades(datos) {
     // Trae información del usuario, su rol, modalidades a las que puede acceder
-    let sql = `select * from 
+    let sql = `
+    select * from 
     usuario as usu,  
     rol as ro,  
     usuarioxrol as usr,  
@@ -70,12 +84,13 @@ class Modelo {
     and rf.rol_id=ro.rol_id  
     and rf.fun_id=fun.fun_id  
     and usu.usu_login='${datos["usu_login"]}'  
-    and ro.rol_id='${datos["rol_id"]}' ;`;
+    and ro.rol_id::integer='${datos["rol_id"]}' ;`;
 
     let result = "";
 
     //Trae las funcion
-    let FuncionesUsuario = `select f.fun_nombre from usuarioxrol as uxr, rolxfuncionalidad as rxf, funcionalidad as f where uxr.rol_id=rxf.rol_id and rxf.fun_id=f.fun_id and uxr.usu_login='${datos["usu_login"]}'`;
+    
+    let FuncionesUsuario = `select f.fun_nombre from funcionalidad as f, rolxfuncionalidad as rxf where rxf.rol_id::integer='${datos["rol_id"]}'  and rxf.fun_id=f.fun_id`;
     console.log(FuncionesUsuario);
     let FunxUsu = "";
 
