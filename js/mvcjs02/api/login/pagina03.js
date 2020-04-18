@@ -9,9 +9,9 @@ router.post("/", postFunction);
 
 async function postFunction(req, res, next) {
 var datos = {};
-datos["usu_login"] = req.body.rol_id[1];
-datos["rol_id"] = req.body.rol_id[0];
-
+datos["usu_login"] = req.body.usu_login;
+datos["rol_id"] = req.body.rol;
+console.log(datos,'DAAAAAATOS')
 datos = await modelo.funcionalidades(datos);
 
 res.writeHead(200, { "Content-Type": "text/html" });
