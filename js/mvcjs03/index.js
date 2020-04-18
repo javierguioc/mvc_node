@@ -44,23 +44,23 @@ app.use("/login/pagina02.js", loginPage02);
 app.use("/login/pagina03.js", loginPage03);
 
 app.use("/modulo/index.js", modulePage);
-app.use("/modulo/pagina01.js", modulePage01);
+//app.use("/modulo/pagina01.js", modulePage01);
 app.use("/modulo/pagina02.js", modulePage02);
 app.use("/modulo/pagina03.js", modulePage03);
 
 app.use("/funcionalidad/index.js", functionalityPage);
-app.use("/funcionalidad/pagina01.js", functionalityPage01);
+//app.use("/funcionalidad/pagina01.js", functionalityPage01);
 app.use("/funcionalidad/pagina02.js", functionalityPage02);
 app.use("/funcionalidad/pagina03.js", functionalityPage03);
 
 app.use("/rol/index.js", rolePage);
-app.use("/rol/pagina01.js", rolePage01);
+//app.use("/rol/pagina01.js", rolePage01);
 app.use("/rol/pagina02.js", rolePage02);
 app.use("/rol/pagina03.js", rolePage03);
 app.use("/rol/pagina04.js", rolePage04);
 
 app.use("/usuario/index.js", userPage);
-app.use("/usuario/pagina01.js", userPage01);
+//app.use("/usuario/pagina01.js", userPage01);
 app.use("/usuario/pagina02.js", userPage02);
 app.use("/usuario/pagina03.js", userPage03);
 app.use("/usuario/pagina04.js", userPage04);
