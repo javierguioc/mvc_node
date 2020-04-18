@@ -19,7 +19,7 @@ async function postFunction(req, res, next) {
 async function getFunction(req, res, next) {
   var datos = {};
   datos = await modelo.recuperarRol();
-
+  console.log(datos["Rol"]);
 
   res.writeHead(200, { "Content-Type": "text/html" });
   res.write(`<h2>Roles:</h2>`);
