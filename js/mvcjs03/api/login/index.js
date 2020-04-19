@@ -1,5 +1,4 @@
-const express = require("express");
-const router = express.Router();
+const router = Router();
 Modelo = require("./modelo");
 
 var modelo = new Modelo();
@@ -13,7 +12,12 @@ async function postFunction(req, res, next) {
       break;
 
     case "Ingresar":
-        
+      var datos = {};
+      datos["usu_login"] = req.body.usuario;
+      datos["usu_clave"] = req.body.pass;
+      datos = await modelo.validar(datos);
+      let pagina02 = require("./pagina02"); 
+      pagina02(res,datos);
       break;
 
     default:
@@ -35,4 +39,4 @@ function getFuncion(req, res, next) {
   }
 }
 
-module.exports = router;
+export default router;
