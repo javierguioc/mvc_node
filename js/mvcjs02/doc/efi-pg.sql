@@ -1,3 +1,11 @@
+drop table rolxfuncionalidad;
+drop table usuarioxrol;
+drop table funcionalidad;
+drop table rol;
+drop table usuario;
+drop table persona;
+drop table modulo; 
+
 --Crear Super usuario--
 
 CREATE USER electiva PASSWORD '12345';

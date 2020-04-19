@@ -11,7 +11,7 @@ function html(req, res, next) {
   <body>
     <h1>Grupo JavaScript</h1>
     <ul>
-      <li><a href="./login">Login</a></li>
+      <li><a href="./login/index.js">Login</a></li>
       <li>
         <a href="./modulo/index.js">Gestion de Modulos y Funcionalidades</a>
       </li>
