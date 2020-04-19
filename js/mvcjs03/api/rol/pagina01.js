@@ -1,26 +1,4 @@
-const express = require("express");
-const router = express.Router();
-Modelo = require("./modelo");
-
-var modelo = new Modelo();
-
-router.post("/", postFunction);
-router.get("/", getFunction);
-
-//El boton eliminar hacer post a la misma pagina para borrar el registro
-async function postFunction(req, res, next) {
-  console.log("[IndexRol] Se hizo post", req.body);
-  var datos = {};
-  datos["rol_id"] = req.body.rol_id;  
-  await modelo.borrarRol(datos);
-  res.redirect(`/rol/index.js`);
-}
-
-async function getFunction(req, res, next) {
-  var datos = {};
-  datos = await modelo.recuperarRol();
-  console.log(datos["Rol"]);
-
+module.exports = async function (res,datos) {
   res.writeHead(200, { "Content-Type": "text/html" });
   res.write(`<h2>Roles:</h2>`);
   res.write(`<form method="POST" action="./index.js">`);
@@ -45,5 +23,3 @@ async function getFunction(req, res, next) {
   res.write(`</form>`);
   res.end();
 }
-
-module.exports = router;

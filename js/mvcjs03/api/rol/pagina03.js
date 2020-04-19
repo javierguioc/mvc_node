@@ -1,15 +1,4 @@
-const express = require("express");
-const router = express.Router();
-// const router = express.Router();
-
-var modelo = new Modelo();
-
-// Función asíncrona que recoge la request POST
-router.post("/", postFunction);
-
-async function postFunction(req, res, next) {
-  if (req.body.btnAction != "Enviar nuevo") {
-    console.log("[Rol03] Se hizo post ", req.body);
+module.exports = async function (res,datos) {
     res.writeHead(200, { "Content-Type": "text/html" });
     res.write(`<HTML>
     <BODY>          
@@ -34,13 +23,4 @@ async function postFunction(req, res, next) {
     </BODY>
 </HTML>`);
     res.end();
-  } else {
-    console.log("[else] Se hizo post ", req.body);
-    var datos = { ...req.body };
-    let respuesta = await modelo.insertarNuevoRol(datos);
-    console.log(respuesta);
-    res.redirect("/rol/index.js");
   }
-}
-
-module.exports = router;

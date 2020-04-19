@@ -62,7 +62,7 @@ class Modelo {
   }
   // pagina04
   async borrarPermisosRol(datos) {
-    let BorrarPermiso = `delete from rolxfuncionalidad where rol_id='${datos["RolId"]}' and fun_id::integer=${datos["sel_izq"]}
+    let BorrarPermiso = `delete from rolxfuncionalidad where rol_id='${datos["rol_id"]}' and fun_id::integer=${datos["sel_izq"]}
     `;
 
     this.con.conexion();
@@ -71,7 +71,7 @@ class Modelo {
   }  
 
   async insertarPermisosRol(datos) {
-    let InsertarPermiso = `insert into rolxfuncionalidad values ('${datos["RolId"]}','${datos["sel_der"]}')
+    let InsertarPermiso = `insert into rolxfuncionalidad values ('${datos["rol_id"]}','${datos["sel_der"]}')
     `;
 
     this.con.conexion();
@@ -105,6 +105,7 @@ class Modelo {
 
     // console.log(user, res1, res2);
     return {
+      ...datos,
       Rol,
       RolxFun,
       Funciones,
