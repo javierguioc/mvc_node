@@ -1,23 +1,6 @@
-Modelo = require("./modelo");
-const express = require("express");
-const router = express.Router();
-
-var modelo = new Modelo();
-
-router.post("/", postFunction);
-
-// Muestra el modulo a actualizar
-async function postFunction(req, res, next) {
-  if (req.body.btnAction != "Enviar Nuevo") {
-    console.log("[Modulo02] Se hizo post ", req.body);
-    console.log("Cambio Modulo");
-
-    var datos = {};
-    datos["mod_id"] = req.body.mod_id;
-
-    datos = await modelo.traerModulo(datos);
-    console.log("User: ", datos);
-    
+module.exports = async function (res,datos) {
+  
+  console.log("object pagina2 Modulo: ", datos);
 
     res.writeHead(200, { "Content-Type": "text/html" });
     res.write(`<h2>Modulos:</h2>`);
@@ -28,18 +11,18 @@ async function postFunction(req, res, next) {
       `<FORM name="login" action="./index.js" method="POST" target="resultado">`
     );
     res.write(
-      ` <INPUT type="hidden" value="${req.body.mod_id}" name="id" size="25">`
+      ` <INPUT type="hidden" value="${datos.mod_id}" name="id" size="25">`
     );
     res.write(`<TR><TD>
   <TABLE>
       <TR>
-          <TD align="right"></TD><TD align="left"><INPUT type="hidden" value="${req.body.mod_id}" name="mod_id" size="25"></TD>
+          <TD align="right"></TD><TD align="left"><INPUT type="hidden" value="${datos.mod_id}" name="mod_id" size="25"></TD>
       </TR>
       <TR>
-          <TD align="right">Nombre:</TD><TD align="left"><INPUT type="text" value="${datos["Module"]["mod_nombre"]}" name="mod_nombre" size="25"></TD>
+          <TD align="right">Nombre:</TD><TD align="left"><INPUT type="text" value="${datos.Module.mod_nombre}" name="mod_nombre" size="25"></TD>
       </TR>
       <TR>
-          <TD align="right">Descripcion:</TD><TD align="left"><INPUT type="text" value="${datos["Module"]["mod_descripcion"]}" name="mod_descripcion" size="25"></TD>
+          <TD align="right">Descripcion:</TD><TD align="left"><INPUT type="text" value="${datos.Module.mod_descripcion}" name="mod_descripcion" size="25"></TD>
       </TR>
       <TR >
           <TD colspan="2" align="center"><INPUT name="btnAction" type="submit" value="Enviar Actualizar">&nbsp;&nbsp;&nbsp;<INPUT type="reset" value="Borrar"></TD>
@@ -52,15 +35,4 @@ async function postFunction(req, res, next) {
 </HTML>`);
 
     res.end();
-  } else {
-    console.log("[else] Se hizo post ", req.body);
-
-        var datos = { ...req.body };
-
-        datos = await modelo.actualizarModulo(datos);
-
-        res.redirect("/modulo/index.js");
-  }
 }
-
-module.exports = router;

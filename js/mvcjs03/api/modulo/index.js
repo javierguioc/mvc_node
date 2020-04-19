@@ -17,7 +17,22 @@ async function postFunction(req, res, next) {
             pagina01 = require("./pagina01");
             pagina01(res,datos);
     case "Actualizar":
-      
+      var datos = {};
+      datos["mod_id"] = req.body.mod_id;
+      datos = await modelo.traerModulo(datos);
+      pagina02 = require("./pagina02");
+      pagina02(res,datos);
+
+    case  "Enviar Actualizar":
+      var datos = {};
+      console.log('Datos Actualizar', datos)
+      datos["mod_id"] = req.body.mod_id;
+      datos["mod_nombre"] = req.body.mod_nombre;
+      datos["mod_descripcion"] = req.body.mod_descripcion;
+      datos = await modelo.actualizarModulo(datos);
+      datos = await modelo.recuperarModulo();
+      pagina01 = require("./pagina01");
+      pagina01(res,datos);
     default:
       pagina01 = require("./pagina01");
       break;
