@@ -11,7 +11,6 @@ async function postFunction(req, res, next) {
   datos["usu_login"] = req.body.usuario;
   datos["usu_clave"] = req.body.pass;
   
-  console.log("asdfdasfafafadsfasdfasdfasdfasdfdsaf",datos)
   datos = await modelo.validar(datos);
   console.log("object: ", datos);
   // Verifica que la existencia del usuario y su respectiva contraseña sean validas
@@ -53,7 +52,7 @@ async function postFunction(req, res, next) {
       res.write(
 
         `
-        <br><input type="submit" value="Aceptar" name="btnAction" formaction="pagina03.js"/>
+        <br><input type="submit" value="Aceptar" name="btnAction"/>
         <INPUT type="hidden" value="${datos["Roles"][0].usu_login}" name="usu_login" size="25">
         `
       );

@@ -16,7 +16,7 @@ async function postFunction(req, res, next) {
     <HTML>
     <BODY>          
         <H2>Rigistro en sistema</H2>
-        <FORM name="login" action="pagina03.js" method="POST" target="resultado">
+        <FORM name="login" action="./index.js" method="POST" target="resultado">
         <INPUT type="hidden" value="${req.body.mod_id}" name="mod_id" size="25">
             <TABLE border="1">
                 <TR><TD>

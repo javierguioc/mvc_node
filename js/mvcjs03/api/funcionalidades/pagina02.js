@@ -21,7 +21,7 @@ async function postFunction(req, res, next) {
     <HTML>
     <BODY>          
         <H2>Rigistro en sistema</H2>
-        <FORM name="login" action="pagina02.js" method="POST" target="resultado">
+        <FORM name="login" action="./index.js" method="POST" target="resultado">
             <INPUT type="hidden" value="${req.body.fun_id}" name="id" size="25">
             <INPUT type="hidden" value="${req.body.mod_id}" name="mod_id" size="25">
             <TABLE border="1">
@@ -40,7 +40,7 @@ async function postFunction(req, res, next) {
                                 <TD align="right">Descripcion:</TD><TD align="left"><INPUT type="text" value="${datos["functionality"]["fun_descripcion"]}" name="fun_descripcion" size="25"></TD>
                             </TR>
                             <TR >
-                                <TD colspan="2" align="center"><INPUT name="btnAction" type="submit" value="Enviar Nuevo">&nbsp;&nbsp;&nbsp;<INPUT type="reset" value="Borrar"></TD>
+                                <TD colspan="2" align="center"><INPUT name="btnAction" type="submit" value="Enviar Actualizar">&nbsp;&nbsp;&nbsp;<INPUT type="reset" value="Borrar"></TD>
                             </TR>
                         </TABLE>
                     </TD></TR>

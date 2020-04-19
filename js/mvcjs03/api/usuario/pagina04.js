@@ -16,7 +16,7 @@ async function getFunction(req, res, next) {
         <body>
           <h2>Registro de persona</h2>
           <p>La id proporcionada no corresponde a ninguna persona en la base de datos, por favor regístrese</p>
-          <form name="registrarPersona" action="pagina04.js" method="POST">
+          <form name="registrarPersona" action="./index.js" method="POST">
             <table border="0">
               <tr>
                 <td align="right">Id persona:</td>

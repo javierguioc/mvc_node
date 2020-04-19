@@ -52,7 +52,7 @@ Mostrar_estructura = async (rol_id, res) => {
   // Boton de <- y ->
 
   res.write(`
-  <form action="pagina04.js" method="POST" name="form_permisos">
+  <form action="./index.js" method="POST" name="form_permisos">
               <input type="hidden" name="rol_id" value="${rol_id}">
                   <table>
                       <tr>

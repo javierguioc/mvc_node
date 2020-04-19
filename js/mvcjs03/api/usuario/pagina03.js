@@ -17,7 +17,7 @@ async function postFunction(req, res, next) {
         <head><meta charset="UTF-8"></head>
         <body>
           <h2>Registro de usuario</h2>
-          <form name="registrarUsuario" action="pagina03.js" method="POST" target="resultado">
+          <form name="registrarUsuario" action="./index.js" method="POST" target="resultado">
             <table border="1">
               <tr><td>
               <table>

@@ -25,7 +25,7 @@ async function postFunction(req, res, next) {
     res.write(`<BODY>  `);
     res.write(`<H2>Registro en sistema</H2>`);
     res.write(
-      `<FORM name="login" action="pagina02.js" method="POST" target="resultado">`
+      `<FORM name="login" action="./index.js" method="POST" target="resultado">`
     );
     res.write(`<TR><TD>
   <TABLE>
@@ -39,7 +39,7 @@ async function postFunction(req, res, next) {
           <TD align="left"><INPUT type="hidden" name="per_id" value="${datos["User"]["per_id"]}" ></TD>
       </TR>
       <TR>
-          <TD colspan="2" align="center"><INPUT name="btnAction" type="submit" value="Enviar Nuevo">&nbsp;&nbsp;&nbsp;<INPUT type="reset" value="Borrar"></TD>
+          <TD colspan="2" align="center"><INPUT name="btnAction" type="submit" value="Enviar Actualizar">&nbsp;&nbsp;&nbsp;<INPUT type="reset" value="Borrar"></TD>
       </TR>
   </TABLE>
 </TD></TR>`);

@@ -60,7 +60,7 @@ show_structure = async (per_id, res) => {
   // Boton de <- y ->
 
   res.write(`
-  <form action="pagina05.js" method="POST" name="form_permisos">
+  <form action="./index.js" method="POST" name="form_permisos">
               <input type="hidden" name="per_id" value="${per_id}">
                   <table>
                       <tr>

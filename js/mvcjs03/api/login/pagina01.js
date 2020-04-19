@@ -15,7 +15,7 @@ function showForm(req, res, next) {
             <div>
                 <center>
                     <h3>Inicio de Sesion</h3>
-                    <form method="POST" action="./login/pagina02.js">
+                    <form method="POST" action="./index.js">
                         <input type="text" name="usuario" placeholder="Usuario" />
                         <br />
                         
