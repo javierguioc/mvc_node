@@ -16,9 +16,20 @@ async function postFunction(req, res, next) {
       var datos = {};
       datos["usu_login"] = req.body.usuario;
       datos["usu_clave"] = req.body.pass;
+
       datos = await modelo.validar(datos);
+      datos=await modelo.Roles(datos);
       pagina02 = require("./pagina02"); 
       pagina02(res,datos);
+      break;
+
+    case "Aceptar":
+      var datos = {};
+      datos["usu_login"] = req.body.usu_login;
+      datos["rol_id"] = req.body.rol;
+      datos = await modelo.funcionalidades(datos);
+      pagina03 = require("./pagina03"); 
+      pagina03(res,datos);
       break;
 
     default:

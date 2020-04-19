@@ -64,6 +64,7 @@ class Modelo {
     Roles = JSON.parse(JSON.stringify(Roles.rows)) || "";
 
     return {
+      ... datos,
       Roles,
     };
   }
