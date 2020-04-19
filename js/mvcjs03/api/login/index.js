@@ -1,4 +1,5 @@
-const router = Router();
+const express = require("express");
+const router = express.Router();
 Modelo = require("./modelo");
 
 var modelo = new Modelo();
@@ -16,7 +17,7 @@ async function postFunction(req, res, next) {
       datos["usu_login"] = req.body.usuario;
       datos["usu_clave"] = req.body.pass;
       datos = await modelo.validar(datos);
-      let pagina02 = require("./pagina02"); 
+      pagina02 = require("./pagina02"); 
       pagina02(res,datos);
       break;
 
@@ -39,4 +40,4 @@ function getFuncion(req, res, next) {
   }
 }
 
-export default router;
+module.exports = router;

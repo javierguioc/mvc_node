@@ -1,4 +1,4 @@
-module.exports = function (res,datos) {
+module.exports = async function (res,datos) {
   
   console.log("object: ", datos);
   // Verifica que la existencia del usuario y su respectiva contraseña sean validas
@@ -40,7 +40,7 @@ module.exports = function (res,datos) {
       res.write(
 
         `
-        <br><input type="submit" value="Aceptar" name="btnAction" formaction="pagina03.js"/>
+        <br><input type="submit" value="Aceptar" name="btnAction"/>
         <INPUT type="hidden" value="${datos["Roles"][0].usu_login}" name="usu_login" size="25">
         `
       );
