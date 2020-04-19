@@ -9,8 +9,15 @@ router.post("/", postFunction);
 async function postFunction(req, res, next) {
   console.log("Se hizo post:", req.body);
   switch (req.body.btnAction) {
-    case "":
-
+    case "Eliminar":
+            var datos = {};
+            datos["mod_id"] = req.body.mod_id;  
+            await modelo.borrarModulo(datos);
+            datos = await modelo.recuperarModulo();
+            pagina01 = require("./pagina01");
+            pagina01(res,datos);
+    case "Actualizar":
+      
     default:
       pagina01 = require("./pagina01");
       break;

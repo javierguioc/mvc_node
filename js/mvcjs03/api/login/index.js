@@ -7,7 +7,7 @@ var modelo = new Modelo();
 router.post("/", postFunction);
 
 async function postFunction(req, res, next) {
-  console.log("Se hizo post:", req.body);
+  console.log("Se hizo post :", req.body);
   switch (req.body.btnAction) {
     case "Enviar":
       break;
@@ -18,9 +18,9 @@ async function postFunction(req, res, next) {
       datos["usu_clave"] = req.body.pass;
 
       datos = await modelo.validar(datos);
-      datos=await modelo.Roles(datos);
-      pagina02 = require("./pagina02"); 
-      pagina02(res,datos);
+      datos = await modelo.Roles(datos);
+      pagina02 = require("./pagina02");
+      pagina02(res, datos);
       break;
 
     case "Aceptar":
@@ -28,8 +28,9 @@ async function postFunction(req, res, next) {
       datos["usu_login"] = req.body.usu_login;
       datos["rol_id"] = req.body.rol;
       datos = await modelo.funcionalidades(datos);
-      pagina03 = require("./pagina03"); 
-      pagina03(res,datos);
+      pagina03 = require("./pagina03");
+      pagina03(res, datos);
+      break;
 
     default:
       pagina01 = require("./pagina01");
