@@ -7,6 +7,20 @@ var modelo = new Modelo();
 router.post("/", postFunction);
 // Recibe el usuario y la contraseña y verifica que exista en la base de datos
 async function postFunction(req, res, next) {
+  var datos = {};
+  datos["usu_login"] = req.body.usuario;
+  datos["usu_clave"] = req.body.pass;
+  
+  console.log("asdfdasfafafadsfasdfasdfasdfasdfdsaf",datos)
+  datos = await modelo.validar(datos);
+  console.log("object: ", datos);
+  // Verifica que la existencia del usuario y su respectiva contraseña sean validas
+  if (
+    datos["r_usu_login"] === datos["usu_login"] &&
+    datos["r_usu_clave"] === datos["usu_clave"]
+  ) {
+    let cant = datos["queryRole"]["cant"];
+    let us = datos["usu_login"];
     if (parseInt(cant) === 1) {
       res.redirect(
         `/login/pagina03.js?usu_login=${datos["usu_login"]}&rol_id=${datos["rol_id"]}`
