@@ -13,12 +13,12 @@ const loginPage = require("./api/login/index");
 // const modulePage02 = require("./api/modulo/pagina02");
 // const modulePage03 = require("./api/modulo/pagina03");
 
-// const functionalityPage = require("./api/funcionalidades/index");
+ const functionalityPage = require("./api/funcionalidades/index");
 // const functionalityPage01 = require("./api/funcionalidades/pagina01");
 // const functionalityPage02 = require("./api/funcionalidades/pagina02");
 // const functionalityPage03 = require("./api/funcionalidades/pagina03");
 
-// const rolePage = require("./api/rol/index");
+const rolePage = require("./api/rol/index");
 // const rolePage01= require("./api/rol/pagina01");
 // const rolePage02 = require("./api/rol/pagina02");
 // const rolePage03 = require("./api/rol/pagina03");
@@ -48,12 +48,12 @@ app.use("/modulo/index.js", modulePage);
 // app.use("/modulo/pagina02.js", modulePage02);
 // app.use("/modulo/pagina03.js", modulePage03);
 
-// app.use("/funcionalidad/index.js", functionalityPage);
+app.use("/funcionalidad/index.js", functionalityPage);
 // //app.use("/funcionalidad/pagina01.js", functionalityPage01);
 // app.use("/funcionalidad/pagina02.js", functionalityPage02);
 // app.use("/funcionalidad/pagina03.js", functionalityPage03);
 
-// app.use("/rol/index.js", rolePage);
+app.use("/rol/index.js", rolePage);
 // //app.use("/rol/pagina01.js", rolePage01);
 // app.use("/rol/pagina02.js", rolePage02);
 // app.use("/rol/pagina03.js", rolePage03);

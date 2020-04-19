@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 Modelo = require("./modelo");
-
+Modelo2 = require("../funcionalidades/modelo");
 var modelo = new Modelo();
-
+var modelo2 = new Modelo2();
 router.post("/", postFunction);
 
 async function postFunction(req, res, next) {
@@ -16,12 +16,14 @@ async function postFunction(req, res, next) {
             datos = await modelo.recuperarModulo();
             pagina01 = require("./pagina01");
             pagina01(res,datos);
+            break;
     case "Actualizar":
       var datos = {};
       datos["mod_id"] = req.body.mod_id;
       datos = await modelo.traerModulo(datos);
       pagina02 = require("./pagina02");
       pagina02(res,datos);
+      break;
 
     case  "Enviar Actualizar":
       var datos = {};
@@ -33,6 +35,23 @@ async function postFunction(req, res, next) {
       datos = await modelo.recuperarModulo();
       pagina01 = require("./pagina01");
       pagina01(res,datos);
+      break;
+    case "Nuevo":
+      pagina03 = require("./pagina03");
+      pagina03(res);
+      break;
+    case "Enviar nuevo":
+      var datos = {};
+      datos["mod_nombre"] = req.body.mod_nombre;
+      datos["mod_descripcion"] = req.body.mod_descripcion;
+      datos = await modelo.insertarNuevoModulo(datos);
+      datos = await modelo.recuperarModulo();
+      pagina01 = require("./pagina01");
+      pagina01(res,datos);
+      break;
+
+
+
     default:
       pagina01 = require("./pagina01");
       break;

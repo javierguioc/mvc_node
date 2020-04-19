@@ -1,20 +1,10 @@
-Modelo = require("./modelo");
-const express = require("express");
-const router = express.Router();
+module.exports = async function (res,datos) {
 
-var modelo = new Modelo();
+    console.log('Datos Pagina2 Rol', datos);
 
-router.post("/", postFunction);
-async function postFunction(req, res, next) {
-  if (req.body.btnAction != "Enviar Nuevo") {
-    console.log("[Rol02] Se hizo post ", req.body);
-    console.log("Cambio Rol");
-
-    var datos = {};
-    datos["rol_id"] = req.body.rol_id;
-
-    datos = await modelo.traerRol(datos);
-    console.log("User: ", datos);
+    //var datos = {};
+    datos["rol_id"] = datos.rol_id;
+    console.log(datos.Roles, "NOmMMMMMMMMMMMMMMMBre")
 
     res.writeHead(200, { "Content-Type": "text/html" });
     res.write(`<h2>Roles:</h2>`);
@@ -25,18 +15,18 @@ async function postFunction(req, res, next) {
       `<FORM name="login" action="./index.js" method="POST" target="resultado">`
     );
     res.write(
-      ` <INPUT type="hidden" value="${req.body.rol_id}" name="id" size="25">`
+      ` <INPUT type="hidden" value="${datos.rol_id}" name="id" size="25">`
     );
     res.write(`<TR><TD>
   <TABLE>
       <TR>
-          <TD align="right"></TD><TD align="left"><INPUT type="hidden" value="${req.body.rol_id}" name="rol_id" size="25"></TD>
+          <TD align="right"></TD><TD align="left"><INPUT type="hidden" value="${datos.rol_id}" name="rol_id" size="25"></TD>
       </TR>
       <TR>
-          <TD align="right">Nombre:</TD><TD align="left"><INPUT type="text" value="${datos["Roles"]["rol_nombre"]}" name="rol_nombre" size="25"></TD>
+          <TD align="right">Nombre:</TD><TD align="left"><INPUT type="text" value="${datos.Roles.rol_nombre}" name="rol_nombre" size="25"></TD>
       </TR>
       <TR>
-          <TD align="right">Descripcion:</TD><TD align="left"><INPUT type="text" value="${datos["Roles"]["rol_descripcion"]}" name="rol_descripcion" size="25"></TD>
+          <TD align="right">Descripcion:</TD><TD align="left"><INPUT type="text" value="${datos.Roles.rol_descripcion}" name="rol_descripcion" size="25"></TD>
       </TR>
       <TR >
           <TD colspan="2" align="center"><INPUT name="btnAction" type="submit" value="Enviar Actualizar">&nbsp;&nbsp;&nbsp;<INPUT type="reset" value="Borrar"></TD>
@@ -49,15 +39,4 @@ async function postFunction(req, res, next) {
 </HTML>`);
 
     res.end();
-  } else {
-        console.log("[else] Se hizo post ", req.body);
-
-        var datos = { ...req.body };
-
-        datos = await modelo.actualizarRol(datos);
-
-        res.redirect("/rol/index.js");
-  }
 }
-
-module.exports = router;

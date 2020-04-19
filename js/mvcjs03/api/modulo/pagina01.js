@@ -14,7 +14,7 @@ module.exports = async function (res,datos) {
   <input type="submit" value="Eliminar" name="btnAction" />&nbsp;
   <input type="submit" value="Actualizar" name="btnAction" />&nbsp;
   <input type="submit" value="Nuevo" name="btnAction" />&nbsp;
-  <input type="submit" value="Funcionalidades" name="btnAction"/>
+  <input type="submit" value="Funcionalidades" name="btnAction" formaction="../funcionalidad/index.js"/>
   </form>`);
   res.end();
 }

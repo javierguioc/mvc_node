@@ -14,13 +14,13 @@ class Modelo {
   }  
   
     async recuperarFuncionalidad(datos) {
-	console.log(datos["mod_id"]);
 	let queryFuncionalidad = `SELECT * FROM funcionalidad as fun, modulo as mod where mod.mod_id=fun.mod_id  and fun.mod_id::integer=${datos["mod_id"]}`;
 	this.con.conexion();
 	let Funcionalidad = await this.con.sql(queryFuncionalidad);
 	this.con.cerrarConexion();
 	Funcionalidad = JSON.parse(JSON.stringify(Funcionalidad.rows)) || "";
 	return {
+    ...datos,
 	  Funcionalidad,
 	};
   }
@@ -48,6 +48,7 @@ class Modelo {
 	let functionalityUpdate = await this.con.sql(updatefunctionality);
     this.con.cerrarConexion();
     return {
+      ...datos,
       functionalityUpdate,
     };
   }
@@ -59,6 +60,14 @@ class Modelo {
 	let insertFuncionalidad = `insert into funcionalidad(fun_nombre,fun_ruta,fun_descripcion,mod_id) values ('${datos["fun_nombre"]}','${datos["fun_ruta"]}','${datos["fun_descripcion"]}',${datos["mod_id"]});`;
     let insertResponse = await this.con.sql(insertFuncionalidad);
     this.con.cerrarConexion();
-  return insertResponse;}
+  return {
+    ...datos,
+    insertResponse,
+  
+  };
+
+}
+
+
 }
 module.exports = Modelo;

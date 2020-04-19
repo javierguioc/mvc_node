@@ -1,16 +1,5 @@
-Modelo = require("./modelo");
-const express = require("express");
-const router = express.Router();
-// const router = express.Router();
-
-var modelo = new Modelo();
-
-// Función asíncrona que recoge la request POST
-router.post("/", postFunction);
-
-async function postFunction(req, res, next) {
-    // Genera el formulario para ingresar el nuevo modulo
-  if (req.body.btnAction != "Enviar nuevo") {
+module.exports = async function (res) {
+  
     res.writeHead(200, { "Content-Type": "text/html" });
     res.write(`<HTML>
     <BODY>          
@@ -36,13 +25,6 @@ async function postFunction(req, res, next) {
     </BODY>
 </HTML>`);
     res.end();
-  } else {
-    console.log("[else] Se hizo post ", req.body);
-    var datos = { ...req.body };
-    let respuesta = await modelo.insertarNuevoModulo(datos);
-    console.log(respuesta);
-    res.redirect("/modulo/index.js");
-  }
+ 
 }
 
-module.exports = router;
