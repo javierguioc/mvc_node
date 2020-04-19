@@ -7,24 +7,30 @@ var modelo = new Modelo();
 router.post("/", postFunction);
 
 async function postFunction(req, res, next) {
+  console.log("Se hizo post:", req.body);
+  switch (req.body.btnAction) {
+    case "":
 
-    switch (req.body.btnAction) {
-        case "Eliminar":
-        
-        case "Actualizar":
-        
-        case "Nuevo":
-        
-        case  "Funcionalidades":
-        
-        case  "Enviar Actualizar":
-        
-        case "Enviar Nuevo":
-        
-        default:
-        
-        break;
-    }
+    default:
+      pagina01 = require("./pagina01");
+      break;
+      
+  }
+}
+
+router.get("/", getFuncion);
+// Muestra el formulario para ingresar el usuario y la contraseña
+async function getFuncion(req, res, next) {
+    console.log("Se hizo get");
+  switch (req.body.btnAction) {
+    default:
+      //   console.log("Entro a default");
+      var datos = {};
+      datos = await modelo.recuperarModulo();
+      pagina01 = require("./pagina01");
+      pagina01(res,datos);
+      break;
+  }
 }
 
 module.exports = router;

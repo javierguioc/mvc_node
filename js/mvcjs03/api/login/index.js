@@ -30,7 +30,6 @@ async function postFunction(req, res, next) {
       datos = await modelo.funcionalidades(datos);
       pagina03 = require("./pagina03"); 
       pagina03(res,datos);
-      break;
 
     default:
       pagina01 = require("./pagina01");

@@ -4,7 +4,6 @@ module.exports = async function (res,datos) {
   if (datos.usu_login==datos.r_usu_login  && datos.usu_clave==datos.r_usu_clave){
     if (datos.queryRole == 1){
 
-
     }
     else if (datos.queryRole == 0){
       res.writeHead(200, { "Content-Type": "text/html" });
@@ -44,7 +43,6 @@ module.exports = async function (res,datos) {
 
 
   }
-  // Verifica que la existencia del usuario y su respectiva contraseña sean validas
   
 
 

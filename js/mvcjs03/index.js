@@ -8,7 +8,7 @@ const loginPage = require("./api/login/index");
 // const loginPage02 = require("./api/login/pagina02");
 // const loginPage03 = require("./api/login/pagina03");
 
-// const modulePage = require("./api/modulo/index");
+ const modulePage = require("./api/modulo/index");
 // const modulePage01 = require("./api/modulo/pagina01");
 // const modulePage02 = require("./api/modulo/pagina02");
 // const modulePage03 = require("./api/modulo/pagina03");
@@ -43,7 +43,7 @@ app.use("/login/index.js", loginPage);
 // app.use("/login/pagina02.js", loginPage02);
 // app.use("/login/pagina03.js", loginPage03);
 
-// app.use("/modulo/index.js", modulePage);
+app.use("/modulo/index.js", modulePage);
 // //app.use("/modulo/pagina01.js", modulePage01);
 // app.use("/modulo/pagina02.js", modulePage02);
 // app.use("/modulo/pagina03.js", modulePage03);
