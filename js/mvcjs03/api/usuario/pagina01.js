@@ -1,46 +1,33 @@
-const express = require("express");
-const router = express.Router();
-Modelo = require("./modelo");
+// async function getFunction(req, res, next) {
+//   res.writeHead(200, { "Content-Type": "text/html" });
+//   res.write(`<h2>Usuarios:</h2>`);
+//   res.write(`<form method="POST" action="./index.js">
+//   <input type="text" value="" name="buscar" size="20">
+//   <input type="submit" value="Buscar" name="btnAction" "/>&nbsp;
+//   <input type="submit" value="Nuevo" name="btnAction"   formaction="pagina03.js"/>
 
-var modelo = new Modelo();
+//   </form>`);
+//   res.end();
+// }
 
-router.post("/", postFunction);
-router.get("/", getFunction);
+// async function postFunction(req, res, next) {
+//   // Mensaje de log
+//   console.log("[Usuario01] Se hizo post ", req.body);
 
-async function getFunction(req, res, next) {
-  res.writeHead(200, { "Content-Type": "text/html" });
-  res.write(`<h2>Usuarios:</h2>`);
-  res.write(`<form method="POST" action="./index.js">
-  <input type="text" value="" name="buscar" size="20">
-  <input type="submit" value="Buscar" name="btnAction" "/>&nbsp;
-  <input type="submit" value="Nuevo" name="btnAction"   formaction="pagina03.js"/>
-  
-  </form>`);
-  res.end();
-}
+//   if (req.body.btnAction === "Buscar") {
+//     // console.log("se oprimio el boton de buscar");
+//     await busquedaUsuarios(req, res, next);
+//   } else {
+//     var datos = {};
+//     datos["per_id"] = req.body.per_id;
+//     await modelo.borrarUsuario(datos);
 
-async function postFunction(req, res, next) {
-  // Mensaje de log
-  console.log("[Usuario01] Se hizo post ", req.body);
+//     res.redirect(`/usuario/index.js`);
+//   }
+// }
 
-  if (req.body.btnAction === "Buscar") {
-    // console.log("se oprimio el boton de buscar");
-    await busquedaUsuarios(req, res, next);
-  } else {
-    var datos = {};
-    datos["per_id"] = req.body.per_id;
-    await modelo.borrarUsuario(datos);
+module.exports = async function (res, datos) {
 
-    res.redirect(`/usuario/index.js`);
-  }
-}
-
-async function busquedaUsuarios(req, res, next) {
-  var datos = {};
-
-  datos["usu_buscar"] = req.body.buscar;
-  
-  datos = await modelo.recuperarUsuarios(datos);
   // console.log("object: ", datos);
 
   res.writeHead(200, { "Content-Type": "text/html" });
@@ -64,15 +51,9 @@ async function busquedaUsuarios(req, res, next) {
   });
   res.write(`</table><br>`);
   res.write(`<input type="submit" value="Eliminar" name="btnAction" />`);
-  res.write(
-    `<input type="submit" value="Actualizar" name="btnAction"/>`
-  );
-  res.write(
-    ` <input type="submit" value="Permisos" name="btnAction" />`
-  );
+  res.write(`<input type="submit" value="Actualizar" name="btnAction"/>`);
+  res.write(` <input type="submit" value="Permisos" name="btnAction" />`);
   res.write(`<p id="demo"></p>`);
   res.write(`</form>`);
   res.end();
-}
-
-module.exports = router;
+};

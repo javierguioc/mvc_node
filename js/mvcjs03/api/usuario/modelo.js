@@ -143,6 +143,7 @@ class Modelo {
 
     // console.log(user, res1, res2);
     return {
+      ...datos,
       user,
       res1,
       res2,

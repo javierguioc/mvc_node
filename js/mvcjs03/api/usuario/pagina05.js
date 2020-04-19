@@ -1,54 +1,53 @@
-const express = require("express");
-const router = express.Router();
-Modelo = require("./modelo");
+// const express = require("express");
+// const router = express.Router();
+// Modelo = require("./modelo");
 
-var modelo = new Modelo();
+// var modelo = new Modelo();
 
-router.post("/", postFunction);
+// router.post("/", postFunction);
 
-// Muestra los permisos de un usuario
-async function postFunction(req, res, next) {
-  console.log("[Se hizo post a pag 6]:", req.body);
-  if (req.body.btnAction == "Permisos") {
-    await show_structure(req.body.per_id, res);
-  }
-  let LoginUsuario = await getUsuLogin(req.body.per_id);
+// // Muestra los permisos de un usuario
+// async function postFunction(req, res, next) {
+//   console.log("[Se hizo post a pag 6]:", req.body);
+//   if (req.body.btnAction == "Permisos") {
+//     await show_structure(req.body.per_id, res);
+//   }
+//   let LoginUsuario = await getUsuLogin(req.body.per_id);
 
   
-  if (req.body.btnAction == "->") {
-    console.log("Se oprimio ->", req.body);
-    var datos = { LoginUsuario };
-    datos["sel_izq"] = req.body.sel_izq;
+//   if (req.body.btnAction == "->") {
+//     console.log("Se oprimio ->", req.body);
+//     var datos = { LoginUsuario };
+//     datos["sel_izq"] = req.body.sel_izq;
 
-    await modelo.borrarPermisos(datos);
-    show_structure(req.body.per_id, res);
-  }
+//     await modelo.borrarPermisos(datos);
+//     show_structure(req.body.per_id, res);
+//   }
 
-  if (req.body.btnAction == "<-") {
-    console.log("Se oprimio <-");
-    // // Permite borrar las funcionalidades de un modulo
+//   if (req.body.btnAction == "<-") {
+//     console.log("Se oprimio <-");
+//     // // Permite borrar las funcionalidades de un modulo
 
-    var datos = { LoginUsuario };
-    datos["sel_der"] = req.body.sel_der;
+//     var datos = { LoginUsuario };
+//     datos["sel_der"] = req.body.sel_der;
 
-    await modelo.insertarPermisos(datos);
-    show_structure(req.body.per_id, res);
-  }
-}
-// Retorna el login del usuario que se esta mostrando
-getUsuLogin = async (per_id) => {
-  var datos = { per_id };
+//     await modelo.insertarPermisos(datos);
+//     show_structure(req.body.per_id, res);
+//   }
+// }
+// // Retorna el login del usuario que se esta mostrando
+// getUsuLogin = async (per_id) => {
+//   var datos = { per_id };
 
-  datos = await modelo.obtenerUsuLogin(datos);
+//   datos = await modelo.obtenerUsuLogin(datos);
   
-  return datos["usu_login"];
-};
+//   return datos["usu_login"];
+// };
 
 // Muestra la estructura del formulario
-show_structure = async (per_id, res) => {
+module.exports = async function (res, datos) {
 
-  var datos = { per_id };
-  datos = await modelo.obtenerPermisos(datos);
+ 
 
   res.writeHead(200, { "Content-Type": "text/html" });
   res.write(`
@@ -61,7 +60,7 @@ show_structure = async (per_id, res) => {
 
   res.write(`
   <form action="./index.js" method="POST" name="form_permisos">
-              <input type="hidden" name="per_id" value="${per_id}">
+              <input type="hidden" name="per_id" value="${datos.per_id}">
                   <table>
                       <tr>
                           <th>
@@ -108,4 +107,3 @@ show_structure = async (per_id, res) => {
   res.end();
 };
 
-module.exports = router;

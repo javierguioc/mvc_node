@@ -24,7 +24,7 @@ const loginPage = require("./api/login/index");
 // const rolePage03 = require("./api/rol/pagina03");
 // const rolePage04 = require("./api/rol/pagina04");
 
-// const userPage = require("./api/usuario/index");
+const userPage = require("./api/usuario/index");
 // const userPage01 = require("./api/usuario/pagina01");
 // const userPage02 = require("./api/usuario/pagina02");
 // const userPage03 = require("./api/usuario/pagina03");
@@ -59,7 +59,7 @@ app.use("/modulo/index.js", modulePage);
 // app.use("/rol/pagina03.js", rolePage03);
 // app.use("/rol/pagina04.js", rolePage04);
 
-// app.use("/usuario/index.js", userPage);
+app.use("/usuario/index.js", userPage);
 // //app.use("/usuario/pagina01.js", userPage01);
 // app.use("/usuario/pagina02.js", userPage02);
 // app.use("/usuario/pagina03.js", userPage03);
