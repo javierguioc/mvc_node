@@ -4,7 +4,6 @@ module.exports = async function (res,datos) {
 
     //var datos = {};
     datos["rol_id"] = datos.rol_id;
-    console.log(datos.Roles, "NOmMMMMMMMMMMMMMMMBre")
 
     res.writeHead(200, { "Content-Type": "text/html" });
     res.write(`<h2>Roles:</h2>`);
