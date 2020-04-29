@@ -1,0 +1,17 @@
+{
+  "name": "mvcjs01",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql": "^2.18.1",
+    "pg": "^7.18.2",
+    "request": "^2.88.2"
+  },
+  "description": ""
+}
