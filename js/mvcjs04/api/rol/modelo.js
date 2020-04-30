@@ -2,7 +2,6 @@ Conexion = require("../db/conexion");
 // Clase modelo para rol
 class Modelo {
 
-<<<<<<< HEAD
   //index
   async recuperarRol() {
     // let queryRoles = "SELECT * FROM rol ";
@@ -13,10 +12,6 @@ class Modelo {
     return {
       Rol,
     };
-=======
-  constructor() {
-    this.con = new Conexion();
->>>>>>> a4223e788b43142f575e6fe55b9f3c55c2c15c6d
   }
   
   //index 
@@ -41,13 +36,8 @@ class Modelo {
 
   // pagina02
   async traerRol(datos) {
-<<<<<<< HEAD
     console.log(datos["rol_id"]);
     // let RolesToUpdate = `SELECT * FROM rol where rol_id::integer=${datos["rol_id"]}`;
-=======
-    console.log(datos["rol_id"])
-    let RolesToUpdate = `SELECT * FROM rol where rol_id::integer=${datos["rol_id"]}`;
->>>>>>> a4223e788b43142f575e6fe55b9f3c55c2c15c6d
     // let client = new Client(connectionData);
     // this.con.conexion();
     let Roles = await this.consultaIndividual("rol", ["rol_id"], datos);
@@ -93,17 +83,10 @@ class Modelo {
     let BorrarPermiso = `delete from rolxfuncionalidad where rol_id='${datos["rol_id"]}' and fun_id::integer=${datos["sel_izq"]}
     `;
 
-<<<<<<< HEAD
     // this.con.conexion();
     let permiso = await this.sql(BorrarPermiso);
     // this.cerrarConexion();
   }
-=======
-    this.con.conexion();
-    let permiso = await this.con.eliminar(BorrarPermiso);
-    this.con.cerrarConexion();
-  }  
->>>>>>> a4223e788b43142f575e6fe55b9f3c55c2c15c6d
 
   async insertarPermisosRol(datos) {
     let InsertarPermiso = `insert into rolxfuncionalidad values ('${datos["rol_id"]}','${datos["sel_der"]}')
