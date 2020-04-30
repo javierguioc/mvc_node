@@ -8,12 +8,12 @@ const loginPage = require("./api/login/index");
 // const loginPage02 = require("./api/login/pagina02");
 // const loginPage03 = require("./api/login/pagina03");
 
- const modulePage = require("./api/modulo/index");
+const modulePage = require("./api/modulo/index");
 // const modulePage01 = require("./api/modulo/pagina01");
 // const modulePage02 = require("./api/modulo/pagina02");
 // const modulePage03 = require("./api/modulo/pagina03");
 
- const functionalityPage = require("./api/funcionalidades/index");
+const functionalityPage = require("./api/funcionalidades/index");
 // const functionalityPage01 = require("./api/funcionalidades/pagina01");
 // const functionalityPage02 = require("./api/funcionalidades/pagina02");
 // const functionalityPage03 = require("./api/funcionalidades/pagina03");
@@ -67,8 +67,8 @@ app.use("/usuario/index.js", userPage);
 // app.use("/usuario/pagina05.js", userPage06);
 
 app.listen(3000, () => {
-  console.clear();
-  console.log("MVC01 Grupo JavaScript - Escuchando en: http://localhost:3000 ");
+    console.clear();
+    console.log("MVC04 Grupo JavaScript - Escuchando en: http://localhost:3000 ");
 });
 
 module.exports = app;

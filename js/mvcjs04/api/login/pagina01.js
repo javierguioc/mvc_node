@@ -1,3 +1,5 @@
+ClaseVistaGeneral = require("../general/ClaseVistaGeneral");
+var vista = new ClaseVistaGeneral();
 module.exports = function(req, res) {
     //   console.log("Entro en la pagina 01");
     res.writeHead(200, { "Content-Type": "text/html" });
@@ -12,15 +14,11 @@ module.exports = function(req, res) {
                   <center>
                       <h3>Inicio de Sesion</h3>
                       <form method="POST" action="./index.js">
-                          <input type="text" name="usu_login" placeholder="Usuario" />
-                          <br />
-                          
-                          <input type="password" name="usu_clave" placeholder="Contraseña" />
-                          <br />
-                          <br />
-                          <INPUT name="btnAction" type="submit" value="Ingresar">
+                      ${vista.cajaTexto('text', 'usu_login', '', 'Usuario')}
+                      ${vista.cajaTexto('password', 'usu_clave', '', 'Contraseña')}
+                      ${vista.boton('Ingresar')}
                       </form>
-                      <button onclick="window.location.href = '/'"><==</button>
+                      ${vista.botonr()}
                   </center>
               </div>
           </body>
