@@ -1,12 +1,23 @@
-Conexion = require("../db/conexion");
+// Conexion = require("../db/conexion");
+ClaseModeloGeneral = require("../general/ClaseModeloGeneral");
 // Clase modelo para rol
-class Modelo {
+class Modelo extends ClaseModeloGeneral {
+  // constructor() {
+  //   this.tabla = "rol";
+  // }
 
-  constructor() {
-    this.con = new Conexion();
+  //index
+  async recuperarRol() {
+    // let queryRoles = "SELECT * FROM rol ";
+    // this.con.conexion();
+    let Rol = await this.consulta("rol");
+    // this.con.cerrarConexion();
+    Rol = JSON.parse(JSON.stringify(Rol.rows)) || "";
+    return {
+      Rol,
+    };
   }
-  
-  //index 
+
   async borrarRol(datos) {
     let deleteRol = `DELETE FROM rol where rol_id::integer=${datos["rol_id"]}`;
     this.con.conexion();
@@ -14,20 +25,9 @@ class Modelo {
     this.con.cerrarConexion();
   }
 
-  async recuperarRol() {
-    let queryRoles = "SELECT * FROM rol ";
-    this.con.conexion();
-    let Rol = await this.con.sql(queryRoles);
-    this.con.cerrarConexion();
-    Rol = JSON.parse(JSON.stringify(Rol.rows)) || "";
-    return {
-      Rol,
-    };
-  }
-
   // pagina02
   async traerRol(datos) {
-    console.log(datos["rol_id"])
+    console.log(datos["rol_id"]);
     let RolesToUpdate = `SELECT * FROM rol where rol_id::integer=${datos["rol_id"]}`;
     // let client = new Client(connectionData);
     this.con.conexion();
@@ -68,7 +68,7 @@ class Modelo {
     this.con.conexion();
     let permiso = await this.con.eliminar(BorrarPermiso);
     this.con.cerrarConexion();
-  }  
+  }
 
   async insertarPermisosRol(datos) {
     let InsertarPermiso = `insert into rolxfuncionalidad values ('${datos["rol_id"]}','${datos["sel_der"]}')
@@ -78,15 +78,14 @@ class Modelo {
     let permiso = await this.con.sql(InsertarPermiso);
     this.con.cerrarConexion();
   }
-  
+
   async obtenerPermisosRol(datos) {
-    console.log('PermisosRol')
-    let dt=datos["rol_id"].trim()
+    console.log("PermisosRol");
+    let dt = datos["rol_id"].trim();
     let ListarRol = `select * from rol as ro where ro.rol_id::integer=${datos["rol_id"]}`;
     this.con.conexion();
     let Rol = await this.con.sql(ListarRol);
     Rol = JSON.parse(JSON.stringify(Rol.rows[0])) || "";
-
 
     let ListarRxF = `select * from rolxfuncionalidad as rf, funcionalidad as fu where fu.fun_id=rf.fun_id and rf.rol_id::integer='${dt}'`;
     console.log(ListarRxF);
@@ -111,6 +110,5 @@ class Modelo {
       Funciones,
     };
   }
- 
 }
 module.exports = Modelo;
