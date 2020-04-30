@@ -29,11 +29,11 @@ class Postgres {
     });
   }
 
-  eliminar(queryStructure) {
-    console.log("[BD] - Accion: ", queryStructure);
+  eliminar(queryStructure,param) {
+    console.log("[BD] - Accion: ", queryStructure,param);
     return new Promise((resolve, reject) => {
       this.client
-        .query(queryStructure)
+        .query(queryStructure,param)
         .then((respuesta) => {
           // console.log("[BD] Respuesta de la consulta ", respuesta);
           resolve(respuesta);

@@ -9,7 +9,7 @@ class Modelo extends ClaseModeloGeneral {
   //index
   async recuperarRol() {
     // let queryRoles = "SELECT * FROM rol ";
-    // this.con.conexion();
+    // this.conexion();
     let Rol = await this.consulta("rol");
     // this.con.cerrarConexion();
     Rol = JSON.parse(JSON.stringify(Rol.rows)) || "";
@@ -19,20 +19,21 @@ class Modelo extends ClaseModeloGeneral {
   }
 
   async borrarRol(datos) {
-    let deleteRol = `DELETE FROM rol where rol_id::integer=${datos["rol_id"]}`;
-    this.con.conexion();
-    let Rol = await this.con.eliminar(deleteRol);
-    this.con.cerrarConexion();
+    // let deleteRol = `DELETE FROM rol where rol_id::integer=${datos["rol_id"]}`;
+    // this.con.conexion();
+    // console.log("Para borrar llega: ", datos);
+    let Rol = await this.eliminar("rol", ["rol_id"], datos);
+    // this.con.cerrarConexion();
   }
 
   // pagina02
   async traerRol(datos) {
     console.log(datos["rol_id"]);
-    let RolesToUpdate = `SELECT * FROM rol where rol_id::integer=${datos["rol_id"]}`;
+    // let RolesToUpdate = `SELECT * FROM rol where rol_id::integer=${datos["rol_id"]}`;
     // let client = new Client(connectionData);
-    this.con.conexion();
-    let Roles = await this.con.sql(RolesToUpdate);
-    this.con.cerrarConexion();
+    // this.con.conexion();
+    let Roles = await this.consultaIndividual("rol", ["rol_id"], datos);
+    // this.con.cerrarConexion();
 
     Roles = JSON.parse(JSON.stringify(Roles.rows[0])) || "";
 
@@ -43,10 +44,14 @@ class Modelo extends ClaseModeloGeneral {
   }
 
   async actualizarRol(datos) {
-    let UpdateRol = `UPDATE rol SET rol_id=${datos["rol_id"]}, rol_nombre='${datos["rol_nombre"]}',rol_descripcion='${datos["rol_descripcion"]}' where rol_id::integer=${datos["rol_id"]}`;
-    this.con.conexion();
-    let Rol = await this.con.sql(UpdateRol);
-    this.con.cerrarConexion();
+    // let UpdateRol = `UPDATE rol SET rol_id=${datos["rol_id"]}, rol_nombre='${datos["rol_nombre"]}',rol_descripcion='${datos["rol_descripcion"]}' where rol_id::integer=${datos["rol_id"]}`;
+    // this.con.conexion();
+    let Rol = await this.actualizar(
+      "rol",
+      ["rol_id", "rol_nombre", "rol_descripcion"],
+      datos
+    );
+    // this.con.cerrarConexion();
     return {
       Rol,
     };
@@ -54,53 +59,58 @@ class Modelo extends ClaseModeloGeneral {
 
   // pagina03
   async insertarNuevoRol(datos) {
-    this.con.conexion();
-    let insertRol = `insert into rol(rol_nombre,rol_descripcion) values ('${datos["rol_nombre"]}','${datos["rol_descripcion"]}')`;
-    let insertResRol = await this.con.sql(insertRol);
-    this.con.cerrarConexion();
+    // this.con.conexion();
+    // let insertRol = `insert into rol(rol_nombre,rol_descripcion) values ('${datos["rol_nombre"]}','${datos["rol_descripcion"]}')`;
+    let insertResRol = await this.insertar(
+      "rol",
+      ["rol_nombre", "rol_descripcion"],
+      datos
+    );
+    // this.con.cerrarConexion();
     return insertResRol;
   }
+
   // pagina04
   async borrarPermisosRol(datos) {
     let BorrarPermiso = `delete from rolxfuncionalidad where rol_id='${datos["rol_id"]}' and fun_id::integer=${datos["sel_izq"]}
     `;
 
-    this.con.conexion();
-    let permiso = await this.con.eliminar(BorrarPermiso);
-    this.con.cerrarConexion();
+    // this.con.conexion();
+    let permiso = await this.sql(BorrarPermiso);
+    // this.cerrarConexion();
   }
 
   async insertarPermisosRol(datos) {
     let InsertarPermiso = `insert into rolxfuncionalidad values ('${datos["rol_id"]}','${datos["sel_der"]}')
     `;
 
-    this.con.conexion();
-    let permiso = await this.con.sql(InsertarPermiso);
-    this.con.cerrarConexion();
+    // thisexion();
+    let permiso = await this.sql(InsertarPermiso);
+    // this.cerrarConexion();
   }
 
   async obtenerPermisosRol(datos) {
     console.log("PermisosRol");
     let dt = datos["rol_id"].trim();
     let ListarRol = `select * from rol as ro where ro.rol_id::integer=${datos["rol_id"]}`;
-    this.con.conexion();
-    let Rol = await this.con.sql(ListarRol);
+    // thisexion();
+    let Rol = await this.sql(ListarRol);
     Rol = JSON.parse(JSON.stringify(Rol.rows[0])) || "";
 
     let ListarRxF = `select * from rolxfuncionalidad as rf, funcionalidad as fu where fu.fun_id=rf.fun_id and rf.rol_id::integer='${dt}'`;
     console.log(ListarRxF);
-    let RolxFun = await this.con.sql(ListarRxF);
+    let RolxFun = await this.sql(ListarRxF);
     console.log(RolxFun);
     RolxFun = JSON.parse(JSON.stringify(RolxFun.rows)) || "";
 
     //   2
     let ListarFun = `select fu.fun_id, fu.fun_nombre from funcionalidad as fu except select fu.fun_id, fu.fun_nombre from rolxfuncionalidad as rf, funcionalidad as fu where fu.fun_id=rf.fun_id and rf.rol_id::integer='${dt}'`;
     console.log(ListarFun);
-    let Funciones = await this.con.sql(ListarFun);
+    let Funciones = await this.sql(ListarFun);
     Funciones = JSON.parse(JSON.stringify(Funciones.rows)) || "";
     console.log(Funciones);
 
-    this.con.cerrarConexion();
+    // this.cerrarConexion();
 
     // console.log(user, res1, res2);
     return {

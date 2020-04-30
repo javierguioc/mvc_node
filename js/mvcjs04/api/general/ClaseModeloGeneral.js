@@ -6,7 +6,7 @@ class ClaseModeloGeneral {
   }
 
   async consulta(tabla) {
-    console.log("=-=-=-=-=-=-= Entro por la clase general=-=-=-=-=-=-=");
+    console.log("=-=-=-=-=-=-= Consulta en clase general=-=-=-=-=-=-=");
     this.con.conexion();
     var estructura = `SELECT * FROM ${tabla}`;
     var rs = "";
@@ -20,15 +20,111 @@ class ClaseModeloGeneral {
     return rs;
   }
 
-  async consulta(tabla) {
-    console.log("=-=-=-=-=-=-= Entro por la clase general=-=-=-=-=-=-=");
+  async consultaIndividual(tabla, campos, datos) {
+    console.log("=-=-=-=-=-=-= Consulta Individual =-=-=-=-=-=-=");
     this.con.conexion();
-    var estructura = `SELECT * FROM ${tabla}`;
+    var estructura = `SELECT * from ${tabla} where `;
+    for (var i = 0; i < campos.length; i++) {
+      let a = datos[campos[i]];
+      if (i === campos.length - 1) {
+        estructura = estructura + ` ${campos[i]} = '${a}'`;
+      } else {
+        estructura = estructura + ` ${campos[i]} = '${a}'` + " and ";
+      }
+    }
+
     var rs = "";
     try {
       rs = await this.con.sql(estructura);
     } catch (error) {
       console.log("[Error Consulta] ", error);
+      rs = "Error";
+    }
+    this.con.cerrarConexion();
+    return rs;
+  }
+
+  async eliminar(tabla, campos, datos) {
+    console.log("=-=-=-=-=-=-= [Eliminar clase general] =-=-=-=-=-=-=");
+    this.con.conexion();
+    var estructura = `delete from ${tabla} where `;
+    for (var i = 0; i < campos.length; i++) {
+      let a = datos[campos[i]];
+      if (i === campos.length - 1) {
+        estructura = estructura + ` ${campos[i]} = '${a}'`;
+      } else {
+        estructura = estructura + ` ${campos[i]} = '${a}'` + " and ";
+      }
+    }
+    var rs = "";
+    try {
+      rs = await this.con.sql(estructura);
+    } catch (error) {
+      console.log("[Error Consulta] ", error);
+      rs = "Error";
+    }
+    this.con.cerrarConexion();
+    return rs;
+  }
+
+  async insertar(tabla, campos, datos) {
+    console.log("=-=-=-=-=-=-= [Insertar clase general] =-=-=-=-=-=-=");
+    this.con.conexion();
+    var estructura = `insert into ${tabla} (` + campos.toString();
+    estructura = estructura + `) values ( `;
+    for (var i = 0; i < campos.length; i++) {
+      let a = datos[campos[i]];
+      if (i === campos.length - 1) {
+        estructura = estructura + `'${a}')`;
+      } else {
+        estructura = estructura + `'${a}', `;
+      }
+    }
+
+    var rs = "";
+    try {
+      rs = await this.con.sql(estructura);
+    } catch (error) {
+      console.log("[Error Insertar] ", error);
+      rs = "Error";
+    }
+    this.con.cerrarConexion();
+    return rs;
+  }
+
+  async actualizar(tabla, campos, datos) {
+    console.log("=-=-=-=-=-=-= [actualizar clase general] =-=-=-=-=-=-=");
+    this.con.conexion();
+    var estructura = `update ${tabla} set `;
+    for (var i = 0; i < campos.length; i++) {
+      let a = datos[campos[i]];
+      if (i === campos.length - 1) {
+        estructura = estructura + ` ${campos[i]} = '${datos[campos[i]]}'  `;
+      } else {
+        estructura = estructura + ` ${campos[i]} = '${datos[campos[i]]}' , `;
+      }
+    }
+    estructura = estructura + ` where ${campos[0]} = '${datos[campos[0]]}'  `;
+
+    var rs = "";
+    try {
+      rs = await this.con.sql(estructura);
+    } catch (error) {
+      console.log("[Error Insertar] ", error);
+      rs = "Error";
+    }
+    this.con.cerrarConexion();
+    return rs;
+  }
+
+  async sql(estructura) {
+    console.log("=-=-=-=-=-=-= [SQL clase general] =-=-=-=-=-=-=");
+    this.con.conexion();
+    var rs = "";
+    try {
+      rs = await this.con.sql(estructura);
+    } catch (error) {
+      console.log("[Error Insertar] ", error);
       rs = "Error";
     }
     this.con.cerrarConexion();
