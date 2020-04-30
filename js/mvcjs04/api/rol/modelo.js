@@ -1,6 +1,10 @@
-Conexion = require("../db/conexion");
+// Conexion = require("../db/conexion");
+ClaseModeloGeneral = require("../general/ClaseModeloGeneral");
 // Clase modelo para rol
-class Modelo {
+class Modelo extends ClaseModeloGeneral {
+  // constructor() {
+  //   this.tabla = "rol";
+  // }
 
   //index
   async recuperarRol() {
@@ -13,25 +17,13 @@ class Modelo {
       Rol,
     };
   }
-  
-  //index 
+
   async borrarRol(datos) {
     // let deleteRol = `DELETE FROM rol where rol_id::integer=${datos["rol_id"]}`;
     // this.con.conexion();
     // console.log("Para borrar llega: ", datos);
     let Rol = await this.eliminar("rol", ["rol_id"], datos);
     // this.con.cerrarConexion();
-  }
-
-  async recuperarRol() {
-    let queryRoles = "SELECT * FROM rol ";
-    this.con.conexion();
-    let Rol = await this.con.sql(queryRoles);
-    this.con.cerrarConexion();
-    Rol = JSON.parse(JSON.stringify(Rol.rows)) || "";
-    return {
-      Rol,
-    };
   }
 
   // pagina02
@@ -96,15 +88,14 @@ class Modelo {
     let permiso = await this.sql(InsertarPermiso);
     // this.cerrarConexion();
   }
-  
+
   async obtenerPermisosRol(datos) {
-    console.log('PermisosRol')
-    let dt=datos["rol_id"].trim()
+    console.log("PermisosRol");
+    let dt = datos["rol_id"].trim();
     let ListarRol = `select * from rol as ro where ro.rol_id::integer=${datos["rol_id"]}`;
     // thisexion();
     let Rol = await this.sql(ListarRol);
     Rol = JSON.parse(JSON.stringify(Rol.rows[0])) || "";
-
 
     let ListarRxF = `select * from rolxfuncionalidad as rf, funcionalidad as fu where fu.fun_id=rf.fun_id and rf.rol_id::integer='${dt}'`;
     console.log(ListarRxF);
@@ -129,6 +120,5 @@ class Modelo {
       Funciones,
     };
   }
- 
 }
 module.exports = Modelo;
