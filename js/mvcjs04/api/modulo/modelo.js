@@ -1,59 +1,47 @@
-Conexion = require("../db/conexion");
+//Conexion = require("../db/conexion");
+ClaseModeloGeneral = require("../general/ClaseModeloGeneral");
 // Clase modelo para modulo
 class Modelo extends ClaseModeloGeneral {
 
-   
-  //index
+
+    //index
     async borrarModulo(datos) {
-    let deleteModulo = `DELETE FROM modulo where mod_id::integer=${datos["mod_id"]};`;
-    this.con.conexion();
-    let Modulo = await this.con.eliminar(deleteModulo);
-    this.con.cerrarConexion();
-  }
-  
-  async recuperarModulo() {
-	let queryModulo = "SELECT * FROM modulo ";
-	this.con.conexion();
-	let Modulo = await this.con.sql(queryModulo);
-	this.con.cerrarConexion();
-	Modulo = JSON.parse(JSON.stringify(Modulo.rows)) || "";
-	return {
-	  Modulo,
-	};
-  }
-  // pagina02
+        let Modulo = await this.eliminar("modulo", ["mod_id"], datos);
+    }
+
+    async recuperarModulo() {
+            let Modulo = await this.consulta("modulo");
+            Modulo = JSON.parse(JSON.stringify(Modulo.rows)) || "";
+            return {
+                Modulo,
+            };
+        }
+        // pagina02
     async traerModulo(datos) {
-    console.log(datos["mod_id"])
-    let ModuleToUpdate = `SELECT * FROM modulo where mod_id::integer=${datos["mod_id"]}`;
-    // let client = new Client(connectionData);
-    this.con.conexion();
-    let Module = await this.con.sql(ModuleToUpdate);
-    this.con.cerrarConexion();
+        console.log(datos["mod_id"])
+        let Module = await this.consultaIndividual("modulo", ["mod_id"], datos);
+        Module = JSON.parse(JSON.stringify(Module.rows[0])) || "";
 
-    Module = JSON.parse(JSON.stringify(Module.rows[0])) || "";
+        return {
+            ...datos,
+            Module,
+        };
+    }
 
-    return {
-      ...datos,
-      Module,
-    };
-  }
-  
     async actualizarModulo(datos) {
-	let updateModule = `UPDATE modulo SET mod_id=${datos["mod_id"]}, mod_nombre='${datos["mod_nombre"]}',mod_descripcion='${datos["mod_descripcion"]}' where mod_id::integer=${datos["mod_id"]}`;
-    this.con.conexion();
-	let Module = await this.con.sql(updateModule);
-    this.con.cerrarConexion();
-    return {
-      Module,
-    };
-  }
-  // pagina03
-  async insertarNuevoModulo(datos) {
-    this.con.conexion();
-	let insertModule = `insert into modulo(mod_nombre,mod_descripcion) values ('${datos["mod_nombre"]}','${datos["mod_descripcion"]}')`;
-    let insertResponse = await this.con.sql(insertModule);
-    this.con.cerrarConexion();
-  return insertResponse;}
- 
+            let Module = await this.actualizar("modulo", ["mod_id", "mod_nombre", "mod_descripcion"],
+                datos);
+            return {
+                Module,
+            };
+        }
+        // pagina03
+    async insertarNuevoModulo(datos) {
+        let insertResponse = await this.insertar("modulo", ["mod_nombre", "mod_descripcion"],
+            datos
+        );
+        return insertResponse;
+    }
+
 }
 module.exports = Modelo;

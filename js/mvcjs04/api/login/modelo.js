@@ -1,10 +1,11 @@
-Conexion = require("../db/conexion");
+//Conexion = require("../db/conexion");
+ClaseModeloGeneral = require("../general/ClaseModeloGeneral");
 // Clase modelo para login
 class Modelo extends ClaseModeloGeneral {
-    constructor() {
+    /*constructor() {
             this.con = new Conexion();
-        }
-        // pagina02
+        }*/
+    // pagina02
     async validar(datos) {
         let searchUser = `SELECT * FROM usuario WHERE usu_login='${datos["usu_login"]}' and usu_clave='${datos["usu_clave"]}' `;
         // Verifica que el usuario tenga un rol asignado
@@ -16,8 +17,8 @@ class Modelo extends ClaseModeloGeneral {
         try {
             //Consulta la base de datos
 
-            querySearchUser = await this.con.sql(searchUser);
-            queryRole = await this.con.sql(role);
+            querySearchUser = await this.sql(searchUser);
+            queryRole = await this.sql(role);
 
             // Verifica si hay respuesta que represente la existencia de un usuario en la base de datos
             if (querySearchUser.rows[0]) {
@@ -35,7 +36,7 @@ class Modelo extends ClaseModeloGeneral {
             let userRole = `select * from usuario as u , usuarioxrol as ur,rol as r where u.usu_login = ur.usu_login and u.usu_login='${datos["usu_login"]}' and r.rol_id=ur.rol_id`;
             let queryUserRole = "";
 
-            queryUserRole = await this.con.sql(userRole);
+            queryUserRole = await this.sql(userRole);
             if (queryUserRole.rows[0]) {
                 queryUserRole = JSON.parse(JSON.stringify(queryUserRole.rows[0])) || "";
                 rol_id = queryUserRole.rol_id;
@@ -59,7 +60,7 @@ class Modelo extends ClaseModeloGeneral {
         let RolesToUpdate = `SELECT * FROM usuarioxrol as uxr, rol r where uxr.usu_login='${datos["usu_login"]}' and uxr.rol_id=r.rol_id`;
         // let client = new Client(connectionData);
         this.con.conexion();
-        let Roles = await this.con.sql(RolesToUpdate);
+        let Roles = await this.sql(RolesToUpdate);
         this.con.cerrarConexion();
         Roles = JSON.parse(JSON.stringify(Roles.rows)) || "";
 
@@ -99,10 +100,10 @@ class Modelo extends ClaseModeloGeneral {
         try {
             this.con.conexion();
 
-            result = await this.con.sql(sql);
+            result = await this.sql(sql);
             result = JSON.parse(JSON.stringify(result.rows[0])) || "";
 
-            FunxUsu = await this.con.sql(FuncionesUsuario);
+            FunxUsu = await this.sql(FuncionesUsuario);
             FunxUsu = JSON.parse(JSON.stringify(FunxUsu.rows)) || "";
             console.log(FunxUsu);
 
