@@ -1,10 +1,8 @@
 Conexion = require("../db/conexion");
 // Clase modelo para funcionalidades
-class Modelo {
+class Modelo extends ClaseModeloGeneral {
 
-  constructor() {
-    this.con = new Conexion();
-  }
+   
   //Index
     async borrarFuncionalidad(datos) {
     let deleteFuncionalidad = `DELETE FROM funcionalidad where fun_id::integer=${datos["fun_id"]};`;

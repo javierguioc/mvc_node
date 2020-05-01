@@ -1,6 +1,6 @@
 Conexion = require("../db/conexion");
 // Clase modelo para login
-class Modelo {
+class Modelo extends ClaseModeloGeneral {
     constructor() {
             this.con = new Conexion();
         }

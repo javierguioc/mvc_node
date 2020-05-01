@@ -1,7 +1,7 @@
 // Conexion = require("../db/conexion");
 ClaseModeloGeneral = require("../general/ClaseModeloGeneral");
 // Clase modelo para rol
-class Modelo extends ClaseModeloGeneral {
+class Modelo extends ClaseModeloGeneral extends ClaseModeloGeneral {
   // constructor() {
   //   this.tabla = "rol";
   // }

@@ -1,10 +1,8 @@
 Conexion = require("../db/conexion");
 // Clase modelo para modulo
-class Modelo {
+class Modelo extends ClaseModeloGeneral {
 
-  constructor() {
-    this.con = new Conexion();
-  }
+   
   //index
     async borrarModulo(datos) {
     let deleteModulo = `DELETE FROM modulo where mod_id::integer=${datos["mod_id"]};`;
