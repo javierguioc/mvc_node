@@ -13,7 +13,7 @@ class Modelo extends ClaseModeloGeneral {
         let querySearchUser = "";
         let queryRole = "";
         let rol_id = "";
-        this.con.conexion();
+
         try {
             //Consulta la base de datos
 
@@ -43,7 +43,7 @@ class Modelo extends ClaseModeloGeneral {
             }
 
             // Termina la sesion de la base de datos
-            this.con.cerrarConexion();
+
         } catch (error) {
             console.log("[Error Pagina02] ", error);
         }
@@ -59,9 +59,9 @@ class Modelo extends ClaseModeloGeneral {
 
         let RolesToUpdate = `SELECT * FROM usuarioxrol as uxr, rol r where uxr.usu_login='${datos["usu_login"]}' and uxr.rol_id=r.rol_id`;
         // let client = new Client(connectionData);
-        this.con.conexion();
+
         let Roles = await this.sql(RolesToUpdate);
-        this.con.cerrarConexion();
+
         Roles = JSON.parse(JSON.stringify(Roles.rows)) || "";
 
         return {
@@ -98,7 +98,7 @@ class Modelo extends ClaseModeloGeneral {
         let FunxUsu = "";
 
         try {
-            this.con.conexion();
+
 
             result = await this.sql(sql);
             result = JSON.parse(JSON.stringify(result.rows[0])) || "";
@@ -107,7 +107,7 @@ class Modelo extends ClaseModeloGeneral {
             FunxUsu = JSON.parse(JSON.stringify(FunxUsu.rows)) || "";
             console.log(FunxUsu);
 
-            this.con.cerrarConexion();
+
         } catch (err) {
             console.log("[Error Pagina04] ", err);
         }

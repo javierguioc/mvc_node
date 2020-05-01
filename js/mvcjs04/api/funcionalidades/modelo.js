@@ -8,9 +8,7 @@ class Modelo extends ClaseModeloGeneral {
 
     async recuperarFuncionalidad(datos) {
         let queryFuncionalidad = `SELECT * FROM funcionalidad as fun, modulo as mod where mod.mod_id=fun.mod_id  and fun.mod_id::integer=${datos["mod_id"]}`;
-        this.con.conexion();
         let Funcionalidad = await this.sql(queryFuncionalidad);
-        this.con.cerrarConexion();
         Funcionalidad = JSON.parse(JSON.stringify(Funcionalidad.rows)) || "";
         return {
             ...datos,
@@ -23,10 +21,7 @@ class Modelo extends ClaseModeloGeneral {
         console.log(datos["mod_id"]);
         let functionalityToUpdate = `SELECT * FROM funcionalidad as fun, modulo as mod where mod.mod_id=fun.mod_id  and fun.mod_id::integer=${datos["mod_id"]} and fun.fun_id::integer=${datos["fun_id"]}
     `;
-        this.con.conexion();
         let functionality = await this.sql(functionalityToUpdate);
-        this.con.cerrarConexion();
-
         functionality = JSON.parse(JSON.stringify(functionality.rows[0])) || "";
 
         return {
