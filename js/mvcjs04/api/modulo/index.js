@@ -1,31 +1,32 @@
 const express = require("express");
 const router = express.Router();
 ClaseControladorGeneral = require("../general/ClaseControladorGeneral");
-var control = new ClaseControladorGeneral();
+// var control = new ClaseControladorGeneral();
 Modelo = require("./modelo");
 var modelo = new Modelo();
 router.post("/", postFunction);
 
 async function postFunction(req, res, next) {
+    var control = new ClaseControladorGeneral(req.body);
     var datos = {};
-    datos = control.capturar(req.body, datos);
+    datos = control.capturar( datos);
     switch (datos["btnAction"]) {
         case "Eliminar":
-            datos = control.capturar(req.body, datos);
+            datos = control.capturar( datos);
             await modelo.borrarModulo(datos);
             datos = await modelo.recuperarModulo();
             pagina01 = require("./pagina01");
             pagina01(res, datos);
             break;
         case "Actualizar":
-            datos = control.capturar(req.body, datos);
+            datos = control.capturar( datos);
             datos = await modelo.traerModulo(datos);
             pagina02 = require("./pagina02");
             pagina02(res, datos);
             break;
 
         case "Enviar Actualizar":
-            datos = control.capturar(req.body, datos);
+            datos = control.capturar( datos);
             datos = await modelo.actualizarModulo(datos);
             datos = await modelo.recuperarModulo();
             pagina01 = require("./pagina01");
@@ -36,7 +37,7 @@ async function postFunction(req, res, next) {
             pagina03(res);
             break;
         case "Enviar nuevo":
-            datos = control.capturar(req.body, datos);
+            datos = control.capturar( datos);
             datos = await modelo.insertarNuevoModulo(datos);
             datos = await modelo.recuperarModulo();
             pagina01 = require("./pagina01");

@@ -3,7 +3,7 @@ ClaseModeloGeneral = require("../general/ClaseModeloGeneral");
 class Modelo extends ClaseModeloGeneral {
     //Index
     async borrarFuncionalidad(datos) {
-        let Funcionalidad = await this.eliminar("funcionalidad", ["fun_id"], datos);
+        let Funcionalidad = await this.eliminar("funcionalidad", "fun_id", datos);
     }
 
     async recuperarFuncionalidad(datos) {
@@ -32,7 +32,7 @@ class Modelo extends ClaseModeloGeneral {
 
     async actualizarFuncionalidad(datos) {
         let functionalityUpdate = await this.actualizar(
-            "funcionalidad", ["fun_id", "fun_nombre", "fun_ruta", "fun_descripcion"],
+            "funcionalidad", "fun_id,fun_nombre,fun_ruta,fun_descripcion",
             datos
         );
         return {
@@ -44,7 +44,7 @@ class Modelo extends ClaseModeloGeneral {
     // pagina03
     async insertarNuevaFuncionalidad(datos) {
         let insertResponse = await this.insertar(
-            "funcionalidad", ["fun_nombre", "fun_ruta", "fun_descripcion", "mod_id"],
+            "funcionalidad", "fun_nombre,fun_ruta,fun_descripcion,mod_id",
             datos);
         return {
             ...datos,

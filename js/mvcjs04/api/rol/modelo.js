@@ -5,22 +5,19 @@ class Modelo extends ClaseModeloGeneral {
   //index
   async recuperarRol() {
     let Rol = await this.consulta("rol");
-    Rol = JSON.parse(JSON.stringify(Rol.rows)) || "";
     return {
       Rol,
     };
   }
 
   async borrarRol(datos) {
-    let Rol = await this.eliminar("rol", ["rol_id"], datos);
+    let Rol = await this.eliminar("rol", "rol_id", datos);
   }
 
   // pagina02
   async traerRol(datos) {
     console.log(datos["rol_id"]);
-    let Roles = await this.consultaIndividual("rol", ["rol_id"], datos);
-
-    Roles = JSON.parse(JSON.stringify(Roles.rows[0])) || "";
+    let Roles = await this.consultaIndividual("rol", "rol_id", datos);
 
     return {
       ...datos,
@@ -31,7 +28,7 @@ class Modelo extends ClaseModeloGeneral {
   async actualizarRol(datos) {
     let Rol = await this.actualizar(
       "rol",
-      ["rol_id", "rol_nombre", "rol_descripcion"],
+      "rol_id,rol_nombre,rol_descripcion",
       datos
     );
     return {
@@ -43,7 +40,7 @@ class Modelo extends ClaseModeloGeneral {
   async insertarNuevoRol(datos) {
     let insertResRol = await this.insertar(
       "rol",
-      ["rol_nombre", "rol_descripcion"],
+      "rol_nombre,rol_descripcion",
       datos
     );
     return insertResRol;
