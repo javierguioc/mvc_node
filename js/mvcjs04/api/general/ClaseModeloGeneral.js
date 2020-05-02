@@ -12,6 +12,7 @@ class ClaseModeloGeneral {
     var rs = "";
     try {
       rs = await this.con.sql(estructura);
+      rs = JSON.parse(JSON.stringify(rs.rows)) || "";
     } catch (error) {
       console.log("[Error Consulta] ", error);
       rs = "Error";
@@ -22,6 +23,7 @@ class ClaseModeloGeneral {
 
   async consultaIndividual(tabla, campos, datos) {
     console.log("=-=-=-=-=-=-= Consulta Individual =-=-=-=-=-=-=");
+    campos = [campos];
     this.con.conexion();
     var estructura = `SELECT * from ${tabla} where `;
     for (var i = 0; i < campos.length; i++) {
@@ -36,6 +38,7 @@ class ClaseModeloGeneral {
     var rs = "";
     try {
       rs = await this.con.sql(estructura);
+      rs = JSON.parse(JSON.stringify(rs.rows[0])) || "";
     } catch (error) {
       console.log("[Error Consulta] ", error);
       rs = "Error";
@@ -46,6 +49,7 @@ class ClaseModeloGeneral {
 
   async eliminar(tabla, campos, datos) {
     console.log("=-=-=-=-=-=-= [Eliminar clase general] =-=-=-=-=-=-=");
+    campos = [campos];
     this.con.conexion();
     var estructura = `delete from ${tabla} where `;
     for (var i = 0; i < campos.length; i++) {
@@ -69,6 +73,7 @@ class ClaseModeloGeneral {
 
   async insertar(tabla, campos, datos) {
     console.log("=-=-=-=-=-=-= [Insertar clase general] =-=-=-=-=-=-=");
+    campos = campos.split(",");
     this.con.conexion();
     var estructura = `insert into ${tabla} (` + campos.toString();
     estructura = estructura + `) values ( `;
@@ -94,6 +99,7 @@ class ClaseModeloGeneral {
 
   async actualizar(tabla, campos, datos) {
     console.log("=-=-=-=-=-=-= [actualizar clase general] =-=-=-=-=-=-=");
+    campos = campos.split(",");
     this.con.conexion();
     var estructura = `update ${tabla} set `;
     for (var i = 0; i < campos.length; i++) {

@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+ClaseControladorGeneral = require("../general/ClaseControladorGeneral");
 
 Modelo = require("./modelo");
 var modelo = new Modelo();
@@ -7,17 +8,16 @@ var modelo = new Modelo();
 router.post("/", postFunction);
 
 async function postFunction(req, res, next) {
-  ClaseControladorGeneral = require("../general/ClaseControladorGeneral");
-  var control = new ClaseControladorGeneral();
+  var control = new ClaseControladorGeneral(req.body);
   var datos = {};
-  datos = control.capturar(req.body, datos);
+  datos = control.capturar(datos);
   // console.log("Se hizo post :", req.body);
   switch (datos["btnAction"]) {
     case "Enviar":
       break;
 
     case "Ingresar":
-      datos = control.capturar(req.body, datos);
+      datos = control.capturar( datos);
       // datos["usu_login"] = req.body.usu_login;
       // datos["usu_clave"] = req.body.usu_clave;
 
@@ -28,7 +28,7 @@ async function postFunction(req, res, next) {
       break;
 
     case "Aceptar":
-      datos = control.capturar(req.body, datos);
+      datos = control.capturar(datos);
       // datos["usu_login"] = req.body.usu_login;
       // datos["rol_id"] = req.body.rol_id;
       datos = await modelo.funcionalidades(datos);

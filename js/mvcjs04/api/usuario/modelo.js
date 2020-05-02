@@ -8,7 +8,7 @@ class Modelo extends ClaseModeloGeneral {
     //   "SELECT * FROM usuario as usu, persona as per where usu.per_id=per.per_id ";
     let queryUsuario = `SELECT * 
       FROM usuario as usu, persona as per 
-      where usu.per_id=per.per_id and (usu.usu_login LIKE '%${datos["usu_buscar"]}%' or per.per_id LIKE '%${datos["usu_buscar"]}%' or per.per_nombre LIKE '%${datos["usu_buscar"]}%' or per.per_apellido LIKE '%${datos["usu_buscar"]}%');`;
+      where usu.per_id=per.per_id and (usu.usu_login LIKE '%${datos["buscar"]}%' or per.per_id LIKE '%${datos["buscar"]}%' or per.per_nombre LIKE '%${datos["buscar"]}%' or per.per_apellido LIKE '%${datos["buscar"]}%');`;
     // let client = new Client(connectionData);
 
     let Usuario = await this.sql(queryUsuario);
