@@ -18,7 +18,6 @@ module.exports = async function(res, datos) {
             </table><br>
             ${vista.boton("Eliminar")}
             ${vista.boton("Actualizar")}
-            ${vista.boton("Nuevo")}
              ${vista.boton("Permisos")}
              </form>
                 ${vista.botonr()}

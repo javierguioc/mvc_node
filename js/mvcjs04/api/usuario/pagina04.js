@@ -11,16 +11,7 @@ module.exports = async function(res, datos) {
           <p>La id proporcionada no corresponde a ninguna persona en la base de datos, por favor regístrese</p>
           <form name="registrarPersona" action="./index.js" method="POST">
             <table border="0">
-            ${vista.tabla([
-              []
-          ], [
-              [`${datos["per_id"]}`, "per_id", "Id persona:","text"],
-              [``, "per_nombre", "Nombre:","text"],
-              [``, "per_apellido", "Apellido:","text"],
-              [``, "per_fecha_nacimiento", "Fecha de Nacimiento:","date"],
-              [``, "per_direccion", "Dirección:","text"],
-              [``, "per_correo", "Correo:","text"]
-          ])}
+            ${vista.formulario(`${datos["per_id"]}:per_id:Id persona:text,:per_nombre:Nombre:text,:per_apellido:Apellido:text,:per_fecha_nacimiento:Fecha de Nacimiento:date,:per_direccion:Dirección:text,:per_correo:Correo:text`)}
           ${vista.boton("Registrar")}
           ${vista.botonreset()}
             </table>

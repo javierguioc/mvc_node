@@ -6,13 +6,8 @@ module.exports = async function(res) {
         res.write(`<HTML>
     <BODY>          
         <H2>Rigistro en sistema</H2>
-        <FORM name="login" action="./index.js" method="POST" target="resultado">
-            ${vista.tabla([
-                []
-            ], [
-                [``, "mod_nombre", "Nombre:","text"],
-                [``, "mod_descripcion", "Descripcion:","text"]
-            ])}
+        <FORM name="login" action="./index.js" method="POST" target="resultad">
+            ${vista.formulario(`:mod_nombre:Nombre:text,:mod_descripcion:Descripcion:text`)}
             ${vista.boton("Enviar nuevo")}
             ${vista.botonreset()}
         </FORM>

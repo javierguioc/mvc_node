@@ -14,8 +14,7 @@ module.exports = function(req, res) {
                   <center>
                       <h3>Inicio de Sesion</h3>
                       <form method="POST" action="./index.js">
-                      ${vista.cajaTexto('text', 'usu_login', '', 'Usuario')}
-                      ${vista.cajaTexto('password', 'usu_clave', '', 'Contraseña')}
+                      ${vista.formulario(":usu_login:Usuario:text,:usu_clave:Contraseña:password")}
                       ${vista.boton('Ingresar')}
                       </form>
                       ${vista.botonr()}

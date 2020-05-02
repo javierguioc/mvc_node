@@ -13,12 +13,8 @@ module.exports = async function(res, datos) {
         res.write(`<BODY>  `);
         res.write(`<H2>Registro en sistema</H2>`);
         res.write(
-            `<FORM name="login" action="./index.js" method="POST" target="resultado">`
+            `<FORM name="login" action="./index.js" method="POST" target="1resultado">`
         );
-        res.write(
-            ` <INPUT type="hidden" value="${datos.rol_id}" name="id" size="25">`
-        );
-
         res.write(`
               ${vista.formulario(`${datos.rol_id}:rol_id: :hidden,${datos.Roles.rol_nombre}:rol_nombre:Nombre:text,${datos.Roles.rol_descripcion}:rol_descripcion:Descripcion:text`)}
               ${vista.boton("Enviar Actualizar")}

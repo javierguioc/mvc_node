@@ -79,11 +79,11 @@ class ClaseVistaGeneral {
         datos1.forEach((element) => {
             datos3.push(element.split(':'))
         });
-        let str = `<TR> <TD>  <TABLE>`;
+        let str = `<TABLE>`;
         datos3.forEach((element) => {
             str = str + `<TR>  <TD align="right">${element[2]}</TD><TD align="left"><INPUT type="${element[3]}" value="${element[0]}" name="${element[1]}" size="25"></TD> </TR> `
         });
-        str = str + `  </TABLE> </TD> </TR>`
+        str = str + `  </TABLE>`
         return str
     }
 

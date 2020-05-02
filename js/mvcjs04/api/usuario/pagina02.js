@@ -9,12 +9,7 @@ module.exports = async function(res, datos) {
         res.write(`<H2>Registro en sistema</H2>`);
         res.write(
                 `<FORM name="login" action="./index.js" method="POST" target="resultado">
-    ${vista.tabla([
-      [`${datos["User"]["per_id"]}`, "per_id"]
-     ], [
-     [`${datos["User"]["usu_login"]}`, "usu_login", "Usuario:"],
-     [`${datos["User"]["usu_clave"]}`, "usu_clave", "Contraseña:"]
-   ])}
+                ${vista.formulario(`${datos["User"]["per_id"]}:per_id: :hidden,${datos["User"]["usu_login"]}:usu_login:Usuario:text,${datos["User"]["usu_clave"]}:usu_clave:Contraseña:password`)}
    ${vista.boton("Enviar Actualizar")}
    ${vista.botonreset()}
     </FORM>
