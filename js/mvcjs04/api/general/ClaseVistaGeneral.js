@@ -62,11 +62,25 @@ class ClaseVistaGeneral {
     }
 
     tabla(datosh, datost) {
+
         let str = `<TR> <TD>  <TABLE>`;
         datosh.forEach((element) => {
             str = str + `<TR> <TD align="right"></TD><TD align="left"><INPUT type="hidden" value="${element[0]}" name="${element[1]}" size="25"></TD> </TR> `
         });
         datost.forEach((element) => {
+            str = str + `<TR>  <TD align="right">${element[2]}</TD><TD align="left"><INPUT type="${element[3]}" value="${element[0]}" name="${element[1]}" size="25"></TD> </TR> `
+        });
+        str = str + `  </TABLE> </TD> </TR>`
+        return str
+    }
+    formulario(datos) {
+        let datos1 = datos.split(',');
+        let datos3 = [];
+        datos1.forEach((element) => {
+            datos3.push(element.split(':'))
+        });
+        let str = `<TR> <TD>  <TABLE>`;
+        datos3.forEach((element) => {
             str = str + `<TR>  <TD align="right">${element[2]}</TD><TD align="left"><INPUT type="${element[3]}" value="${element[0]}" name="${element[1]}" size="25"></TD> </TR> `
         });
         str = str + `  </TABLE> </TD> </TR>`

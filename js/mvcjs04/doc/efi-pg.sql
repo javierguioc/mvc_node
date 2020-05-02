@@ -60,9 +60,9 @@ create table rol(
     primary key (rol_id)
 );
 
-insert into rol(rol_nombre,rol_descripcion) values ('Estudiante','Persona que solo puede ver sus notas, programas, cancelacion, etc...');
-insert into rol(rol_nombre,rol_descripcion) values ('Docente','Persona encargada de registrar notas, materias asignadas, grupos, etc...');
-insert into rol(rol_nombre,rol_descripcion) values ('Administradior','Persona encargada de crear cuentas, asignar roles, etc....');
+insert into rol(rol_nombre,rol_descripcion) values ('Estudiante','Persona que solo puede ver sus notas programas cancelacion etc...');
+insert into rol(rol_nombre,rol_descripcion) values ('Docente','Persona encargada de registrar notas materias asignadas grupos etc...');
+insert into rol(rol_nombre,rol_descripcion) values ('Administradior','Persona encargada de crear cuentas asignar roles etc....');
 insert into rol(rol_nombre,rol_descripcion) values ('Director Programa','Persona encargada de administrar el programa al que tiene asignado');
 
 
