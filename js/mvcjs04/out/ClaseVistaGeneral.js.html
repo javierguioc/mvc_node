@@ -1,4 +1,32 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: ClaseVistaGeneral.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: ClaseVistaGeneral.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  *Esta clase contiene todos los metodos generales que van a ser usados por los
  * modelos
  * @author Adriana Villamizar, Hernan Guio, Daniel Quintana, Marlen Fernandez
@@ -13,7 +41,7 @@ class ClaseVistaGeneral {
    * @return {string}devulve un String que contienen la instruccion completa html
    */
   cajaTexto(tipo, nombre, valor, place) {
-    return `<input type="${tipo}" name="${nombre}" value="${valor}" placeholder="${place}" /><br>`;
+    return `&lt;input type="${tipo}" name="${nombre}" value="${valor}" placeholder="${place}" />&lt;br>`;
   }
 
   /**
@@ -24,7 +52,7 @@ class ClaseVistaGeneral {
    *
    */
   hidden(nombre, valor) {
-    return `<input type="hidden"  name="${nombre}" value="${valor}" />`;
+    return `&lt;input type="hidden"  name="${nombre}" value="${valor}" />`;
   }
 
   /**
@@ -33,7 +61,7 @@ class ClaseVistaGeneral {
    * @return {string}  devulve un String que contienen la instruccion completa html
    */
   boton(nombre) {
-    return `<input name="btnAction" type="submit" value="${nombre}"/>`;
+    return `&lt;input name="btnAction" type="submit" value="${nombre}"/>`;
   }
 
   /**
@@ -41,7 +69,7 @@ class ClaseVistaGeneral {
    * @return {string}  devulve un String que contienen la instruccion completa html
    */
   botonr() {
-    return `<button onclick="window.location.href = '/'"><==</button>`;
+    return `&lt;button onclick="window.location.href = '/'">&lt;==&lt;/button>`;
   }
 
   /**
@@ -51,14 +79,14 @@ class ClaseVistaGeneral {
    * @return {string} devulve un String que contienen la instruccion completa html
    */
   botonred(value, formaction) {
-    return `<input type="submit" value="${value}" name="btnAction" formaction="${formaction}"/>`;
+    return `&lt;input type="submit" value="${value}" name="btnAction" formaction="${formaction}"/>`;
   }
   /**
    * Metodo que geneta un boton para regresarse
    * @return {string} devulve un String que contienen la instruccion completa html
    */
   botonreset() {
-    return `<INPUT type="reset" value="Borrar">`;
+    return `&lt;INPUT type="reset" value="Borrar">`;
   }
 
   /**
@@ -72,12 +100,12 @@ class ClaseVistaGeneral {
    */
   select(name, lista, size, value, campo) {
     let str = "";
-    str = str + `<select name ="${name}" size="${size}" >`;
+    str = str + `&lt;select name ="${name}" size="${size}" >`;
     lista.forEach((element) => {
       str =
-        str + ` <option value=${element[value]}> ${element[campo]}</option> `;
+        str + ` &lt;option value=${element[value]}> ${element[campo]}&lt;/option> `;
     });
-    str = str + "</select> </br>";
+    str = str + "&lt;/select> &lt;/br>";
     return str;
   }
 
@@ -88,12 +116,12 @@ class ClaseVistaGeneral {
    * @return {string} devulve un String que contienen la instruccion completa html de la tabla completa
    */
   listar(lista, valor) {
-    let str = " <ul>";
+    let str = " &lt;ul>";
     let v = `${valor}`;
     lista.forEach((element) => {
-      str = str + `<li> ${element[v]}</li> `;
+      str = str + `&lt;li> ${element[v]}&lt;/li> `;
     });
-    str = str + "</ul> </br>";
+    str = str + "&lt;/ul> &lt;/br>";
     return str;
   }
 
@@ -107,22 +135,22 @@ class ClaseVistaGeneral {
    */
 
   radio(name, value, campos, lista) {
-    let str = `<tr> <td> </td>`;
+    let str = `&lt;tr> &lt;td> &lt;/td>`;
     campos.forEach((element) => {
-      str = str + `<td>${element}</td> `;
+      str = str + `&lt;td>${element}&lt;/td> `;
     });
-    str = str + " </tr>";
+    str = str + " &lt;/tr>";
     let v = `${value}`;
     lista.forEach((element) => {
       str =
         str +
-        ` <tr> <td><input type="radio" name="${name}" value="${element[v]} "></td>`;
+        ` &lt;tr> &lt;td>&lt;input type="radio" name="${name}" value="${element[v]} ">&lt;/td>`;
       campos.forEach((element2) => {
-        str = str + `<td>${element[element2]}</td> `;
+        str = str + `&lt;td>${element[element2]}&lt;/td> `;
       });
-      str = str + " </tr>";
+      str = str + " &lt;/tr>";
     });
-    str = str + " </tr>";
+    str = str + " &lt;/tr>";
     return str;
   }
 
@@ -133,18 +161,18 @@ class ClaseVistaGeneral {
    * @return {string} devulve un String que contienen la instruccion completa html de la tabla completa
    */
   tabla(datosh, datost) {
-    let str = `<TR> <TD>  <TABLE>`;
+    let str = `&lt;TR> &lt;TD>  &lt;TABLE>`;
     datosh.forEach((element) => {
       str =
         str +
-        `<TR> <TD align="right"></TD><TD align="left"><INPUT type="hidden" value="${element[0]}" name="${element[1]}" size="25"></TD> </TR> `;
+        `&lt;TR> &lt;TD align="right">&lt;/TD>&lt;TD align="left">&lt;INPUT type="hidden" value="${element[0]}" name="${element[1]}" size="25">&lt;/TD> &lt;/TR> `;
     });
     datost.forEach((element) => {
       str =
         str +
-        `<TR>  <TD align="right">${element[2]}</TD><TD align="left"><INPUT type="${element[3]}" value="${element[0]}" name="${element[1]}" size="25"></TD> </TR> `;
+        `&lt;TR>  &lt;TD align="right">${element[2]}&lt;/TD>&lt;TD align="left">&lt;INPUT type="${element[3]}" value="${element[0]}" name="${element[1]}" size="25">&lt;/TD> &lt;/TR> `;
     });
-    str = str + `  </TABLE> </TD> </TR>`;
+    str = str + `  &lt;/TABLE> &lt;/TD> &lt;/TR>`;
     return str;
   }
 
@@ -159,15 +187,38 @@ class ClaseVistaGeneral {
     datos1.forEach((element) => {
       datos3.push(element.split(":"));
     });
-    let str = `<TABLE>`;
+    let str = `&lt;TABLE>`;
     datos3.forEach((element) => {
       str =
         str +
-        `<TR>  <TD align="right">${element[2]}</TD><TD align="left"><INPUT type="${element[3]}" value="${element[0]}" name="${element[1]}" size="25"></TD> </TR> `;
+        `&lt;TR>  &lt;TD align="right">${element[2]}&lt;/TD>&lt;TD align="left">&lt;INPUT type="${element[3]}" value="${element[0]}" name="${element[1]}" size="25">&lt;/TD> &lt;/TR> `;
     });
-    str = str + `  </TABLE>`;
+    str = str + `  &lt;/TABLE>`;
     return str;
   }
 }
 
 module.exports = ClaseVistaGeneral;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ClaseVistaGeneral.html">ClaseVistaGeneral</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Sun May 10 2020 22:04:16 GMT-0500 (Colombia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
