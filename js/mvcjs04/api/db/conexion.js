@@ -1,5 +1,7 @@
 const { Client } = require("pg");
-//Clase para la conexion con la base de datos
+/**
+ * Se encarga de generar la conexion con la base de datos Postgres
+ */
 class Postgres {
   conexion() {
     this.client = new Client({
@@ -29,11 +31,11 @@ class Postgres {
     });
   }
 
-  eliminar(queryStructure,param) {
-    console.log("[BD] - Accion: ", queryStructure,param);
+  eliminar(queryStructure, param) {
+    console.log("[BD] - Accion: ", queryStructure, param);
     return new Promise((resolve, reject) => {
       this.client
-        .query(queryStructure,param)
+        .query(queryStructure, param)
         .then((respuesta) => {
           // console.log("[BD] Respuesta de la consulta ", respuesta);
           resolve(respuesta);

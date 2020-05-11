@@ -12,14 +12,12 @@ async function postFunction(req, res, next) {
   var datos = {};
   datos = control.capturar(datos);
   // console.log("Se hizo post :", req.body);
-  switch (datos["btnAction"]) {
+  switch (datos["btnAction"].replace(/ /g, "").toLowerCase()) {
     case "Enviar":
       break;
 
-    case "Ingresar":
-      datos = control.capturar( datos);
-      // datos["usu_login"] = req.body.usu_login;
-      // datos["usu_clave"] = req.body.usu_clave;
+    case "ingresar":
+      datos = control.capturar(datos);
 
       datos = await modelo.validar(datos);
       datos = await modelo.Roles(datos);
@@ -27,10 +25,9 @@ async function postFunction(req, res, next) {
       pagina02(res, datos);
       break;
 
-    case "Aceptar":
+    case "aceptar":
       datos = control.capturar(datos);
-      // datos["usu_login"] = req.body.usu_login;
-      // datos["rol_id"] = req.body.rol_id;
+
       datos = await modelo.funcionalidades(datos);
       pagina03 = require("./pagina03");
       pagina03(res, datos);

@@ -2,7 +2,7 @@
 ClaseModeloGeneral = require("../general/ClaseModeloGeneral");
 // Clase modelo para modulo
 class Modelo extends ClaseModeloGeneral {
-  //index
+  //pagina01
   async borrarModulo(datos) {
     let Modulo = await this.eliminar("modulo", "mod_id", datos);
   }
@@ -15,7 +15,6 @@ class Modelo extends ClaseModeloGeneral {
   }
   // pagina02
   async traerModulo(datos) {
-    console.log(datos["mod_id"]);
     let Module = await this.consultaIndividual("modulo", "mod_id", datos);
 
     return {

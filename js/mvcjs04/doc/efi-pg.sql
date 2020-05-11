@@ -8,8 +8,8 @@ drop table modulo;
 
 --Crear Super usuario--
 
-CREATE USER electiva PASSWORD '12345';
-ALTER ROLE electiva WITH SUPERUSER;
+-- CREATE USER electiva PASSWORD '12345';
+-- ALTER ROLE electiva WITH SUPERUSER;
 
 --Tablas--
 
