@@ -1,5 +1,9 @@
 const express = require("express");
 const router = express.Router();
+
+const React = require("react");
+const ReactDOMServer = require("react-dom/server");
+
 ClaseControladorGeneral = require("../general/ClaseControladorGeneral");
 
 Modelo = require("./modelo");
@@ -11,14 +15,14 @@ async function postFunction(req, res, next) {
   var control = new ClaseControladorGeneral(req.body);
   var datos = {};
   datos = control.capturar(datos);
-  // console.log("Se hizo post :", req.body);
+  //console.log("Se hizo post* :", req.body);
   switch (datos["btnAction"].replace(/ /g, "").toLowerCase()) {
     case "Enviar":
       break;
 
     case "ingresar":
       datos = control.capturar(datos);
-
+    //console.log("Los datos para ingresar son",datos)
       datos = await modelo.validar(datos);
       datos = await modelo.Roles(datos);
       pagina02 = require("./pagina02");
@@ -27,7 +31,7 @@ async function postFunction(req, res, next) {
 
     case "aceptar":
       datos = control.capturar(datos);
-
+      console.log("Los datos que viajaran para la pagina 03 seran: ",datos)
       datos = await modelo.funcionalidades(datos);
       pagina03 = require("./pagina03");
       pagina03(res, datos);
@@ -45,10 +49,14 @@ function getFuncion(req, res, next) {
   //   console.log("Se hizo get");
   switch (req.body.btnAction) {
     default:
-      //   console.log("Entro a default");
-      pagina01 = require("./pagina01");
-      pagina01(req, res);
-      break;
+      //res.writeHead(200, { "Content-Type": "text/html" });
+      pagina01 = require("./pagina01.jsx");
+      var html = ReactDOMServer.renderToString(React.createElement(pagina01));
+      res.send(html);
+      res.end();
+    // pagina01 = require("./pagina01");
+    // pagina01(req, res);
+    // break;
   }
 }
 

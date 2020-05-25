@@ -1,5 +1,3 @@
-ClaseVistaGeneral = require("../general/ClaseVistaGeneral");
-var vista = new ClaseVistaGeneral();
 module.exports = async function (res, datos) {
   console.log("object: ", datos);
   if (
@@ -8,7 +6,7 @@ module.exports = async function (res, datos) {
   ) {
     if (datos.queryRole.cant == 1) {
       var request = require("request");
-
+   
       request.post(
         "http://localhost:3000/login/index.js",
         {
@@ -30,7 +28,7 @@ module.exports = async function (res, datos) {
       res.writeHead(200, { "Content-Type": "text/html" });
       res.write(
         `<p>El usuario seleccionado no tiene asignado un rol</p>
-        ${vista.botonr()}`
+        <br><button onclick="window.location.href = '/'">Salir</button>`
       );
       res.end();
     } else {
@@ -40,23 +38,22 @@ module.exports = async function (res, datos) {
         `
       );
       res.write(`<form method="POST" action="./index.js" >`);
-      res.write(` ${vista.select(
-        "rol_id",
-        datos.Roles,
-        "1",
-        "rol_id",
-        "rol_nombre"
-      )}
-                            ${vista.boton("Aceptar")}
-                            ${vista.hidden(
-                              "usu_login",
-                              `${datos["Roles"][0].usu_login}`
-                            )}
-                            ${vista.botonr()}
-            `);
+      res.write(`<select name="rol_id">`);
+      datos.Roles.forEach((element) => {
+        res.write(
+          ` <option value="${element.rol_id}"> ${element.rol_nombre}</option> >`
+        );
+      });
+      res.write(`</select> </br>`);
+      res.write(
+        `
+        <br><input type="submit" value="Aceptar" name="btnAction"/>
+        <INPUT type="hidden" value="${datos["Roles"][0].usu_login}" name="usu_login" size="25">
+        `
+      );
+      res.write(`<button onclick="window.location.href = '/'">Salir</button> `);
       res.write(`</form>`);
       res.end();
     }
   }
 };
-// Verifica que la existencia del usuario y su respectiva contraseña sean validas
