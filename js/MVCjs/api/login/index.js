@@ -54,9 +54,7 @@ function getFuncion(req, res, next) {
       var html = ReactDOMServer.renderToString(React.createElement(pagina01));
       res.send(html);
       res.end();
-    // pagina01 = require("./pagina01");
-    // pagina01(req, res);
-    // break;
+    
   }
 }
 
