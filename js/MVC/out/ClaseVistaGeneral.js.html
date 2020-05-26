@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: ClaseVistaGeneral.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: ClaseVistaGeneral.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ *Esta clase contiene todos los metodos generales que van a ser usados por los
+ * modelos
+ * @author Adriana Villamizar, Hernan Guio, Daniel Quintana, Marlen Fernandez
+ */
+class ClaseVistaGeneral {
+  /**
+   * Metodo que genera un input segun parametros establecidos
+   * @param {string} tipo Especifica de que tipo sera el input
+   * @param {string} nombre nombre que tendrala caja de texto
+   * @param {string} valor nombre que tendrala caja de texto
+   * @param {string} place Nombre para reemplazar
+   * @return {string}devulve un String que contienen la instruccion completa html
+   */
+  cajaTexto(tipo, nombre, valor, place) {
+    return `&lt;input type="${tipo}" name="${nombre}" value="${valor}" placeholder="${place}" />&lt;br>`;
+  }
+
+  /**
+   * Metodo que genera un input oculto
+   * @param  {string} nombre nombre que tendrala caja de texto
+   * @param  {string} valor nombre que tendrala caja de texto
+   * @return {string} devulve un String que contienen la instruccion completa html
+   *
+   */
+  hidden(nombre, valor) {
+    return `&lt;input type="hidden"  name="${nombre}" value="${valor}" />`;
+  }
+
+  /**
+   * Metodo que geneta un boton
+   * @param {string} nombre nombre que tendrala caja de texto
+   * @return {string}  devulve un String que contienen la instruccion completa html
+   */
+  boton(nombre) {
+    return `&lt;input name="btnAction" type="submit" value="${nombre}"/>`;
+  }
+
+  /**
+   * Metodo que geneta un boton para regresarse
+   * @return {string}  devulve un String que contienen la instruccion completa html
+   */
+  botonr() {
+    return `&lt;button onclick="window.location.href = '/'">&lt;==&lt;/button>`;
+  }
+
+  /**
+   * Metodo que geneta un boton que redirecciona a una pagina especifica
+   * @param {string} value valor que tendra la caja de texto
+   * @param {string} formaction Indicara a que pagina se hara la redireccion
+   * @return {string} devulve un String que contienen la instruccion completa html
+   */
+  botonred(value, formaction) {
+    return `&lt;input type="submit" value="${value}" name="btnAction" formaction="${formaction}"/>`;
+  }
+  /**
+   * Metodo que geneta un boton para regresarse
+   * @return {string} devulve un String que contienen la instruccion completa html
+   */
+  botonreset() {
+    return `&lt;INPUT type="reset" value="Borrar">`;
+  }
+
+  /**
+   * Metodo que genera una lista
+   * @param {string} name nombre que tendra la lista inicialmente
+   * @param {string} value valor del id en la base de datos que son asignados a los elementos de la lista
+   * @param {string} campo contiene el nombre que se mostrara
+   * @param {Object} lista contiene todos los elementos de las listas
+   * @param {string} size determina la cantidad de elementos que se mostraran
+   * @return {string} devulve un String que contienen la instruccion completa html de la tabla completa
+   */
+  select(name, lista, size, value, campo) {
+    let str = "";
+    str = str + `&lt;select name ="${name}" size="${size}" >`;
+    lista.forEach((element) => {
+      str =
+        str + ` &lt;option value=${element[value]}> ${element[campo]}&lt;/option> `;
+    });
+    str = str + "&lt;/select> &lt;/br>";
+    return str;
+  }
+
+  /**
+   * Metodo que genera una lista desordenada
+   * @param {string} valor valor del id en la base de datos que son asignados a los elementos de la lista
+   * @param {Object} lista contiene todos los elementos de las listas
+   * @return {string} devulve un String que contienen la instruccion completa html de la tabla completa
+   */
+  listar(lista, valor) {
+    let str = " &lt;ul>";
+    let v = `${valor}`;
+    lista.forEach((element) => {
+      str = str + `&lt;li> ${element[v]}&lt;/li> `;
+    });
+    str = str + "&lt;/ul> &lt;/br>";
+    return str;
+  }
+
+  /**
+   * Metodo que geneta una tabla con radioButton
+   * @param {string} name nombre del identificador del id en la base de datos
+   * @param {string} value valor del id en la base de datos que son asignados a los radioButton
+   * @param {Object} campos etiquetas de las columnas
+   * @param {Object} lista etiquetas de las columnas
+   * @return {string} devulve un String que contienen la instruccion completa html de la tabla completa
+   */
+
+  radio(name, value, campos, lista) {
+    let str = `&lt;tr> &lt;td> &lt;/td>`;
+    campos.forEach((element) => {
+      str = str + `&lt;td>${element}&lt;/td> `;
+    });
+    str = str + " &lt;/tr>";
+    let v = `${value}`;
+    lista.forEach((element) => {
+      str =
+        str +
+        ` &lt;tr> &lt;td>&lt;input type="radio" name="${name}" value="${element[v]} ">&lt;/td>`;
+      campos.forEach((element2) => {
+        str = str + `&lt;td>${element[element2]}&lt;/td> `;
+      });
+      str = str + " &lt;/tr>";
+    });
+    str = str + " &lt;/tr>";
+    return str;
+  }
+
+  /**
+   * Metodo que geneta una tabla que es sirve para cualquie utilidad que requiera inputs
+   * @param {Object} datosh Contiene los nombres de las columnas
+   * @param {Object} datost Contiene informacion del valor, nombre, tipo de los inputs
+   * @return {string} devulve un String que contienen la instruccion completa html de la tabla completa
+   */
+  tabla(datosh, datost) {
+    let str = `&lt;TR> &lt;TD>  &lt;TABLE>`;
+    datosh.forEach((element) => {
+      str =
+        str +
+        `&lt;TR> &lt;TD align="right">&lt;/TD>&lt;TD align="left">&lt;INPUT type="hidden" value="${element[0]}" name="${element[1]}" size="25">&lt;/TD> &lt;/TR> `;
+    });
+    datost.forEach((element) => {
+      str =
+        str +
+        `&lt;TR>  &lt;TD align="right">${element[2]}&lt;/TD>&lt;TD align="left">&lt;INPUT type="${element[3]}" value="${element[0]}" name="${element[1]}" size="25">&lt;/TD> &lt;/TR> `;
+    });
+    str = str + `  &lt;/TABLE> &lt;/TD> &lt;/TR>`;
+    return str;
+  }
+
+  /**
+   * Metodo que geneta una tabla que es sirve para cualquie utilidad que requiera inputs
+   * @param {Object} datos Contiene toda la informacion para generar un formulario
+   * @return {string} devulve un String que contienen la instruccion completa html de la tabla completa
+   */
+  formulario(datos) {
+    let datos1 = datos.split(",");
+    let datos3 = [];
+    datos1.forEach((element) => {
+      datos3.push(element.split(":"));
+    });
+    let str = `&lt;TABLE>`;
+    datos3.forEach((element) => {
+      str =
+        str +
+        `&lt;TR>  &lt;TD align="right">${element[2]}&lt;/TD>&lt;TD align="left">&lt;INPUT type="${element[3]}" value="${element[0]}" name="${element[1]}" size="25">&lt;/TD> &lt;/TR> `;
+    });
+    str = str + `  &lt;/TABLE>`;
+    return str;
+  }
+}
+
+module.exports = ClaseVistaGeneral;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ClaseVistaGeneral.html">ClaseVistaGeneral</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Tue May 12 2020 08:34:03 GMT-0500 (Colombia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

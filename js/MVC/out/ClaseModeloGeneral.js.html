@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: ClaseModeloGeneral.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: ClaseModeloGeneral.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>Conexion = require("../db/conexion");
+/**
+ *Esta clase contiene todos los metodos generales que van a ser usados por los
+ * modelos
+ * @author Adriana Villamizar, Hernan Guio, Daniel Quintana, Marlen Fernandez
+ */
+
+class ClaseModeloGeneral {
+  constructor() {
+    this.con = new Conexion();
+  }
+
+  /**
+   * Método que lista la informacion segun la tabla especificada
+   * @param {string} tabla  Nombre que identifica la tabla a listar
+   * @return {Object} Devuelve un HashMap con la respuesta de la base de datos
+   */
+  async consulta(tabla) {
+    console.log("=-=-=-=-=-=-= Consulta en clase general=-=-=-=-=-=-=");
+    this.con.conexion();
+    var estructura = `SELECT * FROM ${tabla}`;
+    var rs = "";
+    try {
+      rs = await this.con.sql(estructura);
+      rs = JSON.parse(JSON.stringify(rs.rows)) || "";
+    } catch (error) {
+      console.log("[Error Consulta] ", error);
+      rs = "Error";
+    }
+    this.con.cerrarConexion();
+    return rs;
+  }
+
+  /**
+   * Método que lista la informacion segun la tabla especificada
+   *
+   * @param {string} tabla Nombre que identifica la tabla a listar
+   * @param {string} campos Contiene el identificador por el cual se va a filtrar
+   * @param {Object} datos Informacion que contiene los registros del formulario a
+   * listar
+   * @return {Object}  Devuelve un HashMap con la respuesta de la base de datos
+   */
+  async consultaIndividual(tabla, campos, datos) {
+    console.log("=-=-=-=-=-=-= Consulta Individual =-=-=-=-=-=-=");
+    campos = [campos];
+    this.con.conexion();
+    var estructura = `SELECT * from ${tabla} where `;
+    for (var i = 0; i &lt; campos.length; i++) {
+      let a = datos[campos[i]];
+      if (i === campos.length - 1) {
+        estructura = estructura + ` ${campos[i]} = '${a}'`;
+      } else {
+        estructura = estructura + ` ${campos[i]} = '${a}'` + " and ";
+      }
+    }
+
+    var rs = "";
+    try {
+      rs = await this.con.sql(estructura);
+      rs = JSON.parse(JSON.stringify(rs.rows[0])) || "";
+    } catch (error) {
+      console.log("[Error Consulta] ", error);
+      rs = "Error";
+    }
+    this.con.cerrarConexion();
+    return rs;
+  }
+
+  /**
+   * Método que elimina un registro de una tabla especificada
+   *
+   * @param {string} tabla Nombre de la tabla a la que se le eliminará el registro
+   * @param {string} campos campo que identifica al registro que se va a eliminar
+   * @param {Object} datos HashMap que contiene el boton eliminar y el campo a eliminar
+   * @return {Object}  Devuelve un HashMap con la respuesta de la base de datos
+   */
+  async eliminar(tabla, campos, datos) {
+    console.log("=-=-=-=-=-=-= [Eliminar clase general] =-=-=-=-=-=-=");
+    campos = [campos];
+    this.con.conexion();
+    var estructura = `delete from ${tabla} where `;
+    for (var i = 0; i &lt; campos.length; i++) {
+      let a = datos[campos[i]];
+      if (i === campos.length - 1) {
+        estructura = estructura + ` ${campos[i]} = '${a}'`;
+      } else {
+        estructura = estructura + ` ${campos[i]} = '${a}'` + " and ";
+      }
+    }
+    var rs = "";
+    try {
+      rs = await this.con.sql(estructura);
+    } catch (error) {
+      console.log("[Error Consulta] ", error);
+      rs = "Error";
+    }
+    this.con.cerrarConexion();
+    return rs;
+  }
+
+  /**
+   * Método que inserta informacion en la base de datos según la tabla
+   * especificada
+   *
+   * @param {string} campos Campos que contienen la informacion a agregar
+   * @param {Object} datos Campos provenientes del formulario
+   * @return {Object}  Devuelve un HashMap con la respuesta de la base de datos
+   */
+  async insertar(tabla, campos, datos) {
+    console.log("=-=-=-=-=-=-= [Insertar clase general] =-=-=-=-=-=-=");
+    campos = campos.split(",");
+    this.con.conexion();
+    var estructura = `insert into ${tabla} (` + campos.toString();
+    estructura = estructura + `) values ( `;
+    for (var i = 0; i &lt; campos.length; i++) {
+      let a = datos[campos[i]];
+      if (i === campos.length - 1) {
+        estructura = estructura + `'${a}')`;
+      } else {
+        estructura = estructura + `'${a}', `;
+      }
+    }
+
+    var rs = "";
+    try {
+      rs = await this.con.sql(estructura);
+    } catch (error) {
+      console.log("[Error Insertar] ", error);
+      rs = "Error";
+    }
+    this.con.cerrarConexion();
+    return rs;
+  }
+
+  /**
+   * Método que actualiza la informacion en la base de datos según la tabla
+   * especificada
+   *
+   * @param {string} tabla Nombre de la tabla a la cual se le realizarán los cambios
+   * @param {string} campos Campos que contienen la informacion a actualiar
+   * @param {Object} datos Campos provenientes del formulario
+   * @return {Object}  Devuelve un HashMap con la respuesta de la base de datos
+   */
+  async actualizar(tabla, campos, datos) {
+    console.log("=-=-=-=-=-=-= [actualizar clase general] =-=-=-=-=-=-=");
+    campos = campos.split(",");
+    this.con.conexion();
+    var estructura = `update ${tabla} set `;
+    for (var i = 0; i &lt; campos.length; i++) {
+      let a = datos[campos[i]];
+      if (i === campos.length - 1) {
+        estructura = estructura + ` ${campos[i]} = '${datos[campos[i]]}'  `;
+      } else {
+        estructura = estructura + ` ${campos[i]} = '${datos[campos[i]]}' , `;
+      }
+    }
+    estructura = estructura + ` where ${campos[0]} = '${datos[campos[0]]}'  `;
+
+    var rs = "";
+    try {
+      rs = await this.con.sql(estructura);
+    } catch (error) {
+      console.log("[Error Insertar] ", error);
+      rs = "Error";
+    }
+    this.con.cerrarConexion();
+    return rs;
+  }
+
+  /**
+   * Método que realiza una accion en la base de datos
+   * @param {string} estructura Estructura SQL que sera ejecutada
+   * @return {Object}  Devuelve un HashMap con la respuesta de la base de datos
+   */
+  async sql(estructura) {
+    console.log("=-=-=-=-=-=-= [SQL clase general] =-=-=-=-=-=-=");
+    this.con.conexion();
+    var rs = "";
+    try {
+      rs = await this.con.sql(estructura);
+    } catch (error) {
+      console.log("[Error Insertar] ", error);
+      rs = "Error";
+    }
+    this.con.cerrarConexion();
+    return rs;
+  }
+}
+module.exports = ClaseModeloGeneral;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ClaseModeloGeneral.html">ClaseModeloGeneral</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Sun May 10 2020 21:29:42 GMT-0500 (Colombia Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
