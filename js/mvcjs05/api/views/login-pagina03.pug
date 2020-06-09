@@ -1,0 +1,14 @@
+html(lang='en')
+  head
+  body
+    title Pug
+    script(type='text/javascript').
+      if (foo) bar(1 + 5);
+    h3= 'Usuario: ' + datos["usu_login"]
+    h3= 'Rol:' + datos["result"]["rol_nombre"]
+    h3= 'Descripcion:'+ datos["result"]["rol_descripcion"]
+    ul
+        each val, key in datos["FunxUsu"]
+              li= val.fun_nombre
+    br
+    button(onclick="window.location.href = '/'") Salir

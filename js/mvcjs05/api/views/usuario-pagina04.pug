@@ -1,0 +1,36 @@
+doctype html
+head
+  title Pug
+h2=" ->Registro de persona"
+p="La id proporcionada no corresponde a ninguna persona en la base de datos, por favor reg&iacute;strese"
+form(name='registrarPersona' action='./index.js' method='POST')
+  table(border='0')
+    tbody
+      tr
+        td(align='right') Id persona:
+        td
+          input(type='text' value=datos["per_id"] name='per_id' size='20')
+      tr
+        td(align='right') Nombre:
+        td
+          input(type='text' value='' name='per_nombre' size='20' placeholder='Nombre')
+      tr
+        td(align='right') Apellido:
+        td
+          input(type='text' value='' name='per_apellido' size='20' placeholder='Apellido')
+      tr
+        td(align='right') Fecha de Nacimiento:
+        td
+          input(type='date' value='' name='per_fecha_nacimiento' size='20' placeholder='Apellido')
+      tr
+        td(align='right') Direcci&oacute;n:
+        td
+          input(type='text' value='' name='per_direccion' size='20' placeholder='Dirección')
+      tr
+        td(align='right') Correo:
+        td
+          input(type='text' value='' name='per_correo' size='20' placeholder='Correo')
+      tr
+        td(align='center')
+          input(name='btnAction' type='submit' value='Registrar')
+          input(type='reset' value='Borrar')

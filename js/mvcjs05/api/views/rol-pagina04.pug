@@ -1,0 +1,27 @@
+doctype html
+html(lang='en')
+  head
+    title Jade
+  body
+    h3='Codigo:' + datos.Rol.rol_id
+    h3='Nombre:' + datos.Rol.rol_nombre
+    h3= 'Descripcion:' + datos.Rol.rol_descripcion
+    form(action='./index.js', method='POST', name='form_permisos')
+      input(type='hidden', name='rol_id', value=datos.Rol.rol_id)
+      table
+        tbody
+          tr
+            th
+              select(name='sel_izq', size='4')
+                each val, key in datos["RolxFun"]
+                   option(value= val.fun_id )= val.fun_nombre
+            th
+              div
+                input(type='submit', name='btnAction', value='<-')
+              br
+              div
+                input(type='submit', name='btnAction', value='->')
+            th
+              select(name='sel_der', size='4')
+                each val, key in datos["Funciones"]
+                   option(value= val.fun_id )= val.fun_nombre

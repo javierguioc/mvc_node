@@ -1,0 +1,23 @@
+doctype html
+html(lang='en')
+  head
+    title Pug
+    script(type='text/javascript').
+      if (foo) bar(1 + 5);
+  body
+    h2= 'Roles:'
+    form(method='POST', action='./index.js')
+      table(border='5', width='200')
+        tbody
+           each val, key in datos.Rol
+                tr
+                    td
+                        center
+                            input(type='radio', name='rol_id', value= val.rol_id)
+                    td= val.rol_nombre
+      br
+      input(type='submit', value='Eliminar', name='btnAction')
+      input(type='submit', value='Actualizar', name='btnAction')
+      input(type='submit', value='Nuevo', name='btnAction')
+      input(type='submit', value='Permisos', name='btnAction')
+    button(onclick="window.location.href = '/'") <==

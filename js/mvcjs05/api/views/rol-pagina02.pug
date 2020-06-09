@@ -1,0 +1,26 @@
+head
+  title Pug
+  script(type='text/javascript').
+    if (foo) bar(1 + 5)
+h2 Roles:
+h2 Registro en sistema
+form(name='login' action='./index.js' method='POST' target='resultado')
+  input(type='hidden' value= datos.rol_id name='id' size='25')
+  table
+    tbody
+      tr
+        td(align='right')
+        td(align='left')
+          input(type='hidden' value= datos.rol_id name='rol_id' size='25')
+      tr
+        td(align='right') Nombre:
+        td(align='left')
+          input(type='text' value= datos.Roles.rol_nombre  name='rol_nombre' size='25')
+      tr
+        td(align='right') Descripcion:
+        td(align='left')
+          input(type='text' value= datos.Roles.rol_descripcion name='rol_descripcion' size='25')
+      tr
+        td(colspan='2' align='center')
+          input(name='btnAction' type='submit' value='Enviar Actualizar')
+          input(type='reset' value='Borrar')

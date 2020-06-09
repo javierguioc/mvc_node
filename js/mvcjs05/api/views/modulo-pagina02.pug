@@ -1,0 +1,25 @@
+doctype html
+head
+  title Pug
+h2 Modulos:
+h2 Registro en sistema
+form(name='login' action='./index.js' method='POST' target='resultado')
+  input(type='hidden' value=datos.mod_id name='id' size='25')
+  table
+    tbody
+      tr
+        td(align='right')
+        td(align='left')
+          input(type='hidden' value=datos.mod_id name='mod_id' size='25')
+      tr
+        td(align='right') Nombre:
+        td(align='left')
+          input(type='text' value=datos.Module.mod_nombre name='mod_nombre' size='25')
+      tr
+        td(align='right') Descripcion:
+        td(align='left')
+          input(type='text' value=datos.Module.mod_descripcion name='mod_descripcion' size='25')
+      tr
+        td(colspan='2' align='center')
+          input(name='btnAction' type='submit' value='Enviar Actualizar', formaction='./../../modulo/index.js/enviaractualizar')
+          input(type='reset' value='Borrar')

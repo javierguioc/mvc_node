@@ -1,0 +1,23 @@
+doctype html
+head
+  title Pug
+h2='->Registro en sistema'
+form(name='login' action='./index.js' method='POST' target='resultado')
+  table(border='1')
+    tbody
+      tr
+        td
+          table
+            tbody
+              tr
+                td(align='right') Nombre:
+                td(align='left')
+                  input(type='text' name='mod_nombre' size='25')
+              tr
+                td(align='right') Descripcion:
+                td(align='left')
+                  input(type='text' name='mod_descripcion' size='25')
+              tr
+                td(colspan='2' align='center')
+                  input(name='btnAction' type='submit' value='Enviar nuevo', formaction='./../../modulo/index.js/enviarnuevo')
+                  input(type='reset' value='Borrar')

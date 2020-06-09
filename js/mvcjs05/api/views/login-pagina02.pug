@@ -1,0 +1,15 @@
+doctype html
+head
+  title Pug
+  script(type='text/javascript').
+body
+    p= '-> ROLES DEL USUARIO:  ' + datos.Roles[0].usu_login
+    form(method='POST' action='./index.js')
+      select(name='rol_id')
+          each val, key in datos.Roles
+              option(value= val.rol_id )= val.rol_nombre
+      br
+      br
+      input(type='submit' value='Aceptar' name='btnAction')
+      input(type='hidden' value='neimar' name='usu_login' size='25')
+    button(onclick="window.location.href = '/'") Salir

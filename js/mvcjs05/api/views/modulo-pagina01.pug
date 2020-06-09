@@ -1,0 +1,21 @@
+doctype html
+html(lang='en')
+  head
+    title Jade
+  body
+    h2= '->Modulos:'
+    form(method='POST', action='./index.js')
+      table(border='5', width='200')
+        tbody
+            each val, key in datos["Modulo"]
+                tr
+                    td
+                        center
+                            input(type='radio', name='mod_id', value=val.mod_id)
+                    td= val.mod_nombre
+      br
+      input(type='submit', value='Eliminar', name='btnAction' , formaction='./index.js/eliminar')
+      input(type='submit', value='Actualizar', name='btnAction' , formaction='./index.js/actualizar')
+      input(type='submit', value='Nuevo', name='btnAction', formaction='./index.js/nuevo')
+      input(type='submit', value='Funcionalidades', name='btnAction', formaction='../funcionalidad/index.js/funcionalidad')
+    button(onclick="window.location.href = '/'") <==

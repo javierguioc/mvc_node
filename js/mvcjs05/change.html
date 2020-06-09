@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Pug</title>
+  </head>
+  <body>
+    <h2>Registro de persona</h2>
+    <p>
+      La id proporcionada no corresponde a ninguna persona en la base de datos,
+      por favor regístrese
+    </p>
+    <form name="registrarPersona" action="./index.js" method="POST">
+      <table border="0">
+        <tbody>
+          <tr>
+            <td align="right">Id persona:</td>
+            <td><input type="text" value="999" name="per_id" size="20" /></td>
+          </tr>
+          <tr>
+            <td align="right">Nombre:</td>
+            <td>
+              <input
+                type="text"
+                value=""
+                name="per_nombre"
+                size="20"
+                placeholder="Nombre"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td align="right">Apellido:</td>
+            <td>
+              <input
+                type="text"
+                value=""
+                name="per_apellido"
+                size="20"
+                placeholder="Apellido"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td align="right">Fecha de Nacimiento:</td>
+            <td>
+              <input
+                type="date"
+                value=""
+                name="per_fecha_nacimiento"
+                size="20"
+                placeholder="Apellido"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td align="right">Dirección:</td>
+            <td>
+              <input
+                type="text"
+                value=""
+                name="per_direccion"
+                size="20"
+                placeholder="Dirección"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td align="right">Correo:</td>
+            <td>
+              <input
+                type="text"
+                value=""
+                name="per_correo"
+                size="20"
+                placeholder="Correo"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td align="center">
+              <input name="btnAction" type="submit" value="Registrar" />
+              <input type="reset" value="Borrar" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </body>
+</html>

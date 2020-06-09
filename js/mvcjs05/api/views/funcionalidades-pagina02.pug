@@ -1,0 +1,32 @@
+head
+  title Pug
+h2='->Rigistro en sistema'
+form(name='login' action='./index.js' method='POST' target='resultado')
+  input(type='hidden' value=datos.fun_id name='id' size='25')
+  input(type='hidden' value=datos.mod_id name='mod_id' size='25')
+  table(border='1')
+    tbody
+      tr
+        td
+          table
+            tbody
+              tr
+                td(align='right')
+                td(align='left')
+                  input(type='hidden' value=datos.functionality.fun_id name='fun_id' size='25')
+              tr
+                td(align='right') Nombre:
+                td(align='left')
+                  input(type='text' value=datos.functionality.fun_nombre name='fun_nombre' size='25')
+              tr
+                td(align='right') Ruta:
+                td(align='left')
+                  input(type='text' value=datos.functionality.fun_ruta name='fun_ruta' size='25')
+              tr
+                td(align='right') Descripcion:
+                td(align='left')
+                  input(type='text' value=datos.functionality.fun_descripcion name='fun_descripcion' size='25')
+              tr
+                td(colspan='2' align='center')
+                  input(name='btnAction' type='submit' value='Enviar Actualizar')
+                  input(type='reset' value='Borrar')

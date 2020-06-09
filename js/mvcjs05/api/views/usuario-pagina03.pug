@@ -1,0 +1,27 @@
+doctype html
+head
+  title Pug
+h2="-> Registro de usuario"
+form(name='registrarUsuario' action='./index.js' method='POST' target='resultado')
+  table(border='1')
+    tbody
+      tr
+        td
+          table
+            tbody
+              tr
+                td(align='right') Usuario:
+                td(align='left')
+                  input(type='text' value='' name='usu_login' size='20')
+              tr
+                td(align='right') Contrase&ntilde;a:
+                td(align='left')
+                  input(type='password' value='' name='usu_clave' size='10' maxlength='10' placeholder='Contraseña')
+              tr
+                td(align='right') Id persona:
+                td(align='left')
+                  input(type='text' value='' name='per_id' size='10' maxlength='10')
+              tr
+                td(colspan='2' align='center')
+                  input(name='btnAction' type='submit' value='Enviar nuevo')
+                  input(type='reset' value='Borrar')

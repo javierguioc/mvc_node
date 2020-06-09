@@ -1,0 +1,31 @@
+doctype html
+html(lang='en')
+  head
+    title Jade
+  body
+    h2= '-> Registro en sistema'
+    form(name='login', action='./index.js', method='POST', target='resultado')
+      input(type='text', value=datos.mod_id, name='mod_id', size='25')
+      table(border='1')
+        tbody
+          tr
+            td
+              table
+                tbody
+                  tr
+                    td(align='right') Nombre:
+                    td(align='left')
+                      input(type='text', name='fun_nombre', size='25')
+                  tr
+                    td(align='right') Ruta:
+                    td(align='left')
+                      input(type='text', name='fun_ruta', size='25')
+                  tr
+                    td(align='right') Descripcion:
+                    td(align='left')
+                      input(type='text', name='fun_descripcion', size='25')
+                  tr
+                    td(colspan='2', align='center')
+                      input(name='btnAction', type='submit', value='Enviar Nuevo', formaction='./../index.js/enviarnuevo')
+                      input(type='reset', value='Borrar')
+                      

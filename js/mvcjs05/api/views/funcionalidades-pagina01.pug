@@ -1,0 +1,21 @@
+doctype html
+html(lang='en')
+  head
+    title Jade
+  body
+    h2 ->Funcionalidades :
+    form(method='POST', action='./index.js')
+      table(border='5', width='200')
+        tbody
+            each val, key in datos["Funcionalidad"]
+                    tr
+                        td
+                            center
+                                input(type='radio', name='fun_id', value=val.fun_id)
+                        td= val.fun_nombre
+      br
+      input(type='submit', value='Eliminar', name='btnAction', formaction='../eliminar')
+      input(type='submit', value='Actualizar', name='btnAction', formaction='./index.js/actualizar')
+      input(type='submit', value='Nuevo', name='btnAction', formaction='../index.js/nuevo')
+      input(type='hidden', value=datos.mod_id, name='mod_id', size='25')
+    button(onclick="window.location.href = '/'") <==

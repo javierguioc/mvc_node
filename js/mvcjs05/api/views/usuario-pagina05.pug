@@ -1,0 +1,25 @@
+doctype html
+head
+  title Pug 3
+h3="*Codigo:" + datos["user"]["per_id"]
+h3="*Nombre:" + datos["user"]["per_nombre"]
+h3="*Apellido:" + datos["user"]["per_apellido"]
+form(action='./index.js' method='POST' name='form_permisos')
+  input(type='hidden' name='per_id' value=datos.per_id)
+  table
+    tbody
+      tr
+        th
+          select(name='sel_izq' size='4')
+            each val, key in datos["res1"]
+                   option(value= val.rol_id )= val.rol_nombre
+        th
+          div
+            input(type='submit' name='btnAction' value='<-')
+          br
+          div
+            input(type='submit' name='btnAction' value='->')
+        th
+          select(name='sel_der' size='4')
+            each val, key in datos["res2"]
+                   option(value= val.rol_id )= val.rol_nombre

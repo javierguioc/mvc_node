@@ -1,0 +1,29 @@
+doctype html
+head
+  title Pug
+h2= '->Usuarios:'
+form(method='POST' action='./index.js')
+  input(type='text' value='' name='buscar' size='20')
+  input(type='submit' value='Buscar' name='btnAction')
+  input(type='submit' value='Nuevo' name='btnAction')
+form(method='POST' action='./index.js')
+  table(border='5' width='200')
+    tbody
+        tr
+            td=""
+            td= "usu_login"
+            td= "per_nombre"
+            td= "per_apellido"
+    each val, key in datos["Usuario"]
+        tr
+            td
+                input(type='radio' name='per_id' value=val.per_id)
+            td= val.usu_login
+            td= val.per_nombre
+            td= val.per_apellido
+  br
+  input(type='submit' value='Eliminar' name='btnAction')
+  input(type='submit' value='Actualizar' name='btnAction')
+  input(type='submit' value='Permisos' name='btnAction')
+  p#demo
+button(onclick="window.location.href = '/'") &lt;==

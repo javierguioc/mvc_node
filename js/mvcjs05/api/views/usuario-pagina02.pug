@@ -1,0 +1,23 @@
+doctype html
+head
+  title Pug
+h2='->Usuario:'
+h2 Registro en sistema
+form(name='login' action='./index.js' method='POST' target='resultado')
+  table
+    tbody
+      tr
+        td(align='right') Usuario:
+        td(align='left')
+          input(type='text' value=datos["User"]["usu_login"] name='usu_login' size='25')
+      tr
+        td(align='right') Contrase&Atilde;&pm;a:
+        td(align='left')
+          input(type='text' value=datos["User"]["usu_clave"] name='usu_clave' size='25')
+      tr
+        td(align='left')
+          input(type='hidden' name='per_id' value=datos["User"]["per_id"])
+      tr
+        td(colspan='2' align='center')
+          input(name='btnAction' type='submit' value='Enviar Actualizar')
+          input(type='reset' value='Borrar')
